@@ -1,0 +1,11 @@
+<%
+const { interfaces } = it;
+_%>
+<% interfaces.forEach(function(interface,index){ %>
+declare interface <%- = interface.interfaceName %> {
+  <% interface.props.forEach(function(prop,i){ %>
+    /** <%_ = prop.description -%> */
+    <% = prop.name %><%= prop.required?'':'?' %>: <%= prop.interfaceName %>;
+  <% }) _%>
+}
+<% }) %>

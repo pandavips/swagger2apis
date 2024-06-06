@@ -1,0 +1,57 @@
+{
+  "keywords": [
+    "swagger",
+    "api",
+    "panda-ext"
+  ],
+  "sideEffects": false,
+  "private": "true",
+  "author": "pandavips",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pandavips/swagger2api"
+  },
+  "homepage": "https://github.com/pandavips/swagger2api",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "prepare": "husky install",
+    "cz": "cz",
+    "lint:fix": "eslint ./**/* --fix --ext .ts,.js,.mjs,.json --max-warnings=0",
+    "format": "prettier --config .prettierrc --write /**/*",
+    "commitlint:run": "commitlint -e",
+    "lint-staged:run": "lint-staged",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "publish": "nrm use npm && pnpm changeset publish"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "@changesets/cli": "^2.26.2",
+    "@commitlint/cli": "^17.7.1",
+    "@commitlint/config-conventional": "^17.7.0",
+    "@tsconfig/node16": "^16.1.1",
+    "@types/node": "^20.8.0",
+    "@typescript-eslint/eslint-plugin": "^6.6.0",
+    "@typescript-eslint/parser": "^6.6.0",
+    "commitizen": "^4.3.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^8.48.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
+    "prettier": "^3.0.3",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  },
+  "bugs": {
+    "url": "https://github.com/pandavips/swagger2api/issues",
+    "email": "919401990@qq.com"
+  },
+  "dependencies": {
+    "axios": "^1.5.1"
+  }
+}

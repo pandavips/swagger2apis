@@ -1,0 +1,48 @@
+<%
+const { apis } = it;
+_%>
+
+export default (request)=>{
+  return {
+<% apis.forEach(function(api,index){ %>
+
+  /**
+      * @description: <%= api.description %>
+  <% if (api.interfaces?.length) { %>
+    <% api.interfaces.forEach(function(interface,index){ %>
+
+      <% ~ interface.pos %>
+
+        <% = interface.interfaceName %> {
+        <% interface.props.forEach(function(prop,i){ %>
+  <% = prop.name %><%= prop.required?'':'?' %>: <%= prop.interfaceName %> // <%_ = prop.description -%>
+
+        <% }) _%>
+    }
+    <% }) %>
+  <% } %>
+*/
+  <%= api.fnName %>: (
+  <% if (api.paramsInfo.show) { %>
+    <%=api.helpInfo.hasPathParameter?'code':'data' %>
+    :<%= api.paramsInfo.type %>
+    =<%~ api.paramsInfo.defaultVal %>,
+  <% } %>
+  config={}
+  ): Promise<<%~ api.responseType %>> => {
+    return request({
+    url: `<%= api.path %>`,
+    method: "<%= api.method %>",
+    <% if (api.helpInfo.hasBodyParameter||api.helpInfo.hasFormDataParameter) { %>
+    data,
+    <% } %>
+    <% if (api.helpInfo.hasQueryParameter&&!api.helpInfo.hasPathParameter) { %>
+    params:data,
+    <% } %>
+    ...config
+    });
+    }<%= index===apis.length-1?'':',' -%>
+    <% }) %>
+  };
+
+}

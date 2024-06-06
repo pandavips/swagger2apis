@@ -1,0 +1,5 @@
+# 如果工作区和npm仓库有同名的包将是用工作区的包
+prefer-workspace-packages: true
+packages:
+  - 'packages/*'
+  - 'example/*'
