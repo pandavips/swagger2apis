@@ -14,9 +14,9 @@
   "author": "pandavips",
   "repository": {
     "type": "git",
-    "url": "https://github.com/pandavips/swagger2api"
+    "url": "https://github.com/pandavips/swagger2apis"
   },
-  "homepage": "https://github.com/pandavips/swagger2api",
+  "homepage": "https://github.com/pandavips/swagger2apis/tree/main/packages/swagger2apis",
   "files": [
     "dist"
   ],
