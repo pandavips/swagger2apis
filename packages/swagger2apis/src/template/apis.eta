@@ -25,7 +25,7 @@ export default (request)=>{
   <%= api.fnName %>: (
   <% if (api.paramsInfo.show) { %>
     <%=api.helpInfo.hasPathParameter?'code':'data' %>
-    :<%= api.paramsInfo.type %>
+    :<%~ api.paramsInfo.type %>
     =<%~ api.paramsInfo.defaultVal %>,
   <% } %>
   config={}

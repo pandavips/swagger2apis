@@ -1,5 +1,29 @@
 # swagger2apis
 
+## 2.6.15
+
+### Patch Changes
+
+- fix:request data defaultvalue
+
+## 2.6.14
+
+### Patch Changes
+
+- FIX ApiTypeInDescription
+
+## 2.6.13
+
+### Patch Changes
+
+- 修复请求参数非必选
+
+## 2.6.11
+
+### Patch Changes
+
+- 请求参数属性不再必选!
+
 ## 2.6.10
 
 ### Patch Changes

@@ -4,7 +4,6 @@ import commonjs from "@rollup/plugin-commonjs";
 import json from "@rollup/plugin-json";
 import copy from "rollup-plugin-copy";
 import tsconfig from "./tsconfig.json";
-
 import packageJson from "./package.json";
 
 // 打包排除包
@@ -37,9 +36,7 @@ export default [
         ]
       }),
       rollupTypescript({
-        outDir: "dist",
         declarationDir: "dts",
-        exclude: "example",
         compilerOptions: tsconfig.compilerOptions,
         tsconfig: "./tsconfig.json"
       })

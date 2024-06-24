@@ -12,7 +12,7 @@ export const ApiTypeInDescription: IPlugin = {
           it.pos = "res =>>";
           return true;
         }
-        if (it.interfaceName === api.paramsInfo.type) {
+        if (it.interfaceName === api.paramsInfo.rawType) {
           it.pos = "req =>>";
           return true;
         }

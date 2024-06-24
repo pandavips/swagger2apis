@@ -1,6 +1,5 @@
 import rollupTypescript from "@rollup/plugin-typescript";
 import { terser } from "rollup-plugin-terser";
-// import dts from "rollup-plugin-dts";
 import commonjs from "@rollup/plugin-commonjs";
 import json from "@rollup/plugin-json";
 // import nodeResolve from '@rollup/plugin-node-resolve';
@@ -41,10 +40,9 @@ export default [
         ]
       }),
       rollupTypescript({
-        outDir: "dist",
-        declarationDir: "dist",
-        exclude: "example",
-        compilerOptions: tsconfig.compilerOptions
+        declarationDir: "dts",
+        compilerOptions: tsconfig.compilerOptions,
+        tsconfig: "./tsconfig.json"
       })
     ],
     external: externalLib

@@ -16,7 +16,10 @@
     "dist"
   ],
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
+    "uninstall": "pnpm i fs-extra -w  && node ./scripts/uninstall.mjs",
+    "to-install": "pnpm i",
+    "clean-install": "pnpm run uninstall && pnpm run to-install",
+    "build": "node ./scripts/build.mjs",
     "prepare": "husky install",
     "cz": "cz",
     "lint:fix": "eslint ./**/* --fix --ext .ts,.js,.mjs,.json --max-warnings=0",
@@ -52,6 +55,7 @@
     "email": "919401990@qq.com"
   },
   "dependencies": {
-    "axios": "^1.5.1"
+    "axios": "^1.5.1",
+    "fs-extra": "^11.2.0"
   }
 }

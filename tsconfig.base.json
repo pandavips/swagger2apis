@@ -1,9 +1,8 @@
 {
-  // "extends": "@tsconfig/node16/tsconfig.json",
   "compilerOptions": {
     "composite": true,
     "incremental": true,
-    "diagnostics": true, // 打印编译信息
+    "diagnostics": true,
     "noEmit": false,
     "target": "ESNext",
     "module": "ESNext",
@@ -23,7 +22,13 @@
     "experimentalDecorators": true,
     "isolatedModules": true,
     "removeComments": false,
-    "baseUrl": "./"
+    "baseUrl": "./",
+    // "lib": [
+    //   "ESNext",
+    //   "DOM",
+    //   "DOM.Iterable",
+    //   "ScriptHost",
+    // ]
   },
   "paths": {},
   "ts-node": {
