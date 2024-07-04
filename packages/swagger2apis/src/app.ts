@@ -7,8 +7,8 @@ import render from "./render";
 import transform from "./transform";
 
 interface Config {
-  // 输出目录
-  outDir?: string;
+  // 命名空间
+  namespace?: string;
 }
 export interface IContext {
   rawJSON: any;
@@ -26,12 +26,12 @@ export interface IContext {
 }
 
 const defaultConfig: Config = {
-  outDir: path.join(path.resolve(process.argv[1]), "../")
+  namespace: path.join(path.resolve(process.argv[1]), "../")
 };
-export const create = (rawJSON = "", config?: Config) => {
+export const create = (rawJSON = "", config: Config = {}) => {
   const finalConfig = {
     ...defaultConfig,
-    ...(config || {})
+    ...config
   };
 
   const { plugins, register, setRender } = createPlugins();
@@ -69,8 +69,10 @@ export const create = (rawJSON = "", config?: Config) => {
         // 写入文件
         await pluginRun(context, "beforeWriteFile");
         for await (const node of context.renderRes) {
-          const path = (node.path || finalConfig.outDir) + node.fileName + "." + node.extName;
-          const file = await writeFile(path, node.content);
+          const filepath = path.join(finalConfig.namespace || "", node.path || "", node.fileName + "." + node.extName);
+
+          const file = await writeFile(filepath, node.content);
+
           context.writedFileList.push(file);
         }
         await pluginRun(context, "afterWriteFile");

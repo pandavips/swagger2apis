@@ -6,6 +6,8 @@ import { IContext } from "../app";
 
 // 入口文件名称
 const ENTRY_FILE_NAME = "ApisCreator";
+
+// 遭遇JS关键字处理
 const keywords = [
   "abstract",
   "await",
@@ -76,6 +78,18 @@ const keywords = [
   "import",
   "process"
 ];
+const importKeyHandle = (() => {
+  const FIX_SUFFIX = "FJSKW"; // fix js keywords
+  let count = 0;
+  return (key) => {
+    if (keywords.includes(key)) {
+      count++;
+      console.warn(`第${count}次遭遇JS关键字,处理: ${key} => ${key}_${FIX_SUFFIX}${count}`);
+      return `${key}_${FIX_SUFFIX}${count}`;
+    }
+    return key;
+  };
+})();
 
 // 默认渲染函数
 export const renderByEta: RednerFn = async (ctx) => {
@@ -97,6 +111,7 @@ export const renderByEta: RednerFn = async (ctx) => {
   ];
 };
 
+// 模块化渲染器
 // apis数据整理分组
 export const apisRenderDataGrouped = (apis: any[]) => {
   // 整理分组
@@ -119,19 +134,18 @@ export const apisRenderDataGrouped = (apis: any[]) => {
 
   return res;
 };
-
 // 创建汇总入口文件
 export const createApiFileEntryRenderData = (apisDataGrouped: Map<string, any>, moduleDirName: string): any => {
   let content = ``;
   const keys = [...apisDataGrouped.entries()].map(([key]) => key);
   [...apisDataGrouped.entries()].map(([key, val]) => {
     content += `// ${[...val.descriptions].join("+")} \n`;
-    content += `import ${keywords.includes(key) ? key + "_1" : key} from './${moduleDirName}/${key}'\n`;
+    content += `import ${importKeyHandle(key)} from './${moduleDirName}/${key}'\n`;
   });
 
   content += `export default (request)=> ({\n`;
   keys.forEach((key) => {
-    content += `  ...${keywords.includes(key) ? key + "_1" : key}(request),\n`;
+    content += `  ...${importKeyHandle(key)}(request),\n`;
   });
   content += `})\n`;
   return {
@@ -140,12 +154,10 @@ export const createApiFileEntryRenderData = (apisDataGrouped: Map<string, any>, 
     fileName: ENTRY_FILE_NAME
   };
 };
-
 // 自定义渲染器实现按照组模块化放置api文件
 export const createApiFileModularRender = (moduleDirName: string) => {
   return (ctx: IContext) => {
-    const { renderData, config } = ctx;
-    const { outDir } = config;
+    const { renderData } = ctx;
     const eta = new (Eta as any)({
       views: path.join(getCurrentDirName(import.meta.url), "./template")
     });
@@ -175,7 +187,7 @@ export const createApiFileModularRender = (moduleDirName: string) => {
         content: eta.render("./apis", { apis: value.rows }),
         extName: `ts`,
         fileName: key,
-        path: path.join(outDir!, "./" + moduleDirName + "/")
+        path: "./" + moduleDirName
       };
     });
 
