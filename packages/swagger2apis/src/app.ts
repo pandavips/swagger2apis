@@ -51,9 +51,11 @@ export const create = (rawJSON = "", config: Config = {}) => {
     // 注册插件
     usePlugin: (plugin) => {
       register(plugin);
+      return app;
     },
     cutstomRender: (renderFn: RednerFn) => {
       setRender(renderFn);
+      return app;
     },
     start: (() => {
       let once = false;

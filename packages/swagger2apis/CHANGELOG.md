@@ -1,5 +1,17 @@
 # swagger2apis
 
+## 2.8.0
+
+### Minor Changes
+
+- api chain call
+
+## 2.7.0
+
+### Minor Changes
+
+- namespace支持
+
 ## 2.6.15
 
 ### Patch Changes
