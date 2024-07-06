@@ -1,5 +1,11 @@
 # swagger2apis
 
+## 2.8.1
+
+### Patch Changes
+
+- 隔离原始json
+
 ## 2.8.0
 
 ### Minor Changes

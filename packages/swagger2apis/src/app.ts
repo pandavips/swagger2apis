@@ -37,7 +37,7 @@ export const create = (rawJSON = "", config: Config = {}) => {
   const { plugins, register, setRender } = createPlugins();
 
   const context: IContext = {
-    rawJSON,
+    rawJSON: JSON.parse(JSON.stringify(rawJSON)),
     plugins,
     setRender,
     config: finalConfig,
