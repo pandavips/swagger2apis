@@ -1,5 +1,5 @@
 import { isObject, pipeAsync } from "@pdcode/utils";
-import { renderByEta } from "./plugins/Render";
+import { DefaultRender } from "./plugins/Render";
 import type { IContext } from "./app";
 
 export interface IPlugin {
@@ -50,7 +50,7 @@ export const createPlugins = () => {
     afterWriteFile: [],
     renderFn: async (ctx) => {
       await pluginRun(ctx, "befofeRender");
-      return renderByEta(ctx);
+      return DefaultRender(ctx);
     }
   };
 

@@ -2,21 +2,21 @@
 const { apis } = it;
 _%>
 
+export default (request)=>{
+  return {
 <% apis.forEach(function(api,index){ %>
-
   /**
-    * @description: <%~ api.description %>
-
+      * @description: <%= api.description %>
   */
- export const <%= api.fnName %> =(
+  <%= api.fnName %>: (
   <% if (api.paramsInfo.show) { %>
     <%=api.helpInfo.hasPathParameter?'code':'data' %>
     :<%~ api.paramsInfo.type %>
     =<%~ api.paramsInfo.defaultVal %>,
   <% } %>
-  ...args
+  config={}
   ): Promise<<%~ api.responseType %>> => {
-    return request<<%~ api.responseType %>>({
+    return request({
     url: `<%= api.path %>`,
     method: "<%= api.method %>",
     <% if (api.helpInfo.hasBodyParameter||api.helpInfo.hasFormDataParameter) { %>
@@ -25,6 +25,10 @@ _%>
     <% if (api.helpInfo.hasQueryParameter&&!api.helpInfo.hasPathParameter) { %>
     params:data,
     <% } %>
-    },...args);
+    ...config
+    });
     }<%= index===apis.length-1?'':',' -%>
     <% }) %>
+  };
+
+}

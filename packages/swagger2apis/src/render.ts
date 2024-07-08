@@ -54,14 +54,13 @@ export const renderApiDescription = (api) => {
 // 渲染请求参数列表
 export const renderParams = (api) => {
   const { helpInfo, payloadType } = api;
-  const { request } = payloadType;
+  const { request: requestType } = payloadType;
   const { hasPathParameter, hasBodyParameter, hasQueryParameter, hasFormDataParameter } = helpInfo;
 
   let type = "any";
-  let rawType = "any";
   let defaultVal: string = `{}`;
 
-  // 由于文档json数据无法区分属性是否真的为必填,所以默认将所有属性设置为可选,所以这里对interfaceName进行特殊处理:
+  // 由于文档json数据无法区分属性是否真的为必填(说明一下:即使文档标注为必填,但是后端逻辑实现却并不按照文档实现,索性将其全部标注为可选),所以默认将所有属性设置为可选,所以这里对interfaceName进行特殊处理:
   // - 如果是对象类型,则将interfaceName设置为`Partial<${interfaceName}>`
   // - 如果是数组类型,则将interfaceName设置为`Partial<${interfaceName}>[]`
   const interfaceNameHandle = (name: string): { name: string; defaultValue: "{}" | "[]" } => {
@@ -73,31 +72,28 @@ export const renderParams = (api) => {
   };
 
   if (hasBodyParameter) {
-    const p = request.find((r) => r.pos === "body");
+    const p = requestType.find((r) => r.pos === "body");
     const res = interfaceNameHandle(p.interfaceName);
     type = res.name;
     defaultVal = res.defaultValue;
-    rawType = p.interfaceName;
   } else if (hasPathParameter) {
     type = "string";
     defaultVal = `""`;
   } else if (hasQueryParameter) {
-    const p = request.find((r) => r.pos === "query");
+    const p = requestType.find((r) => r.pos === "query");
     const res = interfaceNameHandle(p.interfaceName);
     type = res.name;
     defaultVal = res.defaultValue;
-    rawType = p.interfaceName;
   } else if (hasFormDataParameter) {
-    const p = request.find((r) => r.pos === "formData");
+    const p = requestType.find((r) => r.pos === "formData");
     const res = interfaceNameHandle(p.interfaceName);
     type = res.name;
     defaultVal = res.defaultValue;
-    rawType = p.interfaceName;
   }
 
   const show = hasQueryParameter || hasBodyParameter || hasPathParameter || hasFormDataParameter;
 
-  return { type, show, defaultVal, rawType };
+  return { type, show, defaultVal };
 };
 
 // 渲染响应值类型

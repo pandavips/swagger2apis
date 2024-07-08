@@ -99,6 +99,7 @@ const resolveParameters = (rawParameters) => {
     };
     // 参数位置 path|query|body|formData|header
     const { in: pos, name: pName = "", required, description, schema } = p;
+
     parameterRes.name = pName;
     parameterRes.description = description;
     parameterRes.required = required;

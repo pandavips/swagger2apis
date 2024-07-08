@@ -1,4 +1,3 @@
-export * from "./ApiTypeInDescription";
 export * from "./CodeFormatter";
 export * from "./PrefixRemove";
 export * from "./Compatible";

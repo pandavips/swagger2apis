@@ -71,7 +71,7 @@ export const create = (rawJSON = "", config: Config = {}) => {
         // 写入文件
         await pluginRun(context, "beforeWriteFile");
         for await (const node of context.renderRes) {
-          const filepath = path.join(finalConfig.namespace || "", node.path || "", node.fileName + "." + node.extName);
+          const filepath = path.join(finalConfig.namespace || "", node.path || "", `${node.fileName}.${node.extName}`);
 
           const file = await writeFile(filepath, node.content);
 
