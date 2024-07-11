@@ -1,0 +1,36 @@
+<%
+const { apis,namespace} = it;
+_%>
+
+export type DeepRequired<T> = {
+  [K in keyof T]-?: T[K] extends object ? DeepRequired<T[K]> : T[K];
+};
+
+<% apis.forEach(function(api,index){ %>
+
+  /**
+    * @description: <%~ api.description %>
+  */
+ export const <%= api.fnName %> =(
+  <% if (api.paramsInfo.show) { %>
+    <%=api.helpInfo.hasPathParameter?'code':'data' %>
+    :<%~ api.paramsInfo.type %>
+    <% if (api.paramsInfo.defaultVal) { %>
+    =
+    <% } %>
+    <%~ api.paramsInfo.defaultVal %>,
+  <% } %>
+  ...args
+  ): Promise<<%~ api.responseType %>> => {
+    return consumerFn({
+    url: `<%= api.path %>`,
+    method: "<%= api.method %>",
+    <% if (api.helpInfo.hasBodyParameter||api.helpInfo.hasFormDataParameter) { %>
+    data,
+    <% } %>
+    <% if (api.helpInfo.hasQueryParameter&&!api.helpInfo.hasPathParameter) { %>
+    params:data,
+    <% } %>
+    },...args);
+    }
+    <% }) %>
