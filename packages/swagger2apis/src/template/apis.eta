@@ -3,7 +3,7 @@ const { apis } = it;
 _%>
 
 export default (request)=>{
- const apisObj= {
+  return {
 <% apis.forEach(function(api,index){ %>
 
   /**
@@ -44,5 +44,5 @@ export default (request)=>{
     }<%= index===apis.length-1?'':',' -%>
     <% }) %>
   };
-  return apisObj
+
 }

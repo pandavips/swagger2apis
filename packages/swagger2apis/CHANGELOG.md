@@ -1,5 +1,17 @@
 # swagger2apis
 
+## 2.8.3
+
+### Patch Changes
+
+- fix:ast user
+
+## 2.8.2
+
+### Patch Changes
+
+- 提供更多操控空间
+
 ## 2.8.1
 
 ### Patch Changes
