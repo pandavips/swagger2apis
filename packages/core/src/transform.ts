@@ -196,6 +196,8 @@ export const generateDefinitions = (definitions: any): any[] => {
     return template;
   });
   (generateDefinitions as any).addInterface = (node) => {
+    // 防止重复添加
+    if (interfaceList.findIndex((iter) => iter.interfaceName === node.interfaceName) !== -1) return;
     interfaceList.push(node);
   };
 

@@ -7,7 +7,7 @@ import { IContext } from "./app";
 export const getRenderData = (ctx: IContext) => {
   const { transformEdJson, config } = ctx;
   const { interfaces } = transformEdJson;
-  return { apis: renderApis(ctx), interfaces, namespace: config.namespace };
+  return { apis: renderApis(ctx), interfaces, namespace: config.namespace, safe: config.safe };
 };
 
 const renderApis = (ctx: IContext) => {
@@ -101,10 +101,10 @@ export const renderParams = (api, namespace, interfaces) => {
     type = res.name;
     defaultVal = res.defaultValue;
   } else if (hasFormDataParameter) {
-    const p = request.find((r) => r.pos === "formData");
-    const res = interfaceNameHandle(p.interfaceName);
-    type = res.name;
-    defaultVal = "";
+    // const p = request.find((r) => r.pos === "formData");
+    // const res = interfaceNameHandle(p.interfaceName);
+    type = "FormData";
+    defaultVal = "{}";
   }
 
   const show = hasQueryParameter || hasBodyParameter || hasPathParameter || hasFormDataParameter;

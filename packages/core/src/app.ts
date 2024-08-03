@@ -1,7 +1,11 @@
 import path from "node:path";
-import { firstUpperCase, printSuccInfo, writeFileWithEnsureDir } from "./utils";
+import { DOCUMENT_URL } from "./dict";
+import { printErrInfo, printSuccInfo, printWarnInfo, writeFileWithEnsureDir } from "./utils";
 import type { IPlugins, RednerFn } from "./plugin";
 import { createPlugins, pluginRun } from "./plugin";
+import type { AdaptorPath } from "./plugins";
+import { FileHeaderAppendWarning, FileHeaderAppendNocheck, FileHeaderAppendAdaptorFnPath } from "./plugins";
+
 import render from "./render";
 import transform from "./transform";
 
@@ -10,38 +14,48 @@ interface Config {
   outdir?: string;
   // 命令空间
   namespace?: string;
+  // safe mode
+  safe?: boolean;
 }
 export interface IContext {
+  // 传递进来的原始文档json
   rawJSON: any;
+  // 插件集
   plugins: IPlugins;
   config: Config;
+  // 设置渲染函数
   setRender: (renderFn: RednerFn) => void;
   // 转换层处理后的数据
   transformEdJson: any;
   // 待渲染数据
   renderData: any;
-  // 最终渲染结果
+  // 最终渲染结果(待写入的文件列表)
   renderRes: any[];
-  // 写入的文件path列表
+  // 已经写入的文件path列表
   writedFileList: string[];
 }
 
+// 默认配置
 const defaultConfig: Config = {
-  outdir: path.join(path.resolve(process.argv[1]), "../")
+  outdir: path.join(path.resolve(process.argv[1]), "../"),
+  safe: true
 };
 
 export const create = (rawJSON = "", config: Config = {}) => {
+  printWarnInfo(
+    `Currently has ${config.safe ? "Enabled manually" : "Disabled by default"} [SAFE_MODE], for more on safe mode see:${DOCUMENT_URL.SAFE_MODE}`
+  );
+
   const finalConfig = {
     ...defaultConfig,
     ...config
   };
-  // 取outdir的最后一个目录名
-  finalConfig.namespace = firstUpperCase(path.basename(finalConfig.outdir!));
+  finalConfig.namespace = config.namespace || path.basename(finalConfig.outdir!);
 
   const { plugins, register, setRender } = createPlugins();
 
   const context: IContext = {
-    rawJSON: JSON.parse(JSON.stringify(rawJSON)),
+    rawJSON: JSON.parse(JSON.stringify(rawJSON).replaceAll(" ", "")),
     plugins,
     setRender,
     config: finalConfig,
@@ -63,8 +77,22 @@ export const create = (rawJSON = "", config: Config = {}) => {
     },
     start: (() => {
       let once = false;
-      return async () => {
-        if (once) throw new Error("start函数应该只被调用一次,如果你有需求多次处理应该考虑使用插件系统来完成~");
+
+      return async (adaptorFnPath: AdaptorPath) => {
+        if (once)
+          throw new Error(`start should only be called once, you may need to use a plugin system for your needs, see the:${DOCUMENT_URL.PLUGIN}`);
+        once = true;
+
+        console.time("time consumed");
+
+        if (adaptorFnPath === void 0) {
+          return printErrInfo(`Please tell us where to import the adapter, for adapters see:${DOCUMENT_URL.ADAPTOR}`);
+        }
+        // 注册一些固定的内置插件
+        register(FileHeaderAppendAdaptorFnPath(adaptorFnPath));
+        register(FileHeaderAppendWarning);
+        register(FileHeaderAppendNocheck);
+
         // 启动转换层
         await pluginRun(context, "beforeTransform");
         context.transformEdJson = transform(context);
@@ -82,8 +110,12 @@ export const create = (rawJSON = "", config: Config = {}) => {
           context.writedFileList.push(file);
         }
         await pluginRun(context, "afterWriteFile");
-        once = true;
-        printSuccInfo("流程完成~enjoy it~");
+
+        console.timeEnd("time consumed");
+
+        printSuccInfo("done~enjoy it~");
+
+        return context;
       };
     })()
   };

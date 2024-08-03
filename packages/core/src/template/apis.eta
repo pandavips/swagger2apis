@@ -1,5 +1,5 @@
 <%
-const { apis,namespace} = it;
+const { apis,namespace,safe} = it;
 _%>
 
 export type DeepRequired<T> = {
@@ -10,7 +10,8 @@ export type DeepRequired<T> = {
 
   /**
     * @description: <%~ api.description %>
-  */
+
+    */
  export const <%= api.fnName %> =(
   <% if (api.paramsInfo.show) { %>
     <%=api.helpInfo.hasPathParameter?'code':'data' %>
@@ -22,7 +23,7 @@ export type DeepRequired<T> = {
   <% } %>
   ...args
   ): Promise<<%~ api.responseType %>> => {
-    return consumerFn({
+    return adaptorFn({
     url: `<%= api.path %>`,
     method: "<%= api.method %>",
     <% if (api.helpInfo.hasBodyParameter||api.helpInfo.hasFormDataParameter) { %>
@@ -31,6 +32,14 @@ export type DeepRequired<T> = {
     <% if (api.helpInfo.hasQueryParameter&&!api.helpInfo.hasPathParameter) { %>
     params:data,
     <% } %>
-    },...args);
+   <% if (!safe) { %>
+     bonusInfo:{
+      description:'<%= api.description %>',
+      apiName:'<%= api.fnName %>',
+      dev:<%~ JSON.stringify(api.helpInfo) %>
+    }
+  <% } %>
+    },
+    ...args);
     }
     <% }) %>

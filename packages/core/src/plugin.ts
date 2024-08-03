@@ -1,7 +1,6 @@
 import { isObject, pipeAsync } from "./utils";
 import { DefaultRender } from "./plugins/Render";
 import type { IContext } from "./app";
-import { FileHeaderAppendWarning, FileHeaderAppendNocheck } from "./plugins";
 
 export interface IPlugin {
   // 数据集进行转换前
@@ -59,10 +58,6 @@ export const createPlugins = () => {
     if (!isObject(plugin)) throw new Error("请传入一个插件对象");
     Reflect.ownKeys(plugin).forEach((lifeCycle) => plugins[lifeCycle].push(plugin[lifeCycle]));
   };
-
-  // 内置插件注册
-  register(FileHeaderAppendWarning);
-  register(FileHeaderAppendNocheck);
 
   return {
     register,

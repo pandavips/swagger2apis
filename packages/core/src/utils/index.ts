@@ -32,7 +32,7 @@ export async function writeFileWithEnsureDir(filePath, content, encoding = "utf8
     const dir = path.dirname(filePath);
     await fs.ensureDir(dir);
     await fs.writeFile(filePath, content, encoding);
-    printSuccInfo(`${filePath} 写入成功.`);
+    printSuccInfo(`${filePath} - Write Success.`);
     return filePath;
   } catch (err) {
     console.error(err);
