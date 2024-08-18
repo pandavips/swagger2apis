@@ -7,7 +7,12 @@ import { IContext } from "./app";
 export const getRenderData = (ctx: IContext) => {
   const { transformEdJson, config } = ctx;
   const { interfaces } = transformEdJson;
-  return { apis: renderApis(ctx), interfaces, namespace: config.namespace, safe: config.safe };
+  return {
+    apis: renderApis(ctx),
+    interfaces,
+    namespace: (config.namespace || "").toUpperCase(),
+    safe: config.safe
+  };
 };
 
 const renderApis = (ctx: IContext) => {
