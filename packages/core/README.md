@@ -26,7 +26,7 @@ const swaggerJSON = "你以任意方式获取到的文档json对象(注意,这�
 const app = create(swaggerJSON, {
   outdir: path.join(
     __dirname_esm(import.meta.url),
-    // 这里实际上可以理解为命令空间,这里的字符最终会进行大写转换
+    // 这里实际上可以理解为命令空间
     "./apis"
   ),
   // 开关后会影响一些敏感信息的输出,默认关闭
