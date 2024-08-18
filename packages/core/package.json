@@ -1,6 +1,6 @@
 {
   "name": "swagger2apis",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "swagger转api工具",
   "type": "module",
   "main": "./dist/main.esm.mjs",
