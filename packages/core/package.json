@@ -1,13 +1,14 @@
 {
   "name": "swagger2apis",
-  "version": "3.0.2",
-  "description": "swagger转api工具",
+  "version": "3.0.6",
+  "description": "swagger/openapi自动化转换为api定义文件",
   "type": "module",
   "main": "./dist/main.esm.mjs",
   "module": "./dist/main.esm.mjs",
   "types": "./dist/dts/src/index.d.ts",
   "keywords": [
     "swagger",
+    "openapi",
     "api",
     "panda-ext"
   ],
@@ -32,7 +33,7 @@
   "peerDependencies": {
     "eta": "^3.1.1",
     "pinyin": "~2.11.2",
-    "typescript": "^5.2.2"
+    "typescript": "*"
   },
   "dependencies": {
     "chalk": "^5.3.0",

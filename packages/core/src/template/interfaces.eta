@@ -6,7 +6,7 @@ declare namespace <%~ namespace %> {
    interface <%- = interface.interfaceName %> {
     <% interface.props.forEach(function(prop,i){ %>
       /** <%_ = prop.description -%> */
-      <% = prop.name %><%= prop.required?'?':'?' %>: <%= prop.interfaceName %>;
+      <% = prop.name %><%= prop.required?'':'?' %>: <%= prop.interfaceName %>;
     <% }) _%>
   }
   <% }) %>

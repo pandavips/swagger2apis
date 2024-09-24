@@ -56,9 +56,9 @@ declare namespace BASE {
     /**没有提供描述 */
     category?: ICategory;
     /**没有提供描述 */
-    name?: string;
+    name: string;
     /**没有提供描述 */
-    photoUrls?: string[];
+    photoUrls: string[];
     /**没有提供描述 */
     tags?: ITag[];
     /**petstatusinthestore */

@@ -1,5 +1,17 @@
 # swagger2apis
 
+## 3.0.5
+
+### Patch Changes
+
+- 更新readme
+
+## 3.0.3
+
+### Patch Changes
+
+- readme
+
 ## 3.0.2
 
 ### Patch Changes

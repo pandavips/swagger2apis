@@ -236,8 +236,8 @@ export const resolveProperties = (properties: any, requiredProps: string[] = [])
   if (!properties) return [];
   return Reflect.ownKeys(properties).map((propName) => {
     const rawProp = properties[propName];
-    const { type, $ref, items, description, allowEmptyValue } = rawProp;
-
+    const { type, $ref, items, description } = rawProp;
+    console.log(propName, requiredProps);
     const prop = {
       // {
       // 字段
@@ -247,7 +247,8 @@ export const resolveProperties = (properties: any, requiredProps: string[] = [])
       // 类型
       interfaceName: "",
       // 是否必填
-      required: !allowEmptyValue || requiredProps.includes(propName as string)
+      // required: !allowEmptyValue || requiredProps.includes(propName as string)
+      required: requiredProps.includes(propName as string)
     };
     // 数组类型
     if (items) {
