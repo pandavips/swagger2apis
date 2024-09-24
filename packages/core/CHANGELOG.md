@@ -1,5 +1,11 @@
 # swagger2apis
 
+## 3.0.7
+
+### Patch Changes
+
+- 更准确的required
+
 ## 3.0.5
 
 ### Patch Changes

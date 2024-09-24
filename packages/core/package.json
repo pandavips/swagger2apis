@@ -1,6 +1,6 @@
 {
   "name": "swagger2apis",
-  "version": "3.0.6",
+  "version": "3.0.7",
   "description": "swagger/openapi自动化转换为api定义文件",
   "type": "module",
   "main": "./dist/main.esm.mjs",
