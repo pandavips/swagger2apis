@@ -1,5 +1,17 @@
 # swagger2apis
 
+## 3.0.9
+
+### Patch Changes
+
+- remove console
+
+## 3.0.8
+
+### Patch Changes
+
+- 更多的类型导出
+
 ## 3.0.7
 
 ### Patch Changes

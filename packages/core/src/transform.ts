@@ -237,7 +237,6 @@ export const resolveProperties = (properties: any, requiredProps: string[] = [])
   return Reflect.ownKeys(properties).map((propName) => {
     const rawProp = properties[propName];
     const { type, $ref, items, description } = rawProp;
-    console.log(propName, requiredProps);
     const prop = {
       // {
       // 字段
