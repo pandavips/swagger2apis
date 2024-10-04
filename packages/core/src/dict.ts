@@ -1,3 +1,4 @@
+// 将java类型转换为javascript类型
 export const JavaType2JavaScriptType = {
   integer: "number",
   number: "number",
@@ -7,7 +8,38 @@ export const JavaType2JavaScriptType = {
   array: "array",
   object: "object",
   timestamp: "string",
-  any: "any"
+  any: "any",
+  void: "any",
+  int: "number",
+  double: "number",
+  float: "number",
+  short: "number",
+  byte: "number",
+  char: "string",
+  date: "string",
+  datetime: "string"
+};
+// js基础类型
+export const JS_BASE_TYPE = {
+  number: "number",
+  string: "string",
+  boolean: "boolean",
+  any: "any",
+  void: "void",
+  Map: "Map",
+  object: "object",
+  "string[]": "string[]",
+  "number[]": "number[]",
+  "boolean[]": "boolean[]",
+  "any[]": "any[]",
+  "object[]": "object[]"
+};
+
+// js基础类型默认值
+export const JS_BASE_TYPE_DEFAULT_VALUE = {
+  number: "-1",
+  string: "''",
+  boolean: ""
 };
 
 export const DOCUMENT_URL = {

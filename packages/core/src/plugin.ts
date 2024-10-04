@@ -35,7 +35,7 @@ export type IRenderFnRetureType = IRenderFnRetureTypeItem[];
 export type RednerFn = (context: IContext) => Promise<IRenderFnRetureType>;
 
 // 执行插件
-export const pluginRun = async (ctx: IContext, lifeCycleName) => {
+export const pluginRun = async (ctx: IContext, lifeCycleName: string) => {
   return ctx.plugins[lifeCycleName]?.length && (await pipeAsync(ctx.plugins[lifeCycleName])(ctx));
 };
 
@@ -54,7 +54,7 @@ export const createPlugins = () => {
     }
   };
   // 注册插件api
-  const register = (plugin) => {
+  const register = (plugin: IPlugin) => {
     if (!isObject(plugin)) throw new Error("请传入一个插件对象");
     Reflect.ownKeys(plugin).forEach((lifeCycle) => plugins[lifeCycle].push(plugin[lifeCycle]));
   };

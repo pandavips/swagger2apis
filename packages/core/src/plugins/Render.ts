@@ -21,7 +21,7 @@ export const DefaultRender: RednerFn = async (ctx) => {
     {
       content: eta.render("./interfaces", renderData),
       extName: "d.ts",
-      fileName: "interfaces"
+      fileName: ENTRY_FILE_NAME
     }
   ];
 };

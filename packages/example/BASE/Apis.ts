@@ -6,378 +6,415 @@
  *
  */
 import { adaptorFn } from "../request.ts";
-export type DeepRequired<T> = {
-  [K in keyof T]-?: T[K] extends object ? DeepRequired<T[K]> : T[K];
-};
 
 /**
- * @description: pet-Addanewpettothestore
+ * @description: pet: Addanewpettothestore
  */
-export const PetPOST = (data: BASE.IPet = {}, ...args): Promise<null> => {
+export const Pet_POST = (...args: any): Promise<any> => {
   return adaptorFn(
     {
       url: `/pet`,
       method: "POST",
-      data,
       bonusInfo: {
-        description: "pet-Addanewpettothestore",
-        apiName: "PetPOST",
-        dev: { hasPathParameter: false, hasBodyParameter: true, hasQueryParameter: false, hasFormDataParameter: false, hasHeaderParameter: false },
-      },
+        namespace: "BASE",
+        description: "pet: Addanewpettothestore",
+        apiName: "Pet_POST",
+        path: `/pet`,
+        method: `POST`
+      }
     },
-    ...args,
+    ...args
   );
 };
 
 /**
- * @description: pet-Updateanexistingpet
+ * @description: pet: Updateanexistingpet
  */
-export const PetPUT = (data: BASE.IPet = {}, ...args): Promise<null> => {
+export const Pet_PUT = (...args: any): Promise<any> => {
   return adaptorFn(
     {
       url: `/pet`,
       method: "PUT",
-      data,
       bonusInfo: {
-        description: "pet-Updateanexistingpet",
-        apiName: "PetPUT",
-        dev: { hasPathParameter: false, hasBodyParameter: true, hasQueryParameter: false, hasFormDataParameter: false, hasHeaderParameter: false },
-      },
+        namespace: "BASE",
+        description: "pet: Updateanexistingpet",
+        apiName: "Pet_PUT",
+        path: `/pet`,
+        method: `PUT`
+      }
     },
-    ...args,
+    ...args
   );
 };
 
 /**
- * @description: pet-Multiplestatusvaluescanbeprovidedwithcommaseparatedstrings
+ * @description: pet: Multiplestatusvaluescanbeprovidedwithcommaseparatedstrings
  */
-export const Pet_FindByStatusGET = (data: BASE.IPetfindByStatusQueryParams = {}, ...args): Promise<DeepRequired<BASE.IPet[]>> => {
+export const Pet_FindByStatus_GET = (parameter: string[] = {} as any, ...args: any): Promise<BASE.IPet[]> => {
   return adaptorFn(
     {
       url: `/pet/findByStatus`,
       method: "GET",
-      params: data,
+      parameter,
       bonusInfo: {
-        description: "pet-Multiplestatusvaluescanbeprovidedwithcommaseparatedstrings",
-        apiName: "Pet_FindByStatusGET",
-        dev: { hasPathParameter: false, hasBodyParameter: false, hasQueryParameter: true, hasFormDataParameter: false, hasHeaderParameter: false },
-      },
+        namespace: "BASE",
+        description: "pet: Multiplestatusvaluescanbeprovidedwithcommaseparatedstrings",
+        apiName: "Pet_FindByStatus_GET",
+        path: `/pet/findByStatus`,
+        method: `GET`
+      }
     },
-    ...args,
+    ...args
   );
 };
 
 /**
- * @description: pet-Mulipletagscanbeprovidedwithcommaseparatedstrings.Usetag1,tag2,tag3fortesting.
+ * @description: pet: Mulipletagscanbeprovidedwithcommaseparatedstrings.Usetag1,tag2,tag3fortesting.
  */
-export const Pet_FindByTagsGET = (data: BASE.IPetfindByTagsQueryParams = {}, ...args): Promise<DeepRequired<BASE.IPet[]>> => {
+export const Pet_FindByTags_GET = (parameter: string[] = {} as any, ...args: any): Promise<BASE.IPet[]> => {
   return adaptorFn(
     {
       url: `/pet/findByTags`,
       method: "GET",
-      params: data,
+      parameter,
       bonusInfo: {
-        description: "pet-Mulipletagscanbeprovidedwithcommaseparatedstrings.Usetag1,tag2,tag3fortesting.",
-        apiName: "Pet_FindByTagsGET",
-        dev: { hasPathParameter: false, hasBodyParameter: false, hasQueryParameter: true, hasFormDataParameter: false, hasHeaderParameter: false },
-      },
+        namespace: "BASE",
+        description: "pet: Mulipletagscanbeprovidedwithcommaseparatedstrings.Usetag1,tag2,tag3fortesting.",
+        apiName: "Pet_FindByTags_GET",
+        path: `/pet/findByTags`,
+        method: `GET`
+      }
     },
-    ...args,
+    ...args
   );
 };
 
 /**
- * @description: pet-Returnsasinglepet
+ * @description: pet: Returnsasinglepet
  */
-export const Pet_$petId$GET = (code: string = "", ...args): Promise<DeepRequired<BASE.IPet>> => {
+export const Pet_PetId_$PATH$_GET = (parameter: string = "", ...args: any): Promise<BASE.IPet> => {
   return adaptorFn(
     {
-      url: `/pet/${code}`,
+      url: `/pet/${parameter}`,
       method: "GET",
+      parameter,
       bonusInfo: {
-        description: "pet-Returnsasinglepet",
-        apiName: "Pet_$petId$GET",
-        dev: { hasPathParameter: true, hasBodyParameter: false, hasQueryParameter: false, hasFormDataParameter: false, hasHeaderParameter: false },
-      },
+        namespace: "BASE",
+        description: "pet: Returnsasinglepet",
+        apiName: "Pet_PetId_$PATH$_GET",
+        path: `/pet/${parameter}`,
+        method: `GET`
+      }
     },
-    ...args,
+    ...args
   );
 };
 
 /**
- * @description: pet-Updatesapetinthestorewithformdata
+ * @description: pet: Updatesapetinthestorewithformdata
  */
-export const Pet_$petId$POST = (code: string = "", ...args): Promise<null> => {
+export const Pet_PetId_$PATH$_POST = (parameter: string = "", ...args: any): Promise<any> => {
   return adaptorFn(
     {
-      url: `/pet/${code}`,
+      url: `/pet/${parameter}`,
       method: "POST",
-      data,
+      parameter,
       bonusInfo: {
-        description: "pet-Updatesapetinthestorewithformdata",
-        apiName: "Pet_$petId$POST",
-        dev: { hasPathParameter: true, hasBodyParameter: false, hasQueryParameter: false, hasFormDataParameter: true, hasHeaderParameter: false },
-      },
+        namespace: "BASE",
+        description: "pet: Updatesapetinthestorewithformdata",
+        apiName: "Pet_PetId_$PATH$_POST",
+        path: `/pet/${parameter}`,
+        method: `POST`
+      }
     },
-    ...args,
+    ...args
   );
 };
 
 /**
- * @description: pet-Deletesapet
+ * @description: pet: Deletesapet
  */
-export const Pet_$petId$DELETE = (code: string = "", ...args): Promise<null> => {
+export const Pet_PetId_$PATH$_DELETE = (parameter: string = "", ...args: any): Promise<any> => {
   return adaptorFn(
     {
-      url: `/pet/${code}`,
+      url: `/pet/${parameter}`,
       method: "DELETE",
+      parameter,
       bonusInfo: {
-        description: "pet-Deletesapet",
-        apiName: "Pet_$petId$DELETE",
-        dev: { hasPathParameter: true, hasBodyParameter: false, hasQueryParameter: false, hasFormDataParameter: false, hasHeaderParameter: true },
-      },
+        namespace: "BASE",
+        description: "pet: Deletesapet",
+        apiName: "Pet_PetId_$PATH$_DELETE",
+        path: `/pet/${parameter}`,
+        method: `DELETE`
+      }
     },
-    ...args,
+    ...args
   );
 };
 
 /**
- * @description: pet-uploadsanimage
+ * @description: pet: uploadsanimage
  */
-export const Pet_$petId$_UploadImagePOST = (code: string = "", ...args): Promise<DeepRequired<BASE.IApiResponse>> => {
+export const Pet_PetId_UploadImage_$PATH$_POST = (parameter: string = "", ...args: any): Promise<BASE.IApiResponse> => {
   return adaptorFn(
     {
-      url: `/pet/${code}/uploadImage`,
+      url: `/pet/${parameter}/uploadImage`,
       method: "POST",
-      data,
+      parameter,
       bonusInfo: {
-        description: "pet-uploadsanimage",
-        apiName: "Pet_$petId$_UploadImagePOST",
-        dev: { hasPathParameter: true, hasBodyParameter: false, hasQueryParameter: false, hasFormDataParameter: true, hasHeaderParameter: false },
-      },
+        namespace: "BASE",
+        description: "pet: uploadsanimage",
+        apiName: "Pet_PetId_UploadImage_$PATH$_POST",
+        path: `/pet/${parameter}/uploadImage`,
+        method: `POST`
+      }
     },
-    ...args,
+    ...args
   );
 };
 
 /**
- * @description: store-Returnsamapofstatuscodestoquantities
+ * @description: store: Returnsamapofstatuscodestoquantities
  */
-export const Store_InventoryGET = (...args): Promise<DeepRequired<object>> => {
+export const Store_Inventory_GET = (...args: any): Promise<object> => {
   return adaptorFn(
     {
       url: `/store/inventory`,
       method: "GET",
       bonusInfo: {
-        description: "store-Returnsamapofstatuscodestoquantities",
-        apiName: "Store_InventoryGET",
-        dev: { hasPathParameter: false, hasBodyParameter: false, hasQueryParameter: false, hasFormDataParameter: false, hasHeaderParameter: false },
-      },
+        namespace: "BASE",
+        description: "store: Returnsamapofstatuscodestoquantities",
+        apiName: "Store_Inventory_GET",
+        path: `/store/inventory`,
+        method: `GET`
+      }
     },
-    ...args,
+    ...args
   );
 };
 
 /**
- * @description: store-Placeanorderforapet
+ * @description: store: Placeanorderforapet
  */
-export const Store_OrderPOST = (data: BASE.IOrder = {}, ...args): Promise<DeepRequired<BASE.IOrder>> => {
+export const Store_Order_POST = (...args: any): Promise<BASE.IOrder> => {
   return adaptorFn(
     {
       url: `/store/order`,
       method: "POST",
-      data,
       bonusInfo: {
-        description: "store-Placeanorderforapet",
-        apiName: "Store_OrderPOST",
-        dev: { hasPathParameter: false, hasBodyParameter: true, hasQueryParameter: false, hasFormDataParameter: false, hasHeaderParameter: false },
-      },
+        namespace: "BASE",
+        description: "store: Placeanorderforapet",
+        apiName: "Store_Order_POST",
+        path: `/store/order`,
+        method: `POST`
+      }
     },
-    ...args,
+    ...args
   );
 };
 
 /**
- * @description: store-ForvalidresponsetryintegerIDswithvalue>=1and<=10.Othervalueswillgeneratedexceptions
+ * @description: store: ForvalidresponsetryintegerIDswithvalue>=1and<=10.Othervalueswillgeneratedexceptions
  */
-export const Store_Order_$orderId$GET = (code: string = "", ...args): Promise<DeepRequired<BASE.IOrder>> => {
+export const Store_Order_OrderId_$PATH$_GET = (parameter: string = "", ...args: any): Promise<BASE.IOrder> => {
   return adaptorFn(
     {
-      url: `/store/order/${code}`,
+      url: `/store/order/${parameter}`,
       method: "GET",
+      parameter,
       bonusInfo: {
-        description: "store-ForvalidresponsetryintegerIDswithvalue&gt;=1and&lt;=10.Othervalueswillgeneratedexceptions",
-        apiName: "Store_Order_$orderId$GET",
-        dev: { hasPathParameter: true, hasBodyParameter: false, hasQueryParameter: false, hasFormDataParameter: false, hasHeaderParameter: false },
-      },
+        namespace: "BASE",
+        description: "store: ForvalidresponsetryintegerIDswithvalue&gt;=1and&lt;=10.Othervalueswillgeneratedexceptions",
+        apiName: "Store_Order_OrderId_$PATH$_GET",
+        path: `/store/order/${parameter}`,
+        method: `GET`
+      }
     },
-    ...args,
+    ...args
   );
 };
 
 /**
- * @description: store-ForvalidresponsetryintegerIDswithpositiveintegervalue.Negativeornon-integervalueswillgenerateAPIerrors
+ * @description: store: ForvalidresponsetryintegerIDswithpositiveintegervalue.Negativeornon-integervalueswillgenerateAPIerrors
  */
-export const Store_Order_$orderId$DELETE = (code: string = "", ...args): Promise<null> => {
+export const Store_Order_OrderId_$PATH$_DELETE = (parameter: string = "", ...args: any): Promise<any> => {
   return adaptorFn(
     {
-      url: `/store/order/${code}`,
+      url: `/store/order/${parameter}`,
       method: "DELETE",
+      parameter,
       bonusInfo: {
-        description: "store-ForvalidresponsetryintegerIDswithpositiveintegervalue.Negativeornon-integervalueswillgenerateAPIerrors",
-        apiName: "Store_Order_$orderId$DELETE",
-        dev: { hasPathParameter: true, hasBodyParameter: false, hasQueryParameter: false, hasFormDataParameter: false, hasHeaderParameter: false },
-      },
+        namespace: "BASE",
+        description: "store: ForvalidresponsetryintegerIDswithpositiveintegervalue.Negativeornon-integervalueswillgenerateAPIerrors",
+        apiName: "Store_Order_OrderId_$PATH$_DELETE",
+        path: `/store/order/${parameter}`,
+        method: `DELETE`
+      }
     },
-    ...args,
+    ...args
   );
 };
 
 /**
- * @description: user-Thiscanonlybedonebytheloggedinuser.
+ * @description: user: Thiscanonlybedonebytheloggedinuser.
  */
-export const UserPOST = (data: BASE.IUser = {}, ...args): Promise<null> => {
+export const User_POST = (...args: any): Promise<any> => {
   return adaptorFn(
     {
       url: `/user`,
       method: "POST",
-      data,
       bonusInfo: {
-        description: "user-Thiscanonlybedonebytheloggedinuser.",
-        apiName: "UserPOST",
-        dev: { hasPathParameter: false, hasBodyParameter: true, hasQueryParameter: false, hasFormDataParameter: false, hasHeaderParameter: false },
-      },
+        namespace: "BASE",
+        description: "user: Thiscanonlybedonebytheloggedinuser.",
+        apiName: "User_POST",
+        path: `/user`,
+        method: `POST`
+      }
     },
-    ...args,
+    ...args
   );
 };
 
 /**
- * @description: user-Createslistofuserswithgiveninputarray
+ * @description: user: Createslistofuserswithgiveninputarray
  */
-export const User_CreateWithArrayPOST = (data: BASE.IUser[] = [], ...args): Promise<null> => {
+export const User_CreateWithArray_POST = (...args: any): Promise<any> => {
   return adaptorFn(
     {
       url: `/user/createWithArray`,
       method: "POST",
-      data,
       bonusInfo: {
-        description: "user-Createslistofuserswithgiveninputarray",
-        apiName: "User_CreateWithArrayPOST",
-        dev: { hasPathParameter: false, hasBodyParameter: true, hasQueryParameter: false, hasFormDataParameter: false, hasHeaderParameter: false },
-      },
+        namespace: "BASE",
+        description: "user: Createslistofuserswithgiveninputarray",
+        apiName: "User_CreateWithArray_POST",
+        path: `/user/createWithArray`,
+        method: `POST`
+      }
     },
-    ...args,
+    ...args
   );
 };
 
 /**
- * @description: user-Createslistofuserswithgiveninputarray
+ * @description: user: Createslistofuserswithgiveninputarray
  */
-export const User_CreateWithListPOST = (data: BASE.IUser[] = [], ...args): Promise<null> => {
+export const User_CreateWithList_POST = (...args: any): Promise<any> => {
   return adaptorFn(
     {
       url: `/user/createWithList`,
       method: "POST",
-      data,
       bonusInfo: {
-        description: "user-Createslistofuserswithgiveninputarray",
-        apiName: "User_CreateWithListPOST",
-        dev: { hasPathParameter: false, hasBodyParameter: true, hasQueryParameter: false, hasFormDataParameter: false, hasHeaderParameter: false },
-      },
+        namespace: "BASE",
+        description: "user: Createslistofuserswithgiveninputarray",
+        apiName: "User_CreateWithList_POST",
+        path: `/user/createWithList`,
+        method: `POST`
+      }
     },
-    ...args,
+    ...args
   );
 };
 
 /**
- * @description: user-Logsuserintothesystem
+ * @description: user: Logsuserintothesystem
  */
-export const User_LoginGET = (data: BASE.IUserloginQueryParams = {}, ...args): Promise<DeepRequired<string>> => {
+export const User_Login_GET = (parameter: string = "", ...args: any): Promise<string> => {
   return adaptorFn(
     {
       url: `/user/login`,
       method: "GET",
-      params: data,
+      parameter,
       bonusInfo: {
-        description: "user-Logsuserintothesystem",
-        apiName: "User_LoginGET",
-        dev: { hasPathParameter: false, hasBodyParameter: false, hasQueryParameter: true, hasFormDataParameter: false, hasHeaderParameter: false },
-      },
+        namespace: "BASE",
+        description: "user: Logsuserintothesystem",
+        apiName: "User_Login_GET",
+        path: `/user/login`,
+        method: `GET`
+      }
     },
-    ...args,
+    ...args
   );
 };
 
 /**
- * @description: user-Logsoutcurrentloggedinusersession
+ * @description: user: Logsoutcurrentloggedinusersession
  */
-export const User_LogoutGET = (...args): Promise<null> => {
+export const User_Logout_GET = (...args: any): Promise<any> => {
   return adaptorFn(
     {
       url: `/user/logout`,
       method: "GET",
       bonusInfo: {
-        description: "user-Logsoutcurrentloggedinusersession",
-        apiName: "User_LogoutGET",
-        dev: { hasPathParameter: false, hasBodyParameter: false, hasQueryParameter: false, hasFormDataParameter: false, hasHeaderParameter: false },
-      },
+        namespace: "BASE",
+        description: "user: Logsoutcurrentloggedinusersession",
+        apiName: "User_Logout_GET",
+        path: `/user/logout`,
+        method: `GET`
+      }
     },
-    ...args,
+    ...args
   );
 };
 
 /**
- * @description: user-Getuserbyusername
+ * @description: user: Getuserbyusername
  */
-export const User_$username$GET = (code: string = "", ...args): Promise<DeepRequired<BASE.IUser>> => {
+export const User_Username_$PATH$_GET = (parameter: string = "", ...args: any): Promise<BASE.IUser> => {
   return adaptorFn(
     {
-      url: `/user/${code}`,
+      url: `/user/${parameter}`,
       method: "GET",
+      parameter,
       bonusInfo: {
-        description: "user-Getuserbyusername",
-        apiName: "User_$username$GET",
-        dev: { hasPathParameter: true, hasBodyParameter: false, hasQueryParameter: false, hasFormDataParameter: false, hasHeaderParameter: false },
-      },
+        namespace: "BASE",
+        description: "user: Getuserbyusername",
+        apiName: "User_Username_$PATH$_GET",
+        path: `/user/${parameter}`,
+        method: `GET`
+      }
     },
-    ...args,
+    ...args
   );
 };
 
 /**
- * @description: user-Thiscanonlybedonebytheloggedinuser.
+ * @description: user: Thiscanonlybedonebytheloggedinuser.
  */
-export const User_$username$PUT = (code: BASE.IUser = {}, ...args): Promise<null> => {
+export const User_Username_$PATH$_PUT = (parameter: string = "", ...args: any): Promise<any> => {
   return adaptorFn(
     {
-      url: `/user/${code}`,
+      url: `/user/${parameter}`,
       method: "PUT",
-      data,
+      parameter,
       bonusInfo: {
-        description: "user-Thiscanonlybedonebytheloggedinuser.",
-        apiName: "User_$username$PUT",
-        dev: { hasPathParameter: true, hasBodyParameter: true, hasQueryParameter: false, hasFormDataParameter: false, hasHeaderParameter: false },
-      },
+        namespace: "BASE",
+        description: "user: Thiscanonlybedonebytheloggedinuser.",
+        apiName: "User_Username_$PATH$_PUT",
+        path: `/user/${parameter}`,
+        method: `PUT`
+      }
     },
-    ...args,
+    ...args
   );
 };
 
 /**
- * @description: user-Thiscanonlybedonebytheloggedinuser.
+ * @description: user: Thiscanonlybedonebytheloggedinuser.
  */
-export const User_$username$DELETE = (code: string = "", ...args): Promise<null> => {
+export const User_Username_$PATH$_DELETE = (parameter: string = "", ...args: any): Promise<any> => {
   return adaptorFn(
     {
-      url: `/user/${code}`,
+      url: `/user/${parameter}`,
       method: "DELETE",
+      parameter,
       bonusInfo: {
-        description: "user-Thiscanonlybedonebytheloggedinuser.",
-        apiName: "User_$username$DELETE",
-        dev: { hasPathParameter: true, hasBodyParameter: false, hasQueryParameter: false, hasFormDataParameter: false, hasHeaderParameter: false },
-      },
+        namespace: "BASE",
+        description: "user: Thiscanonlybedonebytheloggedinuser.",
+        apiName: "User_Username_$PATH$_DELETE",
+        path: `/user/${parameter}`,
+        method: `DELETE`
+      }
     },
-    ...args,
+    ...args
   );
 };

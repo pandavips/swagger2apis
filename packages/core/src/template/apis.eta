@@ -1,45 +1,35 @@
 <%
-const { apis,namespace,safe} = it;
+const { apis, namespace, safe, PARAMETER_NAME } = it;
 _%>
 
-export type DeepRequired<T> = {
-  [K in keyof T]-?: T[K] extends object ? DeepRequired<T[K]> : T[K];
-};
+<% apis.forEach(function(api, index) { %>
 
-<% apis.forEach(function(api,index){ %>
+/**
+ * @description: <%~ api.description %>
 
-  /**
-    * @description: <%~ api.description %>
-
-    */
- export const <%= api.fnName %> =(
+ */
+export const <%= api.fnName %> = (
   <% if (api.paramsInfo.show) { %>
-    <%=api.helpInfo.hasPathParameter?'code':'data' %>
-    :<%~ api.paramsInfo.type %>
-    <% if (api.paramsInfo.defaultVal) { %>
-    =
-    <% } %>
-    <%~ api.paramsInfo.defaultVal %>,
+    <%= PARAMETER_NAME %> : <%~ api.paramsInfo.type %>
+    <% if (api.paramsInfo.defaultVal) { %> = <%~ api.paramsInfo.defaultVal %><% } %>,
   <% } %>
-  ...args
-  ): Promise<<%~ api.responseType %>> => {
-    return adaptorFn({
+  ...args:any
+): Promise<<%~ api.responseType %>> => {
+  return adaptorFn({
     url: `<%= api.path %>`,
     method: "<%= api.method %>",
-    <% if (api.helpInfo.hasBodyParameter||api.helpInfo.hasFormDataParameter) { %>
-    data,
+    <% if (api.paramsInfo.show) { %>
+    <%= PARAMETER_NAME %>,
     <% } %>
-    <% if (api.helpInfo.hasQueryParameter&&!api.helpInfo.hasPathParameter) { %>
-    params:data,
-    <% } %>
-   <% if (!safe) { %>
-     bonusInfo:{
+    <% if (!safe) { %>
+    bonusInfo:{
+      namespace:'<%= namespace %>',
       description:'<%= api.description %>',
       apiName:'<%= api.fnName %>',
-      dev:<%~ JSON.stringify(api.helpInfo) %>
+      path:`<%= api.path %>`,
+      method:`<%= api.method %>`,
     }
   <% } %>
-    },
-    ...args);
-    }
-    <% }) %>
+  }, ...args);
+}
+<% }) %>

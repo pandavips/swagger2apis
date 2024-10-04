@@ -10,21 +10,22 @@ interface IApiInfo {
   url: string;
   method: string;
   data?: any;
-  params?: any;
+  parameter?: any;
+  bonusInfo: any;
 }
 
-export default (apiInfo: IApiInfo, ...args: any) => {
+export const adaptorFn = (apiInfo: IApiInfo, ...args: any): any => {
   /**
    * any code
    * Implementing call your request function
    */
   console.log(apiInfo, "apiInfo");
   console.log(args, "args");
-  const { url, method, data, params } = apiInfo;
+  const { url, method, data, parameter } = apiInfo;
   console.log({
     url,
     method,
     data,
-    params
+    parameter
   });
 };

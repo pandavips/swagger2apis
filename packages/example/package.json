@@ -5,7 +5,7 @@
   "main": "index.js",
   "private": "true",
   "scripts": {
-    "giveMeApis": "node ./index.mjs"
+    "giveMeApis": "node ./base.mjs"
   },
   "keywords": [],
   "author": "",

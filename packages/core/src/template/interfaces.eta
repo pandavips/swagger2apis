@@ -1,13 +1,14 @@
 <%
-const { interfaces,namespace } = it;
+const { interfaces, namespace } = it;
 _%>
+
 declare namespace <%~ namespace %> {
-  <% interfaces.forEach(function(interface,index){ %>
-   interface <%- = interface.interfaceName %> {
-    <% interface.props.forEach(function(prop,i){ %>
-      /** <%_ = prop.description -%> */
-      <% = prop.name %><%= prop.required?'':'?' %>: <%= prop.interfaceName %>;
-    <% }) _%>
+  <% interfaces.forEach(function(itf){ %>
+   interface <%~ itf.name %> {
+    <% itf.properties.forEach(function(prop){ %>
+      /** <%~ prop.description -%>  */
+      <%~ prop.name %><%~ prop.required ? '' : '?' %>: <%~ prop.type %>;
+    <% }) %>
   }
   <% }) %>
 }

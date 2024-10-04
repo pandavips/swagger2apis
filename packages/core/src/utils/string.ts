@@ -7,8 +7,8 @@ import Pinyin from "pinyin";
  */
 export const removeSpecialCharacter = (str: string, reserved = ["$"]) => {
   if (!str) return "";
-  // return str.replace(/[^\w\s]/gi, "");
-  return str.replace(new RegExp(`[^\\w\\s${reserved.join("")}]`, "gi"), "");
+  // 保留中文字符、字母、数字、空格和指定的特殊字符
+  return str.replace(new RegExp(`[^\\w\\s\\u4e00-\\u9fa5${reserved.join("")}]`, "gi"), "");
 };
 
 // 单词首字母大写

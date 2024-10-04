@@ -1,15 +1,17 @@
 import path from "node:path";
 import { DOCUMENT_URL } from "./dict";
 import { printErrInfo, printSuccInfo, printWarnInfo, writeFileWithEnsureDir } from "./utils";
-import type { IPlugins, RednerFn } from "./plugin";
+import type { IPlugin, IPlugins, RednerFn } from "./plugin";
 import { createPlugins, pluginRun } from "./plugin";
 import type { AdaptorPath } from "./plugins";
+import type { ApiInfo, InterfaceInfo } from "./transform";
 import { FileHeaderAppendWarning, FileHeaderAppendNocheck, FileHeaderAppendAdaptorFnPath } from "./plugins";
 
 import render from "./render";
+import type { RenderData, RenderRes } from "./render";
 import transform from "./transform";
 
-interface Config {
+export interface IConfig {
   // 输出目录
   outdir?: string;
   // 命令空间
@@ -17,31 +19,36 @@ interface Config {
   // safe mode
   safe?: boolean;
 }
+
 export interface IContext {
   // 传递进来的原始文档json
   rawJSON: any;
   // 插件集
   plugins: IPlugins;
-  config: Config;
+  config: IConfig;
   // 设置渲染函数
   setRender: (renderFn: RednerFn) => void;
   // 转换层处理后的数据
-  transformEdJson: any;
+  transformEdJson: {
+    apis: ApiInfo[];
+    interfaces: InterfaceInfo[];
+    raw: any;
+  };
   // 待渲染数据
-  renderData: any;
+  renderData: RenderData;
   // 最终渲染结果(待写入的文件列表)
-  renderRes: any[];
+  renderRes: RenderRes[];
   // 已经写入的文件path列表
   writedFileList: string[];
 }
 
 // 默认配置
-const defaultConfig: Config = {
+const defaultConfig: IConfig = {
   outdir: path.join(path.resolve(process.argv[1]), "../"),
   safe: true
 };
 
-export const create = (rawJSON = "", config: Config = {}) => {
+export const create = (rawJSON = "", config: IConfig = {}) => {
   printWarnInfo(
     `Currently has ${config.safe ? "Enabled manually" : "Disabled by default"} [SAFE_MODE], for more on safe mode see:${DOCUMENT_URL.SAFE_MODE}`
   );
@@ -56,18 +63,23 @@ export const create = (rawJSON = "", config: Config = {}) => {
 
   const context: IContext = {
     rawJSON: JSON.parse(JSON.stringify(rawJSON).replaceAll(" ", "")),
+
     plugins,
     setRender,
     config: finalConfig,
-    transformEdJson: void 0,
-    renderData: void 0,
+    transformEdJson: {
+      apis: [],
+      interfaces: [],
+      raw: {}
+    },
+    renderData: {} as RenderData,
     renderRes: [],
     writedFileList: []
   };
 
   const app = {
     // 注册插件
-    usePlugin: (plugin) => {
+    usePlugin: (plugin: IPlugin) => {
       register(plugin);
       return app;
     },
@@ -103,7 +115,7 @@ export const create = (rawJSON = "", config: Config = {}) => {
         // 写入文件
         await pluginRun(context, "beforeWriteFile");
         for await (const node of context.renderRes) {
-          const filepath = path.join(finalConfig.outdir || "", node.path || "", `${node.fileName}.${node.extName}`);
+          const filepath = path.join(finalConfig.outdir || "", `${node.fileName}.${node.extName}`);
 
           const file = await writeFileWithEnsureDir(filepath, node.content, "utf8");
 

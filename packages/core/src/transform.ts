@@ -1,309 +1,200 @@
 /**
- * 转换层,负责将json数据收集整理成方便模板渲染的数据
+ * 转换层：负责将JSON数据整理成方便模板渲染的数据结构
  */
 
-import { chineseCharacter2pinyin, isString, removeSpecialCharacter } from "./utils";
+import { chineseCharacter2pinyin, removeSpecialCharacter } from "./utils";
 import { JavaType2JavaScriptType } from "./dict";
+import { IContext } from "./app";
 
-let currentApi: any = null;
-export const transform = (rawJSON) => {
-  // 我们目前只需要关注两个字段就可以完成所有工作
-  // path是接口的核心数据
-  // definitions是接口的数据交互载荷类型,我们将使用它来生成ts的接口文件
-  const { paths, definitions } = rawJSON;
+export interface ApiInfo {
+  tags: string[];
+  path: string;
+  method: string;
+  description: string;
+  parameters: ParameterInfo[];
+  response: ResponseInfo;
+}
 
-  const interfaces = generateDefinitions(definitions);
+export interface ParameterInfo {
+  name: string;
+  description: string;
+  type: string;
+  required: boolean;
+  position: "path" | "query" | "body" | "formData" | "header";
+}
+
+export interface ResponseInfo {
+  description: string;
+  type: string;
+}
+
+export interface InterfaceInfo {
+  name: string;
+  description: string;
+  properties: PropertyInfo[];
+  rawProperties: any;
+}
+
+export interface PropertyInfo {
+  name: string;
+  description: string;
+  type: string;
+  required: boolean;
+}
+
+// 主转换函数
+export function transform(ctx: IContext) {
+  const { paths, definitions } = ctx.rawJSON;
   const apis = generateApis(paths);
-
+  const interfaces = generateInterfaces(definitions, apis);
   return {
     apis,
     interfaces,
-    raw: rawJSON
+    raw: ctx.rawJSON
   };
-};
+}
 
-// 生成接口数据
-export const generateApis = (paths: any): any[] => {
-  return Reflect.ownKeys(paths)
-    .map((path) => {
-      const pathData = paths[path];
-      return genApiProps({
+// 生成API信息
+function generateApis(paths: any): ApiInfo[] {
+  return Object.entries(paths).flatMap(([path, pathData]: [string, any]) => {
+    return Object.entries(pathData).map(([method, methodData]: [string, any]): ApiInfo => {
+      const parameters = generateParameters(methodData.parameters);
+      const response = generateResponse(methodData.responses);
+      return {
+        tags: methodData.tags,
         path,
-        pathData
-      });
-    })
-    .flat();
-};
-
-// 生成api剩余属性
-const genApiProps = (data) => {
-  const methods = Reflect.ownKeys(data.pathData);
-  return methods.map((method) => {
-    const methodData = data.pathData[method];
-    const { tags, summary, description, responses, parameters: methodDataParameters } = methodData;
-
-    const res = (currentApi = {
-      // 分组
-      tags,
-      // 请求路径
-      path: data.path,
-      // 请求方法
-      method: method,
-      // 描述
-      description: description || summary || "",
-      // 载荷类型
-      payloadType: {
-        request: null,
-        response: resolveResponese(responses)
-      },
-      // 辅助信息
-      helpInfo: null,
-      raw: data
+        method,
+        description: methodData.description || methodData.summary || "",
+        parameters,
+        response
+      };
     });
-    const { parameters, helpInfo } = resolveParameters(methodDataParameters);
-
-    res.helpInfo = helpInfo;
-    res.payloadType.request = parameters;
-
-    currentApi = null;
-    return res;
   });
-};
+}
 
-// 解析参数类型
-const resolveParameters = (rawParameters) => {
-  const result: any = {
-    parameters: [],
-    helpInfo: {
-      // 是否存在路径参数
-      hasPathParameter: false,
-      // 是否存在body参数
-      hasBodyParameter: false,
-      // 是否存在query参数
-      hasQueryParameter: false,
-      // 是否存在表单参数
-      hasFormDataParameter: false,
-      // 是否存在header参数
-      hasHeaderParameter: false
-    }
-  };
-  rawParameters.forEach((p) => {
-    const parameterRes: any = {
-      name: "",
-      description: "",
-      interfaceName: null,
-      required: false,
-      // 参数位置
-      pos: null,
-      raw: p
-    };
-    // 参数位置 path|query|body|formData|header
-    const { in: pos, name: pName = "", required, description, schema } = p;
-
-    parameterRes.name = pName;
-    parameterRes.description = description;
-    parameterRes.required = required;
-    parameterRes.pos = pos;
-
-    switch (pos) {
-      case "path":
-        result.helpInfo.hasPathParameter = true;
-        break;
-      case "body":
-        result.helpInfo.hasBodyParameter = true;
-        parameterRes.interfaceName = generateTypeName(schema);
-        break;
-      case "query":
-        if (result.helpInfo.hasQueryParameter) break;
-        result.helpInfo.hasQueryParameter = true;
-        // query参数汇总处理
-        parameterRes.interfaceName = queryParamsHandler(coverQueryParameters2Bodyfit(rawParameters.filter((p: any) => p.in === "query")));
-        break;
-      case "formData":
-        result.helpInfo.hasFormDataParameter = true;
-        parameterRes.interfaceName = "FormData"; // query参数汇总处理
-        break;
-      case "header":
-        result.helpInfo.hasHeaderParameter = true;
-        break;
-      default:
-        break;
-    }
-    result.parameters.push(parameterRes);
-  });
-
-  return result;
-};
-
-// query参数处理
-const queryParamsHandler = (queryProps) => {
-  const props = resolveProperties(queryProps);
-  const { template, coverProps } = createPropsInfoTemplate();
-
-  const interfaceName = INTERFACE_PREFIX + chineseCharacter2pinyin(removeSpecialCharacter(currentApi.path)) + "QueryParams";
-  const description = currentApi.description || currentApi.path + " Query参数";
-
-  coverProps({
-    interfaceName,
-    props,
-    description,
-    raw: { props, currentApi }
-  });
-
-  (generateDefinitions as any).addInterface(template);
-
-  return interfaceName;
-};
-
-// 解析响应数据
-const resolveResponese = (responses) => {
-  // 我们暂时只关注200正常响应的请求
-  const okData = responses["200"];
-
-  const res: any = {
-    description: "",
-    interfaceName: null,
-    raw: okData
-  };
-
-  if (!okData) return null;
-  const { description, schema } = okData;
-  res.description = description;
-  res.interfaceName = generateTypeName(schema);
-  return res;
-};
-
-// 生成类型定义数据
-export const generateDefinitions = (definitions: any): any[] => {
-  const interfaceList = Reflect.ownKeys(definitions).map((key) => {
-    const raw = definitions[key];
-
-    const { properties, required: requiredProps, title: description } = raw;
-    const { template, coverProps } = createPropsInfoTemplate();
-    coverProps({
-      interfaceName: null,
-      props: [],
-      description: description || "接口文档没有提供描述",
-      raw
-    });
-
-    // 类型名称
-    template.interfaceName = generateTypeName(key);
-
-    // 开始解析属性
-    template.props = resolveProperties(properties, requiredProps);
-
-    return template;
-  });
-  (generateDefinitions as any).addInterface = (node) => {
-    // 防止重复添加
-    if (interfaceList.findIndex((iter) => iter.interfaceName === node.interfaceName) !== -1) return;
-    interfaceList.push(node);
-  };
-
-  return interfaceList;
-};
-
-const createPropsInfoTemplate = (props = {}): any => {
-  const template = {
-    interfaceName: null,
-    // 属性集
-    props: [],
-    // 描述
-    description: null,
-    raw: null,
-    ...props
-  };
+// 生成参数信息
+function generateParameters(parameters: any[]): ParameterInfo[] {
+  return parameters.map((param) => ({
+    name: param.name,
+    description: param.description || "",
+    type: getSchemaType(param),
+    required: param.required || false,
+    position: param.in
+  }));
+}
+const responsesInterfacesSet = new Set();
+// 生成响应信息
+function generateResponse(responses: any): ResponseInfo {
+  const okResponse = responses["200"];
+  const type = okResponse?.schema ? getSchemaType(okResponse.schema) : "";
+  responsesInterfacesSet.add(type);
   return {
-    coverProps: (converProps) => {
-      return Object.assign(template, converProps);
-    },
-    template
+    description: okResponse?.description || "",
+    type
   };
-};
+}
 
-// 转换query参数到body props格式,避免写两套逻辑
-const coverQueryParameters2Bodyfit = (parameters: any) => {
-  const res = {};
-  parameters.forEach((p) => {
-    res[p.name] = p;
-  });
-  return res;
+// 根据refName获取ts中的interface名称
+const getTypeName = (refName: string) => {
+  return `I${chineseCharacter2pinyin(removeSpecialCharacter(refName))}`;
 };
+// 获取schema类型
+function getSchemaType(schema: any, cover: any = {}): string {
+  const _schema = {
+    ...(schema || {}),
+    ...(cover || {})
+  };
 
-// 解析properties
-export const resolveProperties = (properties: any, requiredProps: string[] = []) => {
-  if (!properties) return [];
-  return Reflect.ownKeys(properties).map((propName) => {
-    const rawProp = properties[propName];
-    const { type, $ref, items, description } = rawProp;
-    const prop = {
-      // {
-      // 字段
-      name: propName,
-      // 描述
-      description: description || "没有提供描述",
-      // 类型
-      interfaceName: "",
-      // 是否必填
-      // required: !allowEmptyValue || requiredProps.includes(propName as string)
-      required: requiredProps.includes(propName as string)
-    };
-    // 数组类型
-    if (items) {
-      const { type: itemType, $ref: item$ref } = items;
-      // 引用类型
-      if (item$ref) {
-        prop.interfaceName = generateTypeNameBy$ref(item$ref) + "[]";
-      } else {
-        // 基础类型
-        prop.interfaceName = JavaType2JavaScriptType[itemType] + "[]";
+  if (_schema.$ref) {
+    const refName = _schema.$ref.split("/definitions/").pop();
+    return getTypeName(refName);
+  }
+
+  // 处理map等特殊类型
+  if (_schema.additionalProperties) {
+    if (_schema.additionalProperties.type === "array") {
+      return `Map<string,${getSchemaType(_schema.additionalProperties, { $ref: _schema.additionalProperties.items.$ref })}>`;
+    }
+    return `object`;
+  }
+
+  if (_schema.type === "array") {
+    const itemsRefName = _schema.items.$ref?.split("/definitions/").pop() || "";
+    const match = itemsRefName.match(/Map«(.+),(.+)»/);
+    if (match) {
+      const [, keyType, valueType] = match;
+      return `Map<${JavaType2JavaScriptType[keyType] || keyType},${JavaType2JavaScriptType[valueType] || valueType}>`;
+    }
+    return `${getSchemaType(_schema.items)}[]`;
+  }
+
+  return JavaType2JavaScriptType[_schema.type];
+}
+
+// 生成ts interface信息
+const generateInterfaces = function (definitions: any, apis: ApiInfo[]): InterfaceInfo[] {
+  generateInterfaces.responseInterfacesDeep.clear();
+
+  const interfaces = Object.entries(definitions)
+    .map(([name, def]: [string, any]): InterfaceInfo | boolean => {
+      // TODO: 排除无用的Map类型定义, 比如Map<string,object>,下边的逻辑有bug,多出无用接口也无伤大雅,所以暂时注释掉不予处理
+      // if (name.match(/Map«(.+),(.+)»/)) return false;
+
+      const interfaceName = getTypeName(name);
+
+      // 因为有些后端只喜欢定义入参是否必须,那么索性将响应属性全部设置为必须:方案为查找当前接口是否出现在响应中,如果出现在响应中则深度属性全部设置为required
+      // 如果接口出现在响应中，将所有属性设置为必需
+      let requiredProps = def.required || [];
+      // 检查接口是否出现在响应中
+      const isInResponse = apis.some((api) => {
+        return api.response.type === interfaceName;
+      });
+      if (isInResponse) {
+        generateInterfaces.responseInterfacesDeep.add(interfaceName);
+        requiredProps = ["in-response"];
       }
-    }
-    // 对象类型
-    else if ($ref) {
-      prop.interfaceName = generateTypeNameBy$ref($ref) + "";
-    }
-    // 基础类型
-    else {
-      prop.interfaceName = JavaType2JavaScriptType[type];
-    }
 
-    return prop;
+      return {
+        name: interfaceName,
+        description: def.description || "",
+        properties: generateProperties(def.properties, requiredProps),
+        rawProperties: def.properties
+      };
+    })
+    .filter(Boolean) as InterfaceInfo[];
+
+  const finalInterfaces = interfaces.map((itf) => {
+    if (generateInterfaces.responseInterfacesDeep.has(itf.name)) {
+      return {
+        ...itf,
+        properties: generateProperties(itf.rawProperties, ["in-response"])
+      };
+    } else {
+      return itf;
+    }
   });
-};
 
-const INTERFACE_PREFIX = "I";
-const generateTypeNameBy$ref = (ref: string) => {
-  if (!ref) return null;
-  return INTERFACE_PREFIX + chineseCharacter2pinyin(ref.split("definitions/").at(-1)!);
+  return finalInterfaces;
 };
+generateInterfaces.responseInterfacesDeep = new Set();
 
-// 生成类型名称
-const generateTypeName = (schema: any) => {
-  // 如果是传递的字符串
-  if (isString(schema)) return generateTypeNameBy$ref(schema);
-  if (!schema) return null;
-  const { type, $ref, items } = schema;
-  // 如果是数组,也分两种情况：基础类型数组+引用类型数组
-  if (items) {
-    const { type: itemType, $ref: item$ref } = items;
-    // 引用类型
-    if (item$ref) return generateTypeNameBy$ref(item$ref) + "[]";
-    // 基础类型
-    return JavaType2JavaScriptType[itemType] + "[]";
-  }
-  // 对象类型
-  else if ($ref) {
-    return generateTypeNameBy$ref($ref);
-  }
-  // 基础类型
-  else {
-    return JavaType2JavaScriptType[type] || JavaType2JavaScriptType["any"] + "[]";
-  }
-};
+// 生成属性信息
+function generateProperties(properties: any, requiredProps: string[]): PropertyInfo[] {
+  if (!properties) return [];
+  return Object.entries(properties).map(([name, prop]: [string, any]): PropertyInfo => {
+    const type = getSchemaType(prop);
 
-export default (context) => {
-  const rawJSON = context.rawJSON;
-  return transform(rawJSON);
-};
+    const inResponese = requiredProps[0] === "in-response";
+
+    inResponese && generateInterfaces.responseInterfacesDeep.add(removeSpecialCharacter(type));
+
+    return {
+      name,
+      type,
+      description: prop.description || "没有提供描述",
+      required: inResponese || requiredProps.includes(name)
+    };
+  });
+}
+
+export default transform;
