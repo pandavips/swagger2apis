@@ -1,5 +1,11 @@
 # swagger2apis
 
+## 3.1.0
+
+### Minor Changes
+
+- Reconstruct
+
 ## 3.0.9
 
 ### Patch Changes
