@@ -113,7 +113,9 @@ function getSchemaType(schema: any, cover: any = {}): string {
   // 处理map等特殊类型
   if (_schema.additionalProperties) {
     if (_schema.additionalProperties.type === "array") {
-      return `Map<string,${getSchemaType(_schema.additionalProperties, { $ref: _schema.additionalProperties.items.$ref })}>`;
+      // 对于前端来说,后端的map其实就是一个对象,所以这里该用Record来标记类型
+      return `Record<string,${getSchemaType(_schema.additionalProperties, { $ref: _schema.additionalProperties.items.$ref })}>`;
+      // return `Map<string,${getSchemaType(_schema.additionalProperties, { $ref: _schema.additionalProperties.items.$ref })}>`;
     }
     return `object`;
   }
@@ -123,7 +125,7 @@ function getSchemaType(schema: any, cover: any = {}): string {
     const match = itemsRefName.match(/Map«(.+),(.+)»/);
     if (match) {
       const [, keyType, valueType] = match;
-      return `Map<${JavaType2JavaScriptType[keyType] || keyType},${JavaType2JavaScriptType[valueType] || valueType}>`;
+      return `Record<${JavaType2JavaScriptType[keyType] || keyType},${JavaType2JavaScriptType[valueType] || valueType}>`;
     }
     return `${getSchemaType(_schema.items)}[]`;
   }

@@ -10,6 +10,7 @@ import { FileHeaderAppendWarning, FileHeaderAppendNocheck, FileHeaderAppendAdapt
 import render from "./render";
 import type { RenderData, RenderRes } from "./render";
 import transform from "./transform";
+import { StatisticsPlugin } from "./plugins/Statistics";
 
 export interface IConfig {
   // 输出目录
@@ -95,8 +96,6 @@ export const create = (rawJSON = "", config: IConfig = {}) => {
           throw new Error(`start should only be called once, you may need to use a plugin system for your needs, see the:${DOCUMENT_URL.PLUGIN}`);
         once = true;
 
-        console.time("time consumed");
-
         if (adaptorFnPath === void 0) {
           return printErrInfo(`Please tell us where to import the adapter, for adapters see:${DOCUMENT_URL.ADAPTOR}`);
         }
@@ -104,6 +103,7 @@ export const create = (rawJSON = "", config: IConfig = {}) => {
         register(FileHeaderAppendAdaptorFnPath(adaptorFnPath));
         register(FileHeaderAppendWarning);
         register(FileHeaderAppendNocheck);
+        register(StatisticsPlugin);
 
         // 启动转换层
         await pluginRun(context, "beforeTransform");
@@ -122,8 +122,6 @@ export const create = (rawJSON = "", config: IConfig = {}) => {
           context.writedFileList.push(file);
         }
         await pluginRun(context, "afterWriteFile");
-
-        console.timeEnd("time consumed");
 
         printSuccInfo("done~enjoy it~");
 
