@@ -1,6 +1,5 @@
 import path from "node:path";
 import fs from "fs-extra";
-import { printSuccInfo } from "./conosle";
 export * from "./conosle";
 export * from "./string";
 export * from "./compiler";
@@ -32,7 +31,6 @@ export async function writeFileWithEnsureDir(filePath, content, encoding = "utf8
     const dir = path.dirname(filePath);
     await fs.ensureDir(dir);
     await fs.writeFile(filePath, content, encoding);
-    printSuccInfo(`${filePath} - Write Success.`);
     return filePath;
   } catch (err) {
     console.error(err);
