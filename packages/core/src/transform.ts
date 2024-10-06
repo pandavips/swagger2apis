@@ -13,6 +13,7 @@ export interface ApiInfo {
   description: string;
   parameters: ParameterInfo[];
   response: ResponseInfo;
+  responseType?: string;
 }
 
 export interface ParameterInfo {
@@ -74,13 +75,15 @@ function generateApis(paths: any): ApiInfo[] {
 
 // 生成参数信息
 function generateParameters(parameters: any[]): ParameterInfo[] {
-  return parameters.map((param) => ({
-    name: param.name,
-    description: param.description || "",
-    type: getSchemaType(param),
-    required: param.required || false,
-    position: param.in
-  }));
+  return parameters
+    .filter((param) => ["path", "query", "body", "formData"].includes(param.in))
+    .map((param) => ({
+      name: param.name,
+      description: param.description || "",
+      type: getSchemaType(param.schema),
+      required: param.required || false,
+      position: param.in
+    }));
 }
 const responsesInterfacesSet = new Set();
 // 生成响应信息

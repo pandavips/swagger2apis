@@ -7,7 +7,7 @@ export const createFileHeaderAppendPlugin = (
   testFn: (node, ctx: IContext) => boolean = () => true
 ): IPlugin => {
   return {
-    afterRender(ctx) {
+    beforeWriteFile(ctx) {
       const { renderRes } = ctx;
       renderRes.forEach((node) => {
         if (testFn(node, ctx)) node.content = makeString(node, ctx) + node.content;
@@ -42,8 +42,7 @@ export const FileHeaderAppendAdaptorFnPath = (path: AdaptorPath) => {
       return typeof path === "string"
         ? `import { adaptorFn } from "${path}"
       `
-        : `${path(node, ctx)}
-        `;
+        : `${path(node, ctx)}\n`;
     },
     (node) => {
       return node.extName === "ts";

@@ -1,5 +1,17 @@
 # swagger2apis
 
+## 3.3.0
+
+### Minor Changes
+
+- 一些调整,文档完善,更易使用
+
+## 3.2.0
+
+### Minor Changes
+
+- 增加统计插件,Map类型改由Record类型标注
+
 ## 3.1.0
 
 ### Minor Changes

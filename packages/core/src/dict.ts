@@ -6,7 +6,7 @@ export const JavaType2JavaScriptType = {
   string: "string",
   boolean: "boolean",
   array: "array",
-  object: "object",
+  object: "Record<string, any>",
   timestamp: "string",
   any: "any",
   void: "any",
@@ -32,13 +32,14 @@ export const JS_BASE_TYPE = {
   "number[]": "number[]",
   "boolean[]": "boolean[]",
   "any[]": "any[]",
-  "object[]": "object[]"
+  "object[]": "object[]",
+  Record: "Record"
 };
 
 // js基础类型默认值
 export const JS_BASE_TYPE_DEFAULT_VALUE = {
-  number: "-1",
-  string: "''",
+  number: "",
+  string: "",
   boolean: ""
 };
 

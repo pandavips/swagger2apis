@@ -102,7 +102,17 @@ const renderParams = (api: ApiInfo, config: IConfig): ParamsInfo => {
     };
   }
 
-  const type = parameter?.type ? (JS_BASE_TYPE[parameter?.type] ? JS_BASE_TYPE[parameter.type] : `${config.namespace}.${parameter.type}`) : "";
+  let type = parameter?.type || "";
+
+  if (parameter?.type) {
+    if (JS_BASE_TYPE[parameter.type]) {
+      type = JS_BASE_TYPE[parameter.type];
+    } else if (parameter.type.startsWith("Record<")) {
+      type = parameter.type;
+    } else {
+      type = `${config.namespace}.${parameter.type}`;
+    }
+  }
 
   // 计算defaultVal
   const defaultVal = JS_BASE_TYPE_DEFAULT_VALUE[type] || "{} as any";
@@ -134,7 +144,7 @@ const renderType = (type: any, config: IConfig): string => {
   // 基础类型或者基础类型数组
   if (JS_BASE_TYPE[type.type]) return type.type;
   // Map类型
-  if (type.type.startsWith("Map<")) return type.type;
+  if (type.type.startsWith("Record<")) return type.type;
   // 其他接口类型
   return type.type ? `${config.namespace}.${type.type}` : "any";
 };

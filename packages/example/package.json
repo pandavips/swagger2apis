@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "private": "true",
+  "type": "module",
   "scripts": {
-    "giveMeApis": "node ./base.mjs"
+    "gen:base": "node ./base.mjs",
+    "gen:allin": "node ./allin.mjs"
   },
   "keywords": [],
   "author": "",
