@@ -1,5 +1,11 @@
 # swagger2apis
 
+## 3.3.1
+
+### Patch Changes
+
+- 函数方法名
+
 ## 3.3.0
 
 ### Minor Changes
