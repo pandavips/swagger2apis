@@ -9,165 +9,353 @@ import { adaptorFn } from './request.ts';
 /**
  * @description: user: Thiscanonlybedonebytheloggedinuser.
  */
-export const User_POST = (parameter: ALLIN.IUser = {} as any, ...args: any): Promise<ApiResponseWrapper<any>> => {
-  return adaptorFn(
-    {
-      url: `/user`,
-      method: "POST",
-      parameter,
-      bonusInfo: {
-        namespace: "ALLIN",
-        description: "user: Thiscanonlybedonebytheloggedinuser.",
-        apiName: "User_POST",
-        path: `/user`,
-        method: `POST`,
-      },
+export const UserPOST = (parameter: ALLIN.IUser = {} as any, ...args: any): Promise<ApiResponseWrapper<any>> => {
+  const parameter = {
+    url: `/user`,
+    method: "POST",
+    parameter,
+    bonusInfo: {
+      namespace: "ALLIN",
+      description: "user: Thiscanonlybedonebytheloggedinuser.",
+      apiName: "UserPOST",
     },
-    ...args,
-  );
+  };
+
+  for (const hook of [
+    () => {
+      return {
+        action: "mock",
+        // value: mockRule
+      };
+    },
+  ]) {
+    const result = hook(parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+    if (result.action === "mock") {
+      return Promise.resolve(Mock.mock(`@string`));
+    }
+  }
+
+  const responese = adaptorFn(parameter, ...args);
+
+  for (const hook of []) {
+    const result = hook(responese, parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+  }
+
+  return responese;
 };
 
 /**
  * @description: user: Createslistofuserswithgiveninputarray
  */
-export const User_CreateWithArray_POST = (parameter: ALLIN.IUser[] = {} as any, ...args: any): Promise<ApiResponseWrapper<any>> => {
-  return adaptorFn(
-    {
-      url: `/user/createWithArray`,
-      method: "POST",
-      parameter,
-      bonusInfo: {
-        namespace: "ALLIN",
-        description: "user: Createslistofuserswithgiveninputarray",
-        apiName: "User_CreateWithArray_POST",
-        path: `/user/createWithArray`,
-        method: `POST`,
-      },
+export const User_CreateWithArrayPOST = (parameter: ALLIN.IUser[] = {} as any, ...args: any): Promise<ApiResponseWrapper<any>> => {
+  const parameter = {
+    url: `/user/createWithArray`,
+    method: "POST",
+    parameter,
+    bonusInfo: {
+      namespace: "ALLIN",
+      description: "user: Createslistofuserswithgiveninputarray",
+      apiName: "User_CreateWithArrayPOST",
     },
-    ...args,
-  );
+  };
+
+  for (const hook of [
+    () => {
+      return {
+        action: "mock",
+        // value: mockRule
+      };
+    },
+  ]) {
+    const result = hook(parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+    if (result.action === "mock") {
+      return Promise.resolve(Mock.mock(`@string`));
+    }
+  }
+
+  const responese = adaptorFn(parameter, ...args);
+
+  for (const hook of []) {
+    const result = hook(responese, parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+  }
+
+  return responese;
 };
 
 /**
  * @description: user: Createslistofuserswithgiveninputarray
  */
-export const User_CreateWithList_POST = (parameter: ALLIN.IUser[] = {} as any, ...args: any): Promise<ApiResponseWrapper<any>> => {
-  return adaptorFn(
-    {
-      url: `/user/createWithList`,
-      method: "POST",
-      parameter,
-      bonusInfo: {
-        namespace: "ALLIN",
-        description: "user: Createslistofuserswithgiveninputarray",
-        apiName: "User_CreateWithList_POST",
-        path: `/user/createWithList`,
-        method: `POST`,
-      },
+export const User_CreateWithListPOST = (parameter: ALLIN.IUser[] = {} as any, ...args: any): Promise<ApiResponseWrapper<any>> => {
+  const parameter = {
+    url: `/user/createWithList`,
+    method: "POST",
+    parameter,
+    bonusInfo: {
+      namespace: "ALLIN",
+      description: "user: Createslistofuserswithgiveninputarray",
+      apiName: "User_CreateWithListPOST",
     },
-    ...args,
-  );
+  };
+
+  for (const hook of [
+    () => {
+      return {
+        action: "mock",
+        // value: mockRule
+      };
+    },
+  ]) {
+    const result = hook(parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+    if (result.action === "mock") {
+      return Promise.resolve(Mock.mock(`@string`));
+    }
+  }
+
+  const responese = adaptorFn(parameter, ...args);
+
+  for (const hook of []) {
+    const result = hook(responese, parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+  }
+
+  return responese;
 };
 
 /**
  * @description: user: Logsuserintothesystem
  */
-export const User_Login_GET = (...args: any): Promise<ApiResponseWrapper<string>> => {
-  return adaptorFn(
-    {
-      url: `/user/login`,
-      method: "GET",
-      bonusInfo: {
-        namespace: "ALLIN",
-        description: "user: Logsuserintothesystem",
-        apiName: "User_Login_GET",
-        path: `/user/login`,
-        method: `GET`,
-      },
+export const User_LoginGET = (...args: any): Promise<ApiResponseWrapper<string>> => {
+  const parameter = {
+    url: `/user/login`,
+    method: "GET",
+    bonusInfo: {
+      namespace: "ALLIN",
+      description: "user: Logsuserintothesystem",
+      apiName: "User_LoginGET",
     },
-    ...args,
-  );
+  };
+
+  for (const hook of [
+    () => {
+      return {
+        action: "mock",
+        // value: mockRule
+      };
+    },
+  ]) {
+    const result = hook(parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+    if (result.action === "mock") {
+      return Promise.resolve(Mock.mock(`@string(5, 20)`));
+    }
+  }
+
+  const responese = adaptorFn(parameter, ...args);
+
+  for (const hook of []) {
+    const result = hook(responese, parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+  }
+
+  return responese;
 };
 
 /**
  * @description: user: Logsoutcurrentloggedinusersession
  */
-export const User_Logout_GET = (...args: any): Promise<ApiResponseWrapper<any>> => {
-  return adaptorFn(
-    {
-      url: `/user/logout`,
-      method: "GET",
-      bonusInfo: {
-        namespace: "ALLIN",
-        description: "user: Logsoutcurrentloggedinusersession",
-        apiName: "User_Logout_GET",
-        path: `/user/logout`,
-        method: `GET`,
-      },
+export const User_LogoutGET = (...args: any): Promise<ApiResponseWrapper<any>> => {
+  const parameter = {
+    url: `/user/logout`,
+    method: "GET",
+    bonusInfo: {
+      namespace: "ALLIN",
+      description: "user: Logsoutcurrentloggedinusersession",
+      apiName: "User_LogoutGET",
     },
-    ...args,
-  );
+  };
+
+  for (const hook of [
+    () => {
+      return {
+        action: "mock",
+        // value: mockRule
+      };
+    },
+  ]) {
+    const result = hook(parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+    if (result.action === "mock") {
+      return Promise.resolve(Mock.mock(`@string`));
+    }
+  }
+
+  const responese = adaptorFn(parameter, ...args);
+
+  for (const hook of []) {
+    const result = hook(responese, parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+  }
+
+  return responese;
 };
 
 /**
  * @description: user: Getuserbyusername
  */
-export const User_Username_$PATH$_GET = (parameter: string = "", ...args: any): Promise<ApiResponseWrapper<ALLIN.IUser>> => {
-  return adaptorFn(
-    {
-      url: `/user/${parameter}`,
-      method: "GET",
-      parameter,
-      bonusInfo: {
-        namespace: "ALLIN",
-        description: "user: Getuserbyusername",
-        apiName: "User_Username_$PATH$_GET",
-        path: `/user/${parameter}`,
-        method: `GET`,
-      },
+export const User_Username_$username$GET = (parameter: string = "", ...args: any): Promise<ApiResponseWrapper<ALLIN.IUser>> => {
+  const parameter = {
+    url: `/user/${parameter}`,
+    method: "GET",
+    parameter,
+    bonusInfo: {
+      namespace: "ALLIN",
+      description: "user: Getuserbyusername",
+      apiName: "User_Username_$username$GET",
     },
-    ...args,
-  );
+  };
+
+  for (const hook of [
+    () => {
+      return {
+        action: "mock",
+        // value: mockRule
+      };
+    },
+  ]) {
+    const result = hook(parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+    if (result.action === "mock") {
+      return Promise.resolve(
+        Mock.mock(
+          `{'id':'@float(0, 1000, 0, 2)','username':'@string(5, 20)','firstName':'@string(5, 20)','lastName':'@string(5, 20)','email':'@string(5, 20)','password':'@string(5, 20)','phone':'@string(5, 20)','userStatus':'@float(0, 1000, 0, 2)'}`,
+        ),
+      );
+    }
+  }
+
+  const responese = adaptorFn(parameter, ...args);
+
+  for (const hook of []) {
+    const result = hook(responese, parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+  }
+
+  return responese;
 };
 
 /**
  * @description: user: Thiscanonlybedonebytheloggedinuser.
  */
-export const User_Username_$PATH$_PUT = (parameter: string = "", ...args: any): Promise<ApiResponseWrapper<any>> => {
-  return adaptorFn(
-    {
-      url: `/user/${parameter}`,
-      method: "PUT",
-      parameter,
-      bonusInfo: {
-        namespace: "ALLIN",
-        description: "user: Thiscanonlybedonebytheloggedinuser.",
-        apiName: "User_Username_$PATH$_PUT",
-        path: `/user/${parameter}`,
-        method: `PUT`,
-      },
+export const User_Username_$username$PUT = (parameter: string = "", ...args: any): Promise<ApiResponseWrapper<any>> => {
+  const parameter = {
+    url: `/user/${parameter}`,
+    method: "PUT",
+    parameter,
+    bonusInfo: {
+      namespace: "ALLIN",
+      description: "user: Thiscanonlybedonebytheloggedinuser.",
+      apiName: "User_Username_$username$PUT",
     },
-    ...args,
-  );
+  };
+
+  for (const hook of [
+    () => {
+      return {
+        action: "mock",
+        // value: mockRule
+      };
+    },
+  ]) {
+    const result = hook(parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+    if (result.action === "mock") {
+      return Promise.resolve(Mock.mock(`@string`));
+    }
+  }
+
+  const responese = adaptorFn(parameter, ...args);
+
+  for (const hook of []) {
+    const result = hook(responese, parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+  }
+
+  return responese;
 };
 
 /**
  * @description: user: Thiscanonlybedonebytheloggedinuser.
  */
-export const User_Username_$PATH$_DELETE = (parameter: string = "", ...args: any): Promise<ApiResponseWrapper<any>> => {
-  return adaptorFn(
-    {
-      url: `/user/${parameter}`,
-      method: "DELETE",
-      parameter,
-      bonusInfo: {
-        namespace: "ALLIN",
-        description: "user: Thiscanonlybedonebytheloggedinuser.",
-        apiName: "User_Username_$PATH$_DELETE",
-        path: `/user/${parameter}`,
-        method: `DELETE`,
-      },
+export const User_Username_$username$DELETE = (parameter: string = "", ...args: any): Promise<ApiResponseWrapper<any>> => {
+  const parameter = {
+    url: `/user/${parameter}`,
+    method: "DELETE",
+    parameter,
+    bonusInfo: {
+      namespace: "ALLIN",
+      description: "user: Thiscanonlybedonebytheloggedinuser.",
+      apiName: "User_Username_$username$DELETE",
     },
-    ...args,
-  );
+  };
+
+  for (const hook of [
+    () => {
+      return {
+        action: "mock",
+        // value: mockRule
+      };
+    },
+  ]) {
+    const result = hook(parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+    if (result.action === "mock") {
+      return Promise.resolve(Mock.mock(`@string`));
+    }
+  }
+
+  const responese = adaptorFn(parameter, ...args);
+
+  for (const hook of []) {
+    const result = hook(responese, parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+  }
+
+  return responese;
 };

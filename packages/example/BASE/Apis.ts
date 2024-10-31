@@ -10,409 +10,809 @@ import { adaptorFn } from "../request.ts"
 /**
  * @description: pet: Addanewpettothestore
  */
-export const Pet_POST = (
+export const PetPOST = (
       parameter : BASE.IPet     = {} as any,
     ...args:any
 ): Promise<any> => {
-  return adaptorFn({
+
+  const parameter = {
     url: `/pet`,
     method: "POST",
         parameter,
-            bonusInfo:{
-      namespace:'BASE',
-      description:'pet: Addanewpettothestore',
-      apiName:'Pet_POST',
-      path:`/pet`,
-      method:`POST`,
+              bonusInfo:{
+        namespace:'BASE',
+        description:'pet: Addanewpettothestore',
+        apiName:'PetPOST'
+      }
+      }
+
+  for (const hook of []) {
+    const result = hook(parameter, ...args);
+     if (result.action === "break") {
+      return Promise.resolve(result.value);
     }
-    }, ...args);
+    if (result.action === "mock") {
+      return Promise.resolve(Mock.mock(``));
+    }
+  }
+
+  const responese = adaptorFn(parameter, ...args);
+
+  for (const hook of []) {
+    const result = hook(responese, parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+  }
+
+  return responese;
 }
 
 /**
  * @description: pet: Updateanexistingpet
  */
-export const Pet_PUT = (
+export const PetPUT = (
       parameter : BASE.IPet     = {} as any,
     ...args:any
 ): Promise<any> => {
-  return adaptorFn({
+
+  const parameter = {
     url: `/pet`,
     method: "PUT",
         parameter,
-            bonusInfo:{
-      namespace:'BASE',
-      description:'pet: Updateanexistingpet',
-      apiName:'Pet_PUT',
-      path:`/pet`,
-      method:`PUT`,
+              bonusInfo:{
+        namespace:'BASE',
+        description:'pet: Updateanexistingpet',
+        apiName:'PetPUT'
+      }
+      }
+
+  for (const hook of []) {
+    const result = hook(parameter, ...args);
+     if (result.action === "break") {
+      return Promise.resolve(result.value);
     }
-    }, ...args);
+    if (result.action === "mock") {
+      return Promise.resolve(Mock.mock(``));
+    }
+  }
+
+  const responese = adaptorFn(parameter, ...args);
+
+  for (const hook of []) {
+    const result = hook(responese, parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+  }
+
+  return responese;
 }
 
 /**
  * @description: pet: Multiplestatusvaluescanbeprovidedwithcommaseparatedstrings
  */
-export const Pet_FindByStatus_GET = (
+export const Pet_FindByStatusGET = (
     ...args:any
 ): Promise<BASE.IPet[]> => {
-  return adaptorFn({
+
+  const parameter = {
     url: `/pet/findByStatus`,
     method: "GET",
-            bonusInfo:{
-      namespace:'BASE',
-      description:'pet: Multiplestatusvaluescanbeprovidedwithcommaseparatedstrings',
-      apiName:'Pet_FindByStatus_GET',
-      path:`/pet/findByStatus`,
-      method:`GET`,
+              bonusInfo:{
+        namespace:'BASE',
+        description:'pet: Multiplestatusvaluescanbeprovidedwithcommaseparatedstrings',
+        apiName:'Pet_FindByStatusGET'
+      }
+      }
+
+  for (const hook of []) {
+    const result = hook(parameter, ...args);
+     if (result.action === "break") {
+      return Promise.resolve(result.value);
     }
-    }, ...args);
+    if (result.action === "mock") {
+      return Promise.resolve(Mock.mock(``));
+    }
+  }
+
+  const responese = adaptorFn(parameter, ...args);
+
+  for (const hook of []) {
+    const result = hook(responese, parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+  }
+
+  return responese;
 }
 
 /**
  * @description: pet: Mulipletagscanbeprovidedwithcommaseparatedstrings.Usetag1,tag2,tag3fortesting.
  */
-export const Pet_FindByTags_GET = (
+export const Pet_FindByTagsGET = (
     ...args:any
 ): Promise<BASE.IPet[]> => {
-  return adaptorFn({
+
+  const parameter = {
     url: `/pet/findByTags`,
     method: "GET",
-            bonusInfo:{
-      namespace:'BASE',
-      description:'pet: Mulipletagscanbeprovidedwithcommaseparatedstrings.Usetag1,tag2,tag3fortesting.',
-      apiName:'Pet_FindByTags_GET',
-      path:`/pet/findByTags`,
-      method:`GET`,
+              bonusInfo:{
+        namespace:'BASE',
+        description:'pet: Mulipletagscanbeprovidedwithcommaseparatedstrings.Usetag1,tag2,tag3fortesting.',
+        apiName:'Pet_FindByTagsGET'
+      }
+      }
+
+  for (const hook of []) {
+    const result = hook(parameter, ...args);
+     if (result.action === "break") {
+      return Promise.resolve(result.value);
     }
-    }, ...args);
+    if (result.action === "mock") {
+      return Promise.resolve(Mock.mock(``));
+    }
+  }
+
+  const responese = adaptorFn(parameter, ...args);
+
+  for (const hook of []) {
+    const result = hook(responese, parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+  }
+
+  return responese;
 }
 
 /**
  * @description: pet: Returnsasinglepet
  */
-export const Pet_PetId_$PATH$_GET = (
+export const Pet_PetId_$petId$GET = (
       parameter : string     = '',
     ...args:any
 ): Promise<BASE.IPet> => {
-  return adaptorFn({
+
+  const parameter = {
     url: `/pet/${parameter}`,
     method: "GET",
         parameter,
-            bonusInfo:{
-      namespace:'BASE',
-      description:'pet: Returnsasinglepet',
-      apiName:'Pet_PetId_$PATH$_GET',
-      path:`/pet/${parameter}`,
-      method:`GET`,
+              bonusInfo:{
+        namespace:'BASE',
+        description:'pet: Returnsasinglepet',
+        apiName:'Pet_PetId_$petId$GET'
+      }
+      }
+
+  for (const hook of []) {
+    const result = hook(parameter, ...args);
+     if (result.action === "break") {
+      return Promise.resolve(result.value);
     }
-    }, ...args);
+    if (result.action === "mock") {
+      return Promise.resolve(Mock.mock(``));
+    }
+  }
+
+  const responese = adaptorFn(parameter, ...args);
+
+  for (const hook of []) {
+    const result = hook(responese, parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+  }
+
+  return responese;
 }
 
 /**
  * @description: pet: Updatesapetinthestorewithformdata
  */
-export const Pet_PetId_$PATH$_POST = (
+export const Pet_PetId_$petId$POST = (
       parameter : string     = '',
     ...args:any
 ): Promise<any> => {
-  return adaptorFn({
+
+  const parameter = {
     url: `/pet/${parameter}`,
     method: "POST",
         parameter,
-            bonusInfo:{
-      namespace:'BASE',
-      description:'pet: Updatesapetinthestorewithformdata',
-      apiName:'Pet_PetId_$PATH$_POST',
-      path:`/pet/${parameter}`,
-      method:`POST`,
+              bonusInfo:{
+        namespace:'BASE',
+        description:'pet: Updatesapetinthestorewithformdata',
+        apiName:'Pet_PetId_$petId$POST'
+      }
+      }
+
+  for (const hook of []) {
+    const result = hook(parameter, ...args);
+     if (result.action === "break") {
+      return Promise.resolve(result.value);
     }
-    }, ...args);
+    if (result.action === "mock") {
+      return Promise.resolve(Mock.mock(``));
+    }
+  }
+
+  const responese = adaptorFn(parameter, ...args);
+
+  for (const hook of []) {
+    const result = hook(responese, parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+  }
+
+  return responese;
 }
 
 /**
  * @description: pet: Deletesapet
  */
-export const Pet_PetId_$PATH$_DELETE = (
+export const Pet_PetId_$petId$DELETE = (
       parameter : string     = '',
     ...args:any
 ): Promise<any> => {
-  return adaptorFn({
+
+  const parameter = {
     url: `/pet/${parameter}`,
     method: "DELETE",
         parameter,
-            bonusInfo:{
-      namespace:'BASE',
-      description:'pet: Deletesapet',
-      apiName:'Pet_PetId_$PATH$_DELETE',
-      path:`/pet/${parameter}`,
-      method:`DELETE`,
+              bonusInfo:{
+        namespace:'BASE',
+        description:'pet: Deletesapet',
+        apiName:'Pet_PetId_$petId$DELETE'
+      }
+      }
+
+  for (const hook of []) {
+    const result = hook(parameter, ...args);
+     if (result.action === "break") {
+      return Promise.resolve(result.value);
     }
-    }, ...args);
+    if (result.action === "mock") {
+      return Promise.resolve(Mock.mock(``));
+    }
+  }
+
+  const responese = adaptorFn(parameter, ...args);
+
+  for (const hook of []) {
+    const result = hook(responese, parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+  }
+
+  return responese;
 }
 
 /**
  * @description: pet: uploadsanimage
  */
-export const Pet_PetId_UploadImage_$PATH$_POST = (
+export const Pet_PetId_UploadImage_$petId$POST = (
       parameter : string     = '',
     ...args:any
 ): Promise<BASE.IApiResponse> => {
-  return adaptorFn({
+
+  const parameter = {
     url: `/pet/${parameter}/uploadImage`,
     method: "POST",
         parameter,
-            bonusInfo:{
-      namespace:'BASE',
-      description:'pet: uploadsanimage',
-      apiName:'Pet_PetId_UploadImage_$PATH$_POST',
-      path:`/pet/${parameter}/uploadImage`,
-      method:`POST`,
+              bonusInfo:{
+        namespace:'BASE',
+        description:'pet: uploadsanimage',
+        apiName:'Pet_PetId_UploadImage_$petId$POST'
+      }
+      }
+
+  for (const hook of []) {
+    const result = hook(parameter, ...args);
+     if (result.action === "break") {
+      return Promise.resolve(result.value);
     }
-    }, ...args);
+    if (result.action === "mock") {
+      return Promise.resolve(Mock.mock(``));
+    }
+  }
+
+  const responese = adaptorFn(parameter, ...args);
+
+  for (const hook of []) {
+    const result = hook(responese, parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+  }
+
+  return responese;
 }
 
 /**
  * @description: store: Returnsamapofstatuscodestoquantities
  */
-export const Store_Inventory_GET = (
+export const Store_InventoryGET = (
     ...args:any
 ): Promise<object> => {
-  return adaptorFn({
+
+  const parameter = {
     url: `/store/inventory`,
     method: "GET",
-            bonusInfo:{
-      namespace:'BASE',
-      description:'store: Returnsamapofstatuscodestoquantities',
-      apiName:'Store_Inventory_GET',
-      path:`/store/inventory`,
-      method:`GET`,
+              bonusInfo:{
+        namespace:'BASE',
+        description:'store: Returnsamapofstatuscodestoquantities',
+        apiName:'Store_InventoryGET'
+      }
+      }
+
+  for (const hook of []) {
+    const result = hook(parameter, ...args);
+     if (result.action === "break") {
+      return Promise.resolve(result.value);
     }
-    }, ...args);
+    if (result.action === "mock") {
+      return Promise.resolve(Mock.mock(``));
+    }
+  }
+
+  const responese = adaptorFn(parameter, ...args);
+
+  for (const hook of []) {
+    const result = hook(responese, parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+  }
+
+  return responese;
 }
 
 /**
  * @description: store: Placeanorderforapet
  */
-export const Store_Order_POST = (
+export const Store_OrderPOST = (
       parameter : BASE.IOrder     = {} as any,
     ...args:any
 ): Promise<BASE.IOrder> => {
-  return adaptorFn({
+
+  const parameter = {
     url: `/store/order`,
     method: "POST",
         parameter,
-            bonusInfo:{
-      namespace:'BASE',
-      description:'store: Placeanorderforapet',
-      apiName:'Store_Order_POST',
-      path:`/store/order`,
-      method:`POST`,
+              bonusInfo:{
+        namespace:'BASE',
+        description:'store: Placeanorderforapet',
+        apiName:'Store_OrderPOST'
+      }
+      }
+
+  for (const hook of []) {
+    const result = hook(parameter, ...args);
+     if (result.action === "break") {
+      return Promise.resolve(result.value);
     }
-    }, ...args);
+    if (result.action === "mock") {
+      return Promise.resolve(Mock.mock(``));
+    }
+  }
+
+  const responese = adaptorFn(parameter, ...args);
+
+  for (const hook of []) {
+    const result = hook(responese, parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+  }
+
+  return responese;
 }
 
 /**
  * @description: store: ForvalidresponsetryintegerIDswithvalue>=1and<=10.Othervalueswillgeneratedexceptions
  */
-export const Store_Order_OrderId_$PATH$_GET = (
+export const Store_Order_OrderId_$orderId$GET = (
       parameter : string     = '',
     ...args:any
 ): Promise<BASE.IOrder> => {
-  return adaptorFn({
+
+  const parameter = {
     url: `/store/order/${parameter}`,
     method: "GET",
         parameter,
-            bonusInfo:{
-      namespace:'BASE',
-      description:'store: ForvalidresponsetryintegerIDswithvalue&gt;=1and&lt;=10.Othervalueswillgeneratedexceptions',
-      apiName:'Store_Order_OrderId_$PATH$_GET',
-      path:`/store/order/${parameter}`,
-      method:`GET`,
+              bonusInfo:{
+        namespace:'BASE',
+        description:'store: ForvalidresponsetryintegerIDswithvalue&gt;=1and&lt;=10.Othervalueswillgeneratedexceptions',
+        apiName:'Store_Order_OrderId_$orderId$GET'
+      }
+      }
+
+  for (const hook of []) {
+    const result = hook(parameter, ...args);
+     if (result.action === "break") {
+      return Promise.resolve(result.value);
     }
-    }, ...args);
+    if (result.action === "mock") {
+      return Promise.resolve(Mock.mock(``));
+    }
+  }
+
+  const responese = adaptorFn(parameter, ...args);
+
+  for (const hook of []) {
+    const result = hook(responese, parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+  }
+
+  return responese;
 }
 
 /**
  * @description: store: ForvalidresponsetryintegerIDswithpositiveintegervalue.Negativeornon-integervalueswillgenerateAPIerrors
  */
-export const Store_Order_OrderId_$PATH$_DELETE = (
+export const Store_Order_OrderId_$orderId$DELETE = (
       parameter : string     = '',
     ...args:any
 ): Promise<any> => {
-  return adaptorFn({
+
+  const parameter = {
     url: `/store/order/${parameter}`,
     method: "DELETE",
         parameter,
-            bonusInfo:{
-      namespace:'BASE',
-      description:'store: ForvalidresponsetryintegerIDswithpositiveintegervalue.Negativeornon-integervalueswillgenerateAPIerrors',
-      apiName:'Store_Order_OrderId_$PATH$_DELETE',
-      path:`/store/order/${parameter}`,
-      method:`DELETE`,
+              bonusInfo:{
+        namespace:'BASE',
+        description:'store: ForvalidresponsetryintegerIDswithpositiveintegervalue.Negativeornon-integervalueswillgenerateAPIerrors',
+        apiName:'Store_Order_OrderId_$orderId$DELETE'
+      }
+      }
+
+  for (const hook of []) {
+    const result = hook(parameter, ...args);
+     if (result.action === "break") {
+      return Promise.resolve(result.value);
     }
-    }, ...args);
+    if (result.action === "mock") {
+      return Promise.resolve(Mock.mock(``));
+    }
+  }
+
+  const responese = adaptorFn(parameter, ...args);
+
+  for (const hook of []) {
+    const result = hook(responese, parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+  }
+
+  return responese;
 }
 
 /**
  * @description: user: Thiscanonlybedonebytheloggedinuser.
  */
-export const User_POST = (
+export const UserPOST = (
       parameter : BASE.IUser     = {} as any,
     ...args:any
 ): Promise<any> => {
-  return adaptorFn({
+
+  const parameter = {
     url: `/user`,
     method: "POST",
         parameter,
-            bonusInfo:{
-      namespace:'BASE',
-      description:'user: Thiscanonlybedonebytheloggedinuser.',
-      apiName:'User_POST',
-      path:`/user`,
-      method:`POST`,
+              bonusInfo:{
+        namespace:'BASE',
+        description:'user: Thiscanonlybedonebytheloggedinuser.',
+        apiName:'UserPOST'
+      }
+      }
+
+  for (const hook of []) {
+    const result = hook(parameter, ...args);
+     if (result.action === "break") {
+      return Promise.resolve(result.value);
     }
-    }, ...args);
+    if (result.action === "mock") {
+      return Promise.resolve(Mock.mock(``));
+    }
+  }
+
+  const responese = adaptorFn(parameter, ...args);
+
+  for (const hook of []) {
+    const result = hook(responese, parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+  }
+
+  return responese;
 }
 
 /**
  * @description: user: Createslistofuserswithgiveninputarray
  */
-export const User_CreateWithArray_POST = (
+export const User_CreateWithArrayPOST = (
       parameter : BASE.IUser[]     = {} as any,
     ...args:any
 ): Promise<any> => {
-  return adaptorFn({
+
+  const parameter = {
     url: `/user/createWithArray`,
     method: "POST",
         parameter,
-            bonusInfo:{
-      namespace:'BASE',
-      description:'user: Createslistofuserswithgiveninputarray',
-      apiName:'User_CreateWithArray_POST',
-      path:`/user/createWithArray`,
-      method:`POST`,
+              bonusInfo:{
+        namespace:'BASE',
+        description:'user: Createslistofuserswithgiveninputarray',
+        apiName:'User_CreateWithArrayPOST'
+      }
+      }
+
+  for (const hook of []) {
+    const result = hook(parameter, ...args);
+     if (result.action === "break") {
+      return Promise.resolve(result.value);
     }
-    }, ...args);
+    if (result.action === "mock") {
+      return Promise.resolve(Mock.mock(``));
+    }
+  }
+
+  const responese = adaptorFn(parameter, ...args);
+
+  for (const hook of []) {
+    const result = hook(responese, parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+  }
+
+  return responese;
 }
 
 /**
  * @description: user: Createslistofuserswithgiveninputarray
  */
-export const User_CreateWithList_POST = (
+export const User_CreateWithListPOST = (
       parameter : BASE.IUser[]     = {} as any,
     ...args:any
 ): Promise<any> => {
-  return adaptorFn({
+
+  const parameter = {
     url: `/user/createWithList`,
     method: "POST",
         parameter,
-            bonusInfo:{
-      namespace:'BASE',
-      description:'user: Createslistofuserswithgiveninputarray',
-      apiName:'User_CreateWithList_POST',
-      path:`/user/createWithList`,
-      method:`POST`,
+              bonusInfo:{
+        namespace:'BASE',
+        description:'user: Createslistofuserswithgiveninputarray',
+        apiName:'User_CreateWithListPOST'
+      }
+      }
+
+  for (const hook of []) {
+    const result = hook(parameter, ...args);
+     if (result.action === "break") {
+      return Promise.resolve(result.value);
     }
-    }, ...args);
+    if (result.action === "mock") {
+      return Promise.resolve(Mock.mock(``));
+    }
+  }
+
+  const responese = adaptorFn(parameter, ...args);
+
+  for (const hook of []) {
+    const result = hook(responese, parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+  }
+
+  return responese;
 }
 
 /**
  * @description: user: Logsuserintothesystem
  */
-export const User_Login_GET = (
+export const User_LoginGET = (
     ...args:any
 ): Promise<string> => {
-  return adaptorFn({
+
+  const parameter = {
     url: `/user/login`,
     method: "GET",
-            bonusInfo:{
-      namespace:'BASE',
-      description:'user: Logsuserintothesystem',
-      apiName:'User_Login_GET',
-      path:`/user/login`,
-      method:`GET`,
+              bonusInfo:{
+        namespace:'BASE',
+        description:'user: Logsuserintothesystem',
+        apiName:'User_LoginGET'
+      }
+      }
+
+  for (const hook of []) {
+    const result = hook(parameter, ...args);
+     if (result.action === "break") {
+      return Promise.resolve(result.value);
     }
-    }, ...args);
+    if (result.action === "mock") {
+      return Promise.resolve(Mock.mock(``));
+    }
+  }
+
+  const responese = adaptorFn(parameter, ...args);
+
+  for (const hook of []) {
+    const result = hook(responese, parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+  }
+
+  return responese;
 }
 
 /**
  * @description: user: Logsoutcurrentloggedinusersession
  */
-export const User_Logout_GET = (
+export const User_LogoutGET = (
     ...args:any
 ): Promise<any> => {
-  return adaptorFn({
+
+  const parameter = {
     url: `/user/logout`,
     method: "GET",
-            bonusInfo:{
-      namespace:'BASE',
-      description:'user: Logsoutcurrentloggedinusersession',
-      apiName:'User_Logout_GET',
-      path:`/user/logout`,
-      method:`GET`,
+              bonusInfo:{
+        namespace:'BASE',
+        description:'user: Logsoutcurrentloggedinusersession',
+        apiName:'User_LogoutGET'
+      }
+      }
+
+  for (const hook of []) {
+    const result = hook(parameter, ...args);
+     if (result.action === "break") {
+      return Promise.resolve(result.value);
     }
-    }, ...args);
+    if (result.action === "mock") {
+      return Promise.resolve(Mock.mock(``));
+    }
+  }
+
+  const responese = adaptorFn(parameter, ...args);
+
+  for (const hook of []) {
+    const result = hook(responese, parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+  }
+
+  return responese;
 }
 
 /**
  * @description: user: Getuserbyusername
  */
-export const User_Username_$PATH$_GET = (
+export const User_Username_$username$GET = (
       parameter : string     = '',
     ...args:any
 ): Promise<BASE.IUser> => {
-  return adaptorFn({
+
+  const parameter = {
     url: `/user/${parameter}`,
     method: "GET",
         parameter,
-            bonusInfo:{
-      namespace:'BASE',
-      description:'user: Getuserbyusername',
-      apiName:'User_Username_$PATH$_GET',
-      path:`/user/${parameter}`,
-      method:`GET`,
+              bonusInfo:{
+        namespace:'BASE',
+        description:'user: Getuserbyusername',
+        apiName:'User_Username_$username$GET'
+      }
+      }
+
+  for (const hook of []) {
+    const result = hook(parameter, ...args);
+     if (result.action === "break") {
+      return Promise.resolve(result.value);
     }
-    }, ...args);
+    if (result.action === "mock") {
+      return Promise.resolve(Mock.mock(``));
+    }
+  }
+
+  const responese = adaptorFn(parameter, ...args);
+
+  for (const hook of []) {
+    const result = hook(responese, parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+  }
+
+  return responese;
 }
 
 /**
  * @description: user: Thiscanonlybedonebytheloggedinuser.
  */
-export const User_Username_$PATH$_PUT = (
+export const User_Username_$username$PUT = (
       parameter : string     = '',
     ...args:any
 ): Promise<any> => {
-  return adaptorFn({
+
+  const parameter = {
     url: `/user/${parameter}`,
     method: "PUT",
         parameter,
-            bonusInfo:{
-      namespace:'BASE',
-      description:'user: Thiscanonlybedonebytheloggedinuser.',
-      apiName:'User_Username_$PATH$_PUT',
-      path:`/user/${parameter}`,
-      method:`PUT`,
+              bonusInfo:{
+        namespace:'BASE',
+        description:'user: Thiscanonlybedonebytheloggedinuser.',
+        apiName:'User_Username_$username$PUT'
+      }
+      }
+
+  for (const hook of []) {
+    const result = hook(parameter, ...args);
+     if (result.action === "break") {
+      return Promise.resolve(result.value);
     }
-    }, ...args);
+    if (result.action === "mock") {
+      return Promise.resolve(Mock.mock(``));
+    }
+  }
+
+  const responese = adaptorFn(parameter, ...args);
+
+  for (const hook of []) {
+    const result = hook(responese, parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+  }
+
+  return responese;
 }
 
 /**
  * @description: user: Thiscanonlybedonebytheloggedinuser.
  */
-export const User_Username_$PATH$_DELETE = (
+export const User_Username_$username$DELETE = (
       parameter : string     = '',
     ...args:any
 ): Promise<any> => {
-  return adaptorFn({
+
+  const parameter = {
     url: `/user/${parameter}`,
     method: "DELETE",
         parameter,
-            bonusInfo:{
-      namespace:'BASE',
-      description:'user: Thiscanonlybedonebytheloggedinuser.',
-      apiName:'User_Username_$PATH$_DELETE',
-      path:`/user/${parameter}`,
-      method:`DELETE`,
+              bonusInfo:{
+        namespace:'BASE',
+        description:'user: Thiscanonlybedonebytheloggedinuser.',
+        apiName:'User_Username_$username$DELETE'
+      }
+      }
+
+  for (const hook of []) {
+    const result = hook(parameter, ...args);
+     if (result.action === "break") {
+      return Promise.resolve(result.value);
     }
-    }, ...args);
+    if (result.action === "mock") {
+      return Promise.resolve(Mock.mock(``));
+    }
+  }
+
+  const responese = adaptorFn(parameter, ...args);
+
+  for (const hook of []) {
+    const result = hook(responese, parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+  }
+
+  return responese;
 }

@@ -19,8 +19,9 @@ export const JavaType2JavaScriptType = {
   date: "string",
   datetime: "string"
 };
-// js基础类型
-export const JS_BASE_TYPE = {
+
+// TS原始类型
+export const TS_RAW_TYPE = {
   number: "number",
   string: "string",
   boolean: "boolean",
@@ -34,6 +35,11 @@ export const JS_BASE_TYPE = {
   "any[]": "any[]",
   "object[]": "object[]",
   Record: "Record"
+};
+
+// 判断一个类型在TS中是否是原始类型
+export const isTSRawType = (type: string): boolean => {
+  return TS_RAW_TYPE[type] !== undefined;
 };
 
 // js基础类型默认值

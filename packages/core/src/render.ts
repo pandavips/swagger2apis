@@ -4,7 +4,7 @@
 import { firstUpperCase, removeSpecialCharacter, isString } from "./utils";
 import type { IConfig, IContext } from "./app";
 import type { ApiInfo, InterfaceInfo } from "./transform";
-import { JS_BASE_TYPE, JS_BASE_TYPE_DEFAULT_VALUE } from "./dict";
+import { TS_RAW_TYPE, JS_BASE_TYPE_DEFAULT_VALUE } from "./dict";
 
 const PARAMETER_NAME = "parameter";
 
@@ -75,12 +75,17 @@ const renderReqFnName = (api: ApiInfo): string => {
     })
     .join("_");
 
-  // 如果参数位置在path上,添加_$PATH$后缀
+  // 如果参数位置在path上,添加实际参数名作为后缀
   if (api.parameters && api.parameters.some((param) => param.position === "path")) {
-    methodName = `${methodName}_$PATH$`;
+    const pathParam = api.parameters.find((param) => param.position === "path");
+    if (pathParam) {
+      methodName = `${methodName}_$${pathParam.name}$`;
+    } else {
+      methodName = `${methodName}_$PATH$`;
+    }
   }
 
-  return `${methodName}_${api.method.toUpperCase()}`;
+  return `${methodName}${api.method.toUpperCase()}`;
 };
 
 // 渲染api描述
@@ -105,8 +110,8 @@ const renderParams = (api: ApiInfo, config: IConfig): ParamsInfo => {
   let type = parameter?.type || "";
 
   if (parameter?.type) {
-    if (JS_BASE_TYPE[parameter.type]) {
-      type = JS_BASE_TYPE[parameter.type];
+    if (TS_RAW_TYPE[parameter.type]) {
+      type = TS_RAW_TYPE[parameter.type];
     } else if (parameter.type.startsWith("Record<")) {
       type = parameter.type;
     } else {
@@ -141,8 +146,8 @@ const renderPath = (api: ApiInfo): string => {
 const renderType = (type: any, config: IConfig): string => {
   if (!type) return "any";
   if (type.type === "") return `any`;
-  // 基础类型或者基础类型数组
-  if (JS_BASE_TYPE[type.type]) return type.type;
+  // ts 原始类型或者原始类型数组
+  if (TS_RAW_TYPE[type.type]) return type.type;
   // Map类型
   if (type.type.startsWith("Record<")) return type.type;
   // 其他接口类型

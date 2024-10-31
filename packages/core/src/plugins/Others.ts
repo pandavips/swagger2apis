@@ -13,7 +13,7 @@ export const createResponseWrapperPlugin = (
     `
 ): IPlugin => {
   return {
-    befofeRender: (ctx) => {
+    beforeRender: (ctx) => {
       const { apis } = ctx.renderData;
       ctx.renderData.apis = apis.map((api) => {
         api.responseType = `${interfaceName}<${api.responseType}>`;

@@ -2,27 +2,29 @@ import { isObject, pipeAsync } from "./utils";
 import { DefaultRender } from "./plugins/Render";
 import type { IContext } from "./app";
 
+export type IPluginLifeCycleFn = (context: IContext) => Promise<IContext> | IContext;
+
 export interface IPlugin {
   // 数据集进行转换前
-  beforeTransform?: (context: IContext) => Promise<IContext> | IContext;
+  beforeTransform?: IPluginLifeCycleFn;
   // 数据集进行转换后
-  afterTransform?: (context: IContext) => Promise<IContext> | IContext;
+  afterTransform?: IPluginLifeCycleFn;
   // 数据进行渲染前
-  befofeRender?: (context: IContext) => Promise<IContext> | IContext;
+  beforeRender?: IPluginLifeCycleFn;
   // 数据进行渲染后
-  afterRender?: (context: IContext) => Promise<IContext> | IContext;
+  afterRender?: IPluginLifeCycleFn;
   // 文件写入前
-  beforeWriteFile?: (context: IContext) => Promise<IContext> | IContext;
+  beforeWriteFile?: IPluginLifeCycleFn;
   // 文件写入后
-  afterWriteFile?: (context: IContext) => Promise<IContext> | IContext;
+  afterWriteFile?: IPluginLifeCycleFn;
 }
 export interface IPlugins {
-  beforeTransform: IPlugin[];
-  afterTransform: IPlugin[];
-  befofeRender: IPlugin[];
-  afterRender: IPlugin[];
-  beforeWriteFile: IPlugin[];
-  afterWriteFile: IPlugin[];
+  beforeTransform: IPluginLifeCycleFn[];
+  afterTransform: IPluginLifeCycleFn[];
+  beforeRender: IPluginLifeCycleFn[];
+  afterRender: IPluginLifeCycleFn[];
+  beforeWriteFile: IPluginLifeCycleFn[];
+  afterWriteFile: IPluginLifeCycleFn[];
   renderFn: RednerFn;
 }
 
@@ -44,12 +46,12 @@ export const createPlugins = () => {
   const plugins: IPlugins = {
     beforeTransform: [],
     afterTransform: [],
-    befofeRender: [],
+    beforeRender: [],
     afterRender: [],
     beforeWriteFile: [],
     afterWriteFile: [],
     renderFn: async (ctx) => {
-      await pluginRun(ctx, "befofeRender");
+      await pluginRun(ctx, "beforeRender");
       return DefaultRender(ctx);
     }
   };
@@ -63,7 +65,7 @@ export const createPlugins = () => {
     register,
     setRender: (renderFn: RednerFn) => {
       plugins.renderFn = async (ctx) => {
-        await pluginRun(ctx, "befofeRender");
+        await pluginRun(ctx, "beforeRender");
         return renderFn(ctx);
       };
     },

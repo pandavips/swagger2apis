@@ -1,2 +1,8 @@
 {
+  "files.associations": {
+    "*.eta": "eta"
+  },
+  "emmet.includeLanguages": {
+    "eta": "eta"
+  }
 }

@@ -196,7 +196,7 @@ export interface IPlugin {
   // 数据集进行转换后
   afterTransform?: (context: IContext) => Promise<IContext> | IContext;
   // 数据进行渲染前
-  befofeRender?: (context: IContext) => Promise<IContext> | IContext;
+  beforeRender?: (context: IContext) => Promise<IContext> | IContext;
   // 数据进行渲染后
   afterRender?: (context: IContext) => Promise<IContext> | IContext;
   // 文件写入前

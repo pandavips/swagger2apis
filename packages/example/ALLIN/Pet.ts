@@ -9,165 +9,361 @@ import { adaptorFn } from './request.ts';
 /**
  * @description: pet: Addanewpettothestore
  */
-export const Pet_POST = (parameter: ALLIN.IPet = {} as any, ...args: any): Promise<ApiResponseWrapper<any>> => {
-  return adaptorFn(
-    {
-      url: `/pet`,
-      method: "POST",
-      parameter,
-      bonusInfo: {
-        namespace: "ALLIN",
-        description: "pet: Addanewpettothestore",
-        apiName: "Pet_POST",
-        path: `/pet`,
-        method: `POST`,
-      },
+export const PetPOST = (parameter: ALLIN.IPet = {} as any, ...args: any): Promise<ApiResponseWrapper<any>> => {
+  const parameter = {
+    url: `/pet`,
+    method: "POST",
+    parameter,
+    bonusInfo: {
+      namespace: "ALLIN",
+      description: "pet: Addanewpettothestore",
+      apiName: "PetPOST",
     },
-    ...args,
-  );
+  };
+
+  for (const hook of [
+    () => {
+      return {
+        action: "mock",
+        // value: mockRule
+      };
+    },
+  ]) {
+    const result = hook(parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+    if (result.action === "mock") {
+      return Promise.resolve(Mock.mock(`@string`));
+    }
+  }
+
+  const responese = adaptorFn(parameter, ...args);
+
+  for (const hook of []) {
+    const result = hook(responese, parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+  }
+
+  return responese;
 };
 
 /**
  * @description: pet: Updateanexistingpet
  */
-export const Pet_PUT = (parameter: ALLIN.IPet = {} as any, ...args: any): Promise<ApiResponseWrapper<any>> => {
-  return adaptorFn(
-    {
-      url: `/pet`,
-      method: "PUT",
-      parameter,
-      bonusInfo: {
-        namespace: "ALLIN",
-        description: "pet: Updateanexistingpet",
-        apiName: "Pet_PUT",
-        path: `/pet`,
-        method: `PUT`,
-      },
+export const PetPUT = (parameter: ALLIN.IPet = {} as any, ...args: any): Promise<ApiResponseWrapper<any>> => {
+  const parameter = {
+    url: `/pet`,
+    method: "PUT",
+    parameter,
+    bonusInfo: {
+      namespace: "ALLIN",
+      description: "pet: Updateanexistingpet",
+      apiName: "PetPUT",
     },
-    ...args,
-  );
+  };
+
+  for (const hook of [
+    () => {
+      return {
+        action: "mock",
+        // value: mockRule
+      };
+    },
+  ]) {
+    const result = hook(parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+    if (result.action === "mock") {
+      return Promise.resolve(Mock.mock(`@string`));
+    }
+  }
+
+  const responese = adaptorFn(parameter, ...args);
+
+  for (const hook of []) {
+    const result = hook(responese, parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+  }
+
+  return responese;
 };
 
 /**
  * @description: pet: Multiplestatusvaluescanbeprovidedwithcommaseparatedstrings
  */
-export const Pet_FindByStatus_GET = (...args: any): Promise<ApiResponseWrapper<ALLIN.IPet[]>> => {
-  return adaptorFn(
-    {
-      url: `/pet/findByStatus`,
-      method: "GET",
-      bonusInfo: {
-        namespace: "ALLIN",
-        description: "pet: Multiplestatusvaluescanbeprovidedwithcommaseparatedstrings",
-        apiName: "Pet_FindByStatus_GET",
-        path: `/pet/findByStatus`,
-        method: `GET`,
-      },
+export const Pet_FindByStatusGET = (...args: any): Promise<ApiResponseWrapper<ALLIN.IPet[]>> => {
+  const parameter = {
+    url: `/pet/findByStatus`,
+    method: "GET",
+    bonusInfo: {
+      namespace: "ALLIN",
+      description: "pet: Multiplestatusvaluescanbeprovidedwithcommaseparatedstrings",
+      apiName: "Pet_FindByStatusGET",
     },
-    ...args,
-  );
+  };
+
+  for (const hook of [
+    () => {
+      return {
+        action: "mock",
+        // value: mockRule
+      };
+    },
+  ]) {
+    const result = hook(parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+    if (result.action === "mock") {
+      return Promise.resolve(
+        Mock.mock(
+          `|{'id':'@float(0, 1000, 0, 2)','category':'{'id':'@float(0, 1000, 0, 2)','name':'@string(5, 20)'}','name':'@string(5, 20)','photoUrls':'@string','tags':'|{'id':'@float(0, 1000, 0, 2)','name':'@string(5, 20)'}|1-5','status':'@string(5, 20)'}|1-5`,
+        ),
+      );
+    }
+  }
+
+  const responese = adaptorFn(parameter, ...args);
+
+  for (const hook of []) {
+    const result = hook(responese, parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+  }
+
+  return responese;
 };
 
 /**
  * @description: pet: Mulipletagscanbeprovidedwithcommaseparatedstrings.Usetag1,tag2,tag3fortesting.
  */
-export const Pet_FindByTags_GET = (...args: any): Promise<ApiResponseWrapper<ALLIN.IPet[]>> => {
-  return adaptorFn(
-    {
-      url: `/pet/findByTags`,
-      method: "GET",
-      bonusInfo: {
-        namespace: "ALLIN",
-        description: "pet: Mulipletagscanbeprovidedwithcommaseparatedstrings.Usetag1,tag2,tag3fortesting.",
-        apiName: "Pet_FindByTags_GET",
-        path: `/pet/findByTags`,
-        method: `GET`,
-      },
+export const Pet_FindByTagsGET = (...args: any): Promise<ApiResponseWrapper<ALLIN.IPet[]>> => {
+  const parameter = {
+    url: `/pet/findByTags`,
+    method: "GET",
+    bonusInfo: {
+      namespace: "ALLIN",
+      description: "pet: Mulipletagscanbeprovidedwithcommaseparatedstrings.Usetag1,tag2,tag3fortesting.",
+      apiName: "Pet_FindByTagsGET",
     },
-    ...args,
-  );
+  };
+
+  for (const hook of [
+    () => {
+      return {
+        action: "mock",
+        // value: mockRule
+      };
+    },
+  ]) {
+    const result = hook(parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+    if (result.action === "mock") {
+      return Promise.resolve(
+        Mock.mock(
+          `|{'id':'@float(0, 1000, 0, 2)','category':'{'id':'@float(0, 1000, 0, 2)','name':'@string(5, 20)'}','name':'@string(5, 20)','photoUrls':'@string','tags':'|{'id':'@float(0, 1000, 0, 2)','name':'@string(5, 20)'}|1-5','status':'@string(5, 20)'}|1-5`,
+        ),
+      );
+    }
+  }
+
+  const responese = adaptorFn(parameter, ...args);
+
+  for (const hook of []) {
+    const result = hook(responese, parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+  }
+
+  return responese;
 };
 
 /**
  * @description: pet: Returnsasinglepet
  */
-export const Pet_PetId_$PATH$_GET = (parameter: string = "", ...args: any): Promise<ApiResponseWrapper<ALLIN.IPet>> => {
-  return adaptorFn(
-    {
-      url: `/pet/${parameter}`,
-      method: "GET",
-      parameter,
-      bonusInfo: {
-        namespace: "ALLIN",
-        description: "pet: Returnsasinglepet",
-        apiName: "Pet_PetId_$PATH$_GET",
-        path: `/pet/${parameter}`,
-        method: `GET`,
-      },
+export const Pet_PetId_$petId$GET = (parameter: string = "", ...args: any): Promise<ApiResponseWrapper<ALLIN.IPet>> => {
+  const parameter = {
+    url: `/pet/${parameter}`,
+    method: "GET",
+    parameter,
+    bonusInfo: {
+      namespace: "ALLIN",
+      description: "pet: Returnsasinglepet",
+      apiName: "Pet_PetId_$petId$GET",
     },
-    ...args,
-  );
+  };
+
+  for (const hook of [
+    () => {
+      return {
+        action: "mock",
+        // value: mockRule
+      };
+    },
+  ]) {
+    const result = hook(parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+    if (result.action === "mock") {
+      return Promise.resolve(
+        Mock.mock(
+          `{'id':'@float(0, 1000, 0, 2)','category':'{'id':'@float(0, 1000, 0, 2)','name':'@string(5, 20)'}','name':'@string(5, 20)','photoUrls':'@string','tags':'|{'id':'@float(0, 1000, 0, 2)','name':'@string(5, 20)'}|1-5','status':'@string(5, 20)'}`,
+        ),
+      );
+    }
+  }
+
+  const responese = adaptorFn(parameter, ...args);
+
+  for (const hook of []) {
+    const result = hook(responese, parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+  }
+
+  return responese;
 };
 
 /**
  * @description: pet: Updatesapetinthestorewithformdata
  */
-export const Pet_PetId_$PATH$_POST = (parameter: string = "", ...args: any): Promise<ApiResponseWrapper<any>> => {
-  return adaptorFn(
-    {
-      url: `/pet/${parameter}`,
-      method: "POST",
-      parameter,
-      bonusInfo: {
-        namespace: "ALLIN",
-        description: "pet: Updatesapetinthestorewithformdata",
-        apiName: "Pet_PetId_$PATH$_POST",
-        path: `/pet/${parameter}`,
-        method: `POST`,
-      },
+export const Pet_PetId_$petId$POST = (parameter: string = "", ...args: any): Promise<ApiResponseWrapper<any>> => {
+  const parameter = {
+    url: `/pet/${parameter}`,
+    method: "POST",
+    parameter,
+    bonusInfo: {
+      namespace: "ALLIN",
+      description: "pet: Updatesapetinthestorewithformdata",
+      apiName: "Pet_PetId_$petId$POST",
     },
-    ...args,
-  );
+  };
+
+  for (const hook of [
+    () => {
+      return {
+        action: "mock",
+        // value: mockRule
+      };
+    },
+  ]) {
+    const result = hook(parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+    if (result.action === "mock") {
+      return Promise.resolve(Mock.mock(`@string`));
+    }
+  }
+
+  const responese = adaptorFn(parameter, ...args);
+
+  for (const hook of []) {
+    const result = hook(responese, parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+  }
+
+  return responese;
 };
 
 /**
  * @description: pet: Deletesapet
  */
-export const Pet_PetId_$PATH$_DELETE = (parameter: string = "", ...args: any): Promise<ApiResponseWrapper<any>> => {
-  return adaptorFn(
-    {
-      url: `/pet/${parameter}`,
-      method: "DELETE",
-      parameter,
-      bonusInfo: {
-        namespace: "ALLIN",
-        description: "pet: Deletesapet",
-        apiName: "Pet_PetId_$PATH$_DELETE",
-        path: `/pet/${parameter}`,
-        method: `DELETE`,
-      },
+export const Pet_PetId_$petId$DELETE = (parameter: string = "", ...args: any): Promise<ApiResponseWrapper<any>> => {
+  const parameter = {
+    url: `/pet/${parameter}`,
+    method: "DELETE",
+    parameter,
+    bonusInfo: {
+      namespace: "ALLIN",
+      description: "pet: Deletesapet",
+      apiName: "Pet_PetId_$petId$DELETE",
     },
-    ...args,
-  );
+  };
+
+  for (const hook of [
+    () => {
+      return {
+        action: "mock",
+        // value: mockRule
+      };
+    },
+  ]) {
+    const result = hook(parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+    if (result.action === "mock") {
+      return Promise.resolve(Mock.mock(`@string`));
+    }
+  }
+
+  const responese = adaptorFn(parameter, ...args);
+
+  for (const hook of []) {
+    const result = hook(responese, parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+  }
+
+  return responese;
 };
 
 /**
  * @description: pet: uploadsanimage
  */
-export const Pet_PetId_UploadImage_$PATH$_POST = (parameter: string = "", ...args: any): Promise<ApiResponseWrapper<ALLIN.IApiResponse>> => {
-  return adaptorFn(
-    {
-      url: `/pet/${parameter}/uploadImage`,
-      method: "POST",
-      parameter,
-      bonusInfo: {
-        namespace: "ALLIN",
-        description: "pet: uploadsanimage",
-        apiName: "Pet_PetId_UploadImage_$PATH$_POST",
-        path: `/pet/${parameter}/uploadImage`,
-        method: `POST`,
-      },
+export const Pet_PetId_UploadImage_$petId$POST = (parameter: string = "", ...args: any): Promise<ApiResponseWrapper<ALLIN.IApiResponse>> => {
+  const parameter = {
+    url: `/pet/${parameter}/uploadImage`,
+    method: "POST",
+    parameter,
+    bonusInfo: {
+      namespace: "ALLIN",
+      description: "pet: uploadsanimage",
+      apiName: "Pet_PetId_UploadImage_$petId$POST",
     },
-    ...args,
-  );
+  };
+
+  for (const hook of [
+    () => {
+      return {
+        action: "mock",
+        // value: mockRule
+      };
+    },
+  ]) {
+    const result = hook(parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+    if (result.action === "mock") {
+      return Promise.resolve(Mock.mock(`{'code':'@float(0, 1000, 0, 2)','type':'@string(5, 20)','message':'@string(5, 20)'}`));
+    }
+  }
+
+  const responese = adaptorFn(parameter, ...args);
+
+  for (const hook of []) {
+    const result = hook(responese, parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+  }
+
+  return responese;
 };

@@ -8,79 +8,159 @@ import { adaptorFn } from "./request.ts";
 /**
  * @description: store: Returnsamapofstatuscodestoquantities
  */
-export const Store_Inventory_GET = (...args) => {
-  return adaptorFn(
-    {
-      url: `/store/inventory`,
-      method: "GET",
-      bonusInfo: {
-        namespace: "ALLIN",
-        description: "store: Returnsamapofstatuscodestoquantities",
-        apiName: "Store_Inventory_GET",
-        path: `/store/inventory`,
-        method: `GET`,
-      },
+export const Store_InventoryGET = (...args) => {
+  const parameter = {
+    url: `/store/inventory`,
+    method: "GET",
+    bonusInfo: {
+      namespace: "ALLIN",
+      description: "store: Returnsamapofstatuscodestoquantities",
+      apiName: "Store_InventoryGET",
     },
-    ...args,
-  );
+  };
+  for (const hook of [
+    () => {
+      return {
+        action: "mock",
+        // value: mockRule
+      };
+    },
+  ]) {
+    const result = hook(parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+    if (result.action === "mock") {
+      return Promise.resolve(Mock.mock(`@string`));
+    }
+  }
+  const responese = adaptorFn(parameter, ...args);
+  for (const hook of []) {
+    const result = hook(responese, parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+  }
+  return responese;
 };
 /**
  * @description: store: Placeanorderforapet
  */
-export const Store_Order_POST = (parameter = {}, ...args) => {
-  return adaptorFn(
-    {
-      url: `/store/order`,
-      method: "POST",
-      parameter,
-      bonusInfo: {
-        namespace: "ALLIN",
-        description: "store: Placeanorderforapet",
-        apiName: "Store_Order_POST",
-        path: `/store/order`,
-        method: `POST`,
-      },
+export const Store_OrderPOST = (parameter = {}, ...args) => {
+  const parameter = {
+    url: `/store/order`,
+    method: "POST",
+    parameter,
+    bonusInfo: {
+      namespace: "ALLIN",
+      description: "store: Placeanorderforapet",
+      apiName: "Store_OrderPOST",
     },
-    ...args,
-  );
+  };
+  for (const hook of [
+    () => {
+      return {
+        action: "mock",
+        // value: mockRule
+      };
+    },
+  ]) {
+    const result = hook(parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+    if (result.action === "mock") {
+      return Promise.resolve(
+        Mock.mock(`{'id':'@float(0, 1000, 0, 2)','petId':'@float(0, 1000, 0, 2)','quantity':'@float(0, 1000, 0, 2)','shipDate':'@string(5, 20)','status':'@string(5, 20)','complete':'@boolean'}`),
+      );
+    }
+  }
+  const responese = adaptorFn(parameter, ...args);
+  for (const hook of []) {
+    const result = hook(responese, parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+  }
+  return responese;
 };
 /**
  * @description: store: ForvalidresponsetryintegerIDswithvalue>=1and<=10.Othervalueswillgeneratedexceptions
  */
-export const Store_Order_OrderId_$PATH$_GET = (parameter = "", ...args) => {
-  return adaptorFn(
-    {
-      url: `/store/order/${parameter}`,
-      method: "GET",
-      parameter,
-      bonusInfo: {
-        namespace: "ALLIN",
-        description: "store: ForvalidresponsetryintegerIDswithvalue&gt;=1and&lt;=10.Othervalueswillgeneratedexceptions",
-        apiName: "Store_Order_OrderId_$PATH$_GET",
-        path: `/store/order/${parameter}`,
-        method: `GET`,
-      },
+export const Store_Order_OrderId_$orderId$GET = (parameter = "", ...args) => {
+  const parameter = {
+    url: `/store/order/${parameter}`,
+    method: "GET",
+    parameter,
+    bonusInfo: {
+      namespace: "ALLIN",
+      description: "store: ForvalidresponsetryintegerIDswithvalue&gt;=1and&lt;=10.Othervalueswillgeneratedexceptions",
+      apiName: "Store_Order_OrderId_$orderId$GET",
     },
-    ...args,
-  );
+  };
+  for (const hook of [
+    () => {
+      return {
+        action: "mock",
+        // value: mockRule
+      };
+    },
+  ]) {
+    const result = hook(parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+    if (result.action === "mock") {
+      return Promise.resolve(
+        Mock.mock(`{'id':'@float(0, 1000, 0, 2)','petId':'@float(0, 1000, 0, 2)','quantity':'@float(0, 1000, 0, 2)','shipDate':'@string(5, 20)','status':'@string(5, 20)','complete':'@boolean'}`),
+      );
+    }
+  }
+  const responese = adaptorFn(parameter, ...args);
+  for (const hook of []) {
+    const result = hook(responese, parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+  }
+  return responese;
 };
 /**
  * @description: store: ForvalidresponsetryintegerIDswithpositiveintegervalue.Negativeornon-integervalueswillgenerateAPIerrors
  */
-export const Store_Order_OrderId_$PATH$_DELETE = (parameter = "", ...args) => {
-  return adaptorFn(
-    {
-      url: `/store/order/${parameter}`,
-      method: "DELETE",
-      parameter,
-      bonusInfo: {
-        namespace: "ALLIN",
-        description: "store: ForvalidresponsetryintegerIDswithpositiveintegervalue.Negativeornon-integervalueswillgenerateAPIerrors",
-        apiName: "Store_Order_OrderId_$PATH$_DELETE",
-        path: `/store/order/${parameter}`,
-        method: `DELETE`,
-      },
+export const Store_Order_OrderId_$orderId$DELETE = (parameter = "", ...args) => {
+  const parameter = {
+    url: `/store/order/${parameter}`,
+    method: "DELETE",
+    parameter,
+    bonusInfo: {
+      namespace: "ALLIN",
+      description: "store: ForvalidresponsetryintegerIDswithpositiveintegervalue.Negativeornon-integervalueswillgenerateAPIerrors",
+      apiName: "Store_Order_OrderId_$orderId$DELETE",
     },
-    ...args,
-  );
+  };
+  for (const hook of [
+    () => {
+      return {
+        action: "mock",
+        // value: mockRule
+      };
+    },
+  ]) {
+    const result = hook(parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+    if (result.action === "mock") {
+      return Promise.resolve(Mock.mock(`@string`));
+    }
+  }
+  const responese = adaptorFn(parameter, ...args);
+  for (const hook of []) {
+    const result = hook(responese, parameter, ...args);
+    if (result.action === "break") {
+      return Promise.resolve(result.value);
+    }
+  }
+  return responese;
 };
