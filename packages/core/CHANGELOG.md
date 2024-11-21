@@ -1,5 +1,11 @@
 # swagger2apis
 
+## 3.3.2
+
+### Patch Changes
+
+- 修复一个严重的路径错误
+
 ## 3.3.1
 
 ### Patch Changes
