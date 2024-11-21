@@ -73,7 +73,7 @@ isGroupRender && app.cutstomRender(GroupRender);
 // start不仅仅可以传入字符串,也可以传入一个函数,通过这个函数来灵活的实现适配器的导入
 app.start((node) => {
   if (isGroupRender && node.fileName === ENTRY_FILE_NAME) {
-    // 这里由于我们使用了GroupRender,主文件就不再需要导入适配器了
+    // 比如这里由于我们使用了GroupRender,主文件就不再需要导入适配器了
     return "";
   } else {
     return "import { adaptorFn } from './request.ts';";

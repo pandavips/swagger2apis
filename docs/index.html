@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Swagger2Apis Helper</title>
+    <link href="./bootstrap.min.css" rel="stylesheet" />
+    <style>
+      .container {
+        max-width: 800px;
+        margin-top: 50px;
+      }
+      #status {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Swagger2Apis 快速接入助手</h1>
+
+      <div class="alert alert-info" role="alert">
+        <h4 class="alert-heading"></h4>
+        <p>本工具可以帮助您🚀 快速接入 swagger2apis</p>
+        <p>只需三步即可完成接入:</p>
+        <ol>
+          <li>选择项目根目录</li>
+          <li>填写配置信息</li>
+          <li>点击生成按钮</li>
+        </ol>
+      </div>
+
+      <div class="alert alert-warning" role="alert">
+        <h4 class="alert-heading">⚠️ 使用前请注意：</h4>
+        <ol>
+          <li>请确保 Git 工作区处于干净状态，以便在需要时可以轻松回退更改。</li>
+          <li>生成的配置文件可能需要根据您的项目需求进行调整，请检查并删除不需要的内容。</li>
+          <li>
+            请确保项目已安装以下依赖：
+            <ul>
+              <li><code>swagger2apis</code></li>
+              <li><code>axios</code></li>
+              <li><code>prettier</code></li>
+            </ul>
+            您可以选择将它们安装为 <code>dependencies</code> 或 <code>devDependencies</code>。
+          </li>
+          <li>
+            注意，这里并不能帮你完成所有的一切，当这里一切完毕后，你还是需要最后一步:书写自己的适配器，关于适配器：<a
+              href="https://www.npmjs.com/package/swagger2apis#%E5%85%B3%E4%BA%8E%E9%80%82%E9%85%8D%E5%99%A8"
+              target="_blank"
+              >查看文档</a
+            >
+          </li>
+        </ol>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">选择项目根目录：</label>
+        <div class="input-group">
+          <input type="text" class="form-control" id="projectPath" readonly />
+          <button class="btn btn-primary" id="selectFolder">选择目录</button>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">配置文件路径：</label>
+        <input type="text" class="form-control" id="configPath" placeholder="请输入配置文件路径（默认为 api/s2a.mjs）" />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Swagger API JSON地址： </label>
+        <input type="text" class="form-control" id="swaggerUrl" placeholder="不填写会使用示例JSON" />
+      </div>
+
+      <button class="btn btn-success" id="generate">生成配置</button>
+
+      <div id="status" class="alert" style="display: none"></div>
+    </div>
+
+    <script>
+      let directoryHandle;
+
+      document.getElementById("selectFolder").addEventListener("click", async () => {
+        try {
+          // 使用 showDirectoryPicker 选择目录
+          directoryHandle = await window.showDirectoryPicker();
+          document.getElementById("projectPath").value = directoryHandle.name;
+        } catch (error) {
+          showStatus("选择目录失败：" + error.message, "danger");
+        }
+      });
+
+      document.getElementById("generate").addEventListener("click", async () => {
+        const projectPath = document.getElementById("projectPath").value;
+        const swaggerUrl = document.getElementById("swaggerUrl").value;
+        const configPath = document.getElementById("configPath").value || "api/s2a.mjs";
+
+        if (!directoryHandle) {
+          showStatus("请选择项目目录", "danger");
+          return;
+        }
+
+        try {
+          // 读取并更新 package.json
+          const packageJsonHandle = await getFileHandle(directoryHandle, "package.json");
+          const packageJsonFile = await packageJsonHandle.getFile();
+          const packageJson = JSON.parse(await packageJsonFile.text());
+
+          // 更新 generate-api 脚本以使用自定义路径
+          packageJson.scripts = {
+            ...packageJson.scripts,
+            "generate-api": `node ./${configPath}`
+          };
+
+          // 写入更新后的 package.json
+          await writeFile(packageJsonHandle, JSON.stringify(packageJson, null, 2));
+
+          // 创建必要的目录结构
+          const pathParts = configPath.split("/");
+          const fileName = pathParts.pop();
+          let currentHandle = directoryHandle;
+
+          // 递归创建目录
+          for (const part of pathParts) {
+            currentHandle = await currentHandle.getDirectoryHandle(part, { create: true });
+          }
+
+          // 创建配置文件
+          const s2aHandle = await currentHandle.getFileHandle(fileName, { create: true });
+          await writeFile(
+            s2aHandle,
+            `import path from "node:path";
+      import {
+        __dirname_esm,
+        create,
+        GroupRender,
+        ENTRY_FILE_NAME,
+        createCodeFormatterPlugin,
+        createResponseWrapperPlugin,
+        CleanDirPlugin,
+        createCompileTS2JSPlugin
+      } from "swagger2apis";
+      import axios from "axios";
+
+function getGithubFileContent(owner, repo, path, branch = "main") {
+  /**
+   * 获取 GitHub 仓库中指定文件的内容
+   *
+   * @param {string} owner - 仓库所有者
+   * @param {string} repo - 仓库名称
+   * @param {string} path - 文件路径
+   * @param {string} branch - 分支名称(默认为main)
+   * @returns {Promise<string|null>} 文件内容或null
+   */
+
+  const url = \`https://api.github.com/repos/\${owner}/\${repo}/contents/\${path}?ref=\${branch}\`;
+
+  return new Promise((resolve) => {
+    axios.get(url, {
+      headers: {
+        Accept: "application/vnd.github.v3.raw",
+      },
+    })
+    .then(response => {
+      resolve(response.data);
+    })
+    .catch(error => {
+      console.error("获取文件时发生错误:", error.message);
+      resolve(null);
+    });
+  });
+}
+
+      // 获取 Swagger JSON
+      let swaggerJSON;
+        if ("${swaggerUrl}") {
+          const response = await axios.get(\`${swaggerUrl}\`).data;
+          swaggerJSON = response;
+        } else {
+          // 使用示例 JSON
+          const owner = "pandavips";
+          const repo = "swagger2apis";
+          const filePath = "/packages/example/json/swagger_2.json";
+          const branch = "main";
+          swaggerJSON = await getGithubFileContent(owner, repo, filePath, branch);
+      }
+
+      const app = create(
+        // 注意这里是一个对象,不是字符串
+        swaggerJSON,
+        {
+          outdir: path.join(
+            __dirname_esm(import.meta.url),
+            // 这里实际上可以理解为命令空间
+            "./ALLIN"
+          ),
+          // 敏感信息开关
+          safe: false
+        }
+      );
+
+      // 使用代码格式化插件,你可以传入项目中的代码格式化配置来保持代码风格统一
+      app.usePlugin(createCodeFormatterPlugin({}));
+
+      // 有些后端喜欢在外层包一层状态层,这个插件可以将响应标注也包裹一层状态层,你很可能需要根据你司后端的数据结构来进行调整
+      const ApiResponseWrapperName = "ApiResponseWrapper";
+      const ApiResponseWrapperType = \`
+      declare interface \${ApiResponseWrapperName}<T>{
+        data: T;
+        success: boolean;
+        code: string;
+        msg: string;
+      }
+      \`;
+      app.usePlugin(createResponseWrapperPlugin(ApiResponseWrapperName, ApiResponseWrapperType));
+
+      // 清理工作目录
+      app.usePlugin(CleanDirPlugin);
+
+      /**
+       * 编译ts文件,(可选)你可以传入tsconfig和prettierConfig来灵活的调整编译配置,
+       * 这个插件编译后,ts文件不会删除,因为个人觉得ts文件可以用来当做文档查看,所以没有进行删除
+       * 如果你有删除ts文件的需求,可以自行写个插件来删除这些ts文件
+       */
+      app.usePlugin(
+        createCompileTS2JSPlugin(
+          {
+            baseUrl: "./",
+            paths: {
+              "@/*": ["./src/*"]
+            }
+          },
+          {
+            parser: "typescript",
+            printWidth: 200,
+            semi: true,
+            singleQuote: false
+          }
+        )
+      );
+
+      // 如果你不希望将所有定义都放到一个文件中,可以使用GroupRender来进行分组渲染
+      const isGroupRender = true;
+      isGroupRender && app.cutstomRender(GroupRender);
+
+      // start不仅仅可以传入字符串,也可以传入一个函数,通过这个函数来灵活的实现适配器的导入
+      app.start((node) => {
+        if (isGroupRender && node.fileName === ENTRY_FILE_NAME) {
+          // 比如这里由于我们使用了GroupRender,主文件就不再需要导入适配器了
+          return "";
+        } else {
+          return "import { adaptorFn } from './request.ts';";
+        }
+      });
+      `
+          );
+
+          showStatus(`配置生成成功！请进入 ${projectPath} 目录执行 npm run generate-api`, "success");
+        } catch (error) {
+          showStatus(`错误：${error.message}`, "danger");
+        }
+      });
+
+      // 辅助函数：获取文件句柄
+      async function getFileHandle(dirHandle, fileName) {
+        try {
+          return await dirHandle.getFileHandle(fileName);
+        } catch (error) {
+          throw new Error(`无法找到 ${fileName}：${error.message}`);
+        }
+      }
+
+      // 辅助函数：写入文件
+      async function writeFile(fileHandle, contents) {
+        const writable = await fileHandle.createWritable();
+        await writable.write(contents);
+        await writable.close();
+      }
+
+      function showStatus(message, type) {
+        const status = document.getElementById("status");
+        status.textContent = message;
+        status.className = `alert alert-${type}`;
+        status.style.display = "block";
+      }
+    </script>
+  </body>
+</html>

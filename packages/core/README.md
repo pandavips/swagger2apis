@@ -29,6 +29,8 @@ yarn add swagger2apis -D
 
 ## 使用
 
+你可以使用[这个工具](https://pandavips.github.io/swagger2apis/)帮你快速记入这个工具:
+
 最简单的方式是在你项目中任意位置新建一个脚本(最好是`mjs`后缀的文件,这样可以让这个脚本的模块系统独立于项目),以下是一个极简的示例:
 
 ```js
