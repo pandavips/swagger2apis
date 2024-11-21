@@ -9,8 +9,9 @@ export const ENTRY_FILE_NAME = "Apis";
 // 默认渲染函数
 export const DefaultRender: RednerFn = async (ctx) => {
   const { renderData } = ctx;
+  const templatePath = path.resolve(__dirname_esm(import.meta.url), "./template");
   const eta = new (Eta as any)({
-    views: path.join(__dirname_esm(import.meta.url), "./template")
+    views: templatePath
   });
   return [
     {

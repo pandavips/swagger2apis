@@ -19,29 +19,7 @@ export const UserPOST = (parameter = {}, ...args) => {
       apiName: "UserPOST",
     },
   };
-  for (const hook of [
-    () => {
-      return {
-        action: "mock",
-        // value: mockRule
-      };
-    },
-  ]) {
-    const result = hook(parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-    if (result.action === "mock") {
-      return Promise.resolve(Mock.mock(`@string`));
-    }
-  }
   const responese = adaptorFn(parameter, ...args);
-  for (const hook of []) {
-    const result = hook(responese, parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-  }
   return responese;
 };
 /**
@@ -58,29 +36,7 @@ export const User_CreateWithArrayPOST = (parameter = {}, ...args) => {
       apiName: "User_CreateWithArrayPOST",
     },
   };
-  for (const hook of [
-    () => {
-      return {
-        action: "mock",
-        // value: mockRule
-      };
-    },
-  ]) {
-    const result = hook(parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-    if (result.action === "mock") {
-      return Promise.resolve(Mock.mock(`@string`));
-    }
-  }
   const responese = adaptorFn(parameter, ...args);
-  for (const hook of []) {
-    const result = hook(responese, parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-  }
   return responese;
 };
 /**
@@ -97,29 +53,7 @@ export const User_CreateWithListPOST = (parameter = {}, ...args) => {
       apiName: "User_CreateWithListPOST",
     },
   };
-  for (const hook of [
-    () => {
-      return {
-        action: "mock",
-        // value: mockRule
-      };
-    },
-  ]) {
-    const result = hook(parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-    if (result.action === "mock") {
-      return Promise.resolve(Mock.mock(`@string`));
-    }
-  }
   const responese = adaptorFn(parameter, ...args);
-  for (const hook of []) {
-    const result = hook(responese, parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-  }
   return responese;
 };
 /**
@@ -135,29 +69,7 @@ export const User_LoginGET = (...args) => {
       apiName: "User_LoginGET",
     },
   };
-  for (const hook of [
-    () => {
-      return {
-        action: "mock",
-        // value: mockRule
-      };
-    },
-  ]) {
-    const result = hook(parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-    if (result.action === "mock") {
-      return Promise.resolve(Mock.mock(`@string(5, 20)`));
-    }
-  }
   const responese = adaptorFn(parameter, ...args);
-  for (const hook of []) {
-    const result = hook(responese, parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-  }
   return responese;
 };
 /**
@@ -173,29 +85,7 @@ export const User_LogoutGET = (...args) => {
       apiName: "User_LogoutGET",
     },
   };
-  for (const hook of [
-    () => {
-      return {
-        action: "mock",
-        // value: mockRule
-      };
-    },
-  ]) {
-    const result = hook(parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-    if (result.action === "mock") {
-      return Promise.resolve(Mock.mock(`@string`));
-    }
-  }
   const responese = adaptorFn(parameter, ...args);
-  for (const hook of []) {
-    const result = hook(responese, parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-  }
   return responese;
 };
 /**
@@ -212,33 +102,7 @@ export const User_Username_$username$GET = (parameter = "", ...args) => {
       apiName: "User_Username_$username$GET",
     },
   };
-  for (const hook of [
-    () => {
-      return {
-        action: "mock",
-        // value: mockRule
-      };
-    },
-  ]) {
-    const result = hook(parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-    if (result.action === "mock") {
-      return Promise.resolve(
-        Mock.mock(
-          `{'id':'@float(0, 1000, 0, 2)','username':'@string(5, 20)','firstName':'@string(5, 20)','lastName':'@string(5, 20)','email':'@string(5, 20)','password':'@string(5, 20)','phone':'@string(5, 20)','userStatus':'@float(0, 1000, 0, 2)'}`,
-        ),
-      );
-    }
-  }
   const responese = adaptorFn(parameter, ...args);
-  for (const hook of []) {
-    const result = hook(responese, parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-  }
   return responese;
 };
 /**
@@ -255,29 +119,7 @@ export const User_Username_$username$PUT = (parameter = "", ...args) => {
       apiName: "User_Username_$username$PUT",
     },
   };
-  for (const hook of [
-    () => {
-      return {
-        action: "mock",
-        // value: mockRule
-      };
-    },
-  ]) {
-    const result = hook(parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-    if (result.action === "mock") {
-      return Promise.resolve(Mock.mock(`@string`));
-    }
-  }
   const responese = adaptorFn(parameter, ...args);
-  for (const hook of []) {
-    const result = hook(responese, parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-  }
   return responese;
 };
 /**
@@ -294,28 +136,6 @@ export const User_Username_$username$DELETE = (parameter = "", ...args) => {
       apiName: "User_Username_$username$DELETE",
     },
   };
-  for (const hook of [
-    () => {
-      return {
-        action: "mock",
-        // value: mockRule
-      };
-    },
-  ]) {
-    const result = hook(parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-    if (result.action === "mock") {
-      return Promise.resolve(Mock.mock(`@string`));
-    }
-  }
   const responese = adaptorFn(parameter, ...args);
-  for (const hook of []) {
-    const result = hook(responese, parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-  }
   return responese;
 };

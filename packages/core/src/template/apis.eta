@@ -15,7 +15,6 @@ export const <%= api.fnName %> = (
   <% } %>
   ...args:any
 ): Promise<<%~ api.responseType %>> => {
-
   const parameter = {
     url: `<%= api.path %>`,
     method: "<%= api.method %>",
@@ -30,26 +29,7 @@ export const <%= api.fnName %> = (
       }
     <% } %>
   }
-
-  for (const hook of [<%~ api.lifeCycle.beforeHooks.map(hook=>`${hook.toString()}`).join(",") %>]) {
-    const result = hook(parameter, ...args);
-     if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-    if (result.action === "mock") {
-      return Promise.resolve(Mock.mock(`<%~ api.meta?.mockRule||'' %>`));
-    }
-  }
-
   const responese = adaptorFn(parameter, ...args);
-
-  for (const hook of [<%~ api.lifeCycle.afterHooks.map(hook=>`${hook.toString()}`).join(",") %>]) {
-    const result = hook(responese, parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-  }
-
   return responese;
 }
 <% }) %>

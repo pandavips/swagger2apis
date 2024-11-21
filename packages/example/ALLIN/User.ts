@@ -21,31 +21,7 @@ export const UserPOST = (parameter: ALLIN.IUser = {} as any, ...args: any): Prom
     },
   };
 
-  for (const hook of [
-    () => {
-      return {
-        action: "mock",
-        // value: mockRule
-      };
-    },
-  ]) {
-    const result = hook(parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-    if (result.action === "mock") {
-      return Promise.resolve(Mock.mock(`@string`));
-    }
-  }
-
   const responese = adaptorFn(parameter, ...args);
-
-  for (const hook of []) {
-    const result = hook(responese, parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-  }
 
   return responese;
 };
@@ -65,31 +41,7 @@ export const User_CreateWithArrayPOST = (parameter: ALLIN.IUser[] = {} as any, .
     },
   };
 
-  for (const hook of [
-    () => {
-      return {
-        action: "mock",
-        // value: mockRule
-      };
-    },
-  ]) {
-    const result = hook(parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-    if (result.action === "mock") {
-      return Promise.resolve(Mock.mock(`@string`));
-    }
-  }
-
   const responese = adaptorFn(parameter, ...args);
-
-  for (const hook of []) {
-    const result = hook(responese, parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-  }
 
   return responese;
 };
@@ -109,31 +61,7 @@ export const User_CreateWithListPOST = (parameter: ALLIN.IUser[] = {} as any, ..
     },
   };
 
-  for (const hook of [
-    () => {
-      return {
-        action: "mock",
-        // value: mockRule
-      };
-    },
-  ]) {
-    const result = hook(parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-    if (result.action === "mock") {
-      return Promise.resolve(Mock.mock(`@string`));
-    }
-  }
-
   const responese = adaptorFn(parameter, ...args);
-
-  for (const hook of []) {
-    const result = hook(responese, parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-  }
 
   return responese;
 };
@@ -152,31 +80,7 @@ export const User_LoginGET = (...args: any): Promise<ApiResponseWrapper<string>>
     },
   };
 
-  for (const hook of [
-    () => {
-      return {
-        action: "mock",
-        // value: mockRule
-      };
-    },
-  ]) {
-    const result = hook(parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-    if (result.action === "mock") {
-      return Promise.resolve(Mock.mock(`@string(5, 20)`));
-    }
-  }
-
   const responese = adaptorFn(parameter, ...args);
-
-  for (const hook of []) {
-    const result = hook(responese, parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-  }
 
   return responese;
 };
@@ -195,31 +99,7 @@ export const User_LogoutGET = (...args: any): Promise<ApiResponseWrapper<any>> =
     },
   };
 
-  for (const hook of [
-    () => {
-      return {
-        action: "mock",
-        // value: mockRule
-      };
-    },
-  ]) {
-    const result = hook(parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-    if (result.action === "mock") {
-      return Promise.resolve(Mock.mock(`@string`));
-    }
-  }
-
   const responese = adaptorFn(parameter, ...args);
-
-  for (const hook of []) {
-    const result = hook(responese, parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-  }
 
   return responese;
 };
@@ -239,35 +119,7 @@ export const User_Username_$username$GET = (parameter: string = "", ...args: any
     },
   };
 
-  for (const hook of [
-    () => {
-      return {
-        action: "mock",
-        // value: mockRule
-      };
-    },
-  ]) {
-    const result = hook(parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-    if (result.action === "mock") {
-      return Promise.resolve(
-        Mock.mock(
-          `{'id':'@float(0, 1000, 0, 2)','username':'@string(5, 20)','firstName':'@string(5, 20)','lastName':'@string(5, 20)','email':'@string(5, 20)','password':'@string(5, 20)','phone':'@string(5, 20)','userStatus':'@float(0, 1000, 0, 2)'}`,
-        ),
-      );
-    }
-  }
-
   const responese = adaptorFn(parameter, ...args);
-
-  for (const hook of []) {
-    const result = hook(responese, parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-  }
 
   return responese;
 };
@@ -287,31 +139,7 @@ export const User_Username_$username$PUT = (parameter: string = "", ...args: any
     },
   };
 
-  for (const hook of [
-    () => {
-      return {
-        action: "mock",
-        // value: mockRule
-      };
-    },
-  ]) {
-    const result = hook(parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-    if (result.action === "mock") {
-      return Promise.resolve(Mock.mock(`@string`));
-    }
-  }
-
   const responese = adaptorFn(parameter, ...args);
-
-  for (const hook of []) {
-    const result = hook(responese, parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-  }
 
   return responese;
 };
@@ -331,31 +159,7 @@ export const User_Username_$username$DELETE = (parameter: string = "", ...args: 
     },
   };
 
-  for (const hook of [
-    () => {
-      return {
-        action: "mock",
-        // value: mockRule
-      };
-    },
-  ]) {
-    const result = hook(parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-    if (result.action === "mock") {
-      return Promise.resolve(Mock.mock(`@string`));
-    }
-  }
-
   const responese = adaptorFn(parameter, ...args);
-
-  for (const hook of []) {
-    const result = hook(responese, parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-  }
 
   return responese;
 };

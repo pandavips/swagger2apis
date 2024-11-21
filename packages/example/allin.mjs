@@ -7,8 +7,7 @@ import {
   createCodeFormatterPlugin,
   createResponseWrapperPlugin,
   CleanDirPlugin,
-  createCompileTS2JSPlugin,
-  MockPlugin
+  createCompileTS2JSPlugin
 } from "swagger2apis";
 // 通常情况下,你的json应该通过网络请求去获取,这里为了方便,所以直接使用静态文件
 import swaggerJSON from "./json/swagger_2.json" assert { type: "json" };
@@ -44,9 +43,6 @@ app.usePlugin(createResponseWrapperPlugin(ApiResponseWrapperName, ApiResponseWra
 
 // 清理工作目录
 app.usePlugin(CleanDirPlugin);
-
-// 使用mock插件
-app.usePlugin(MockPlugin);
 
 /**
  * 编译ts文件,(可选)你可以传入tsconfig和prettierConfig来灵活的调整编译配置,

@@ -19,29 +19,7 @@ export const PetPOST = (parameter = {}, ...args) => {
       apiName: "PetPOST",
     },
   };
-  for (const hook of [
-    () => {
-      return {
-        action: "mock",
-        // value: mockRule
-      };
-    },
-  ]) {
-    const result = hook(parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-    if (result.action === "mock") {
-      return Promise.resolve(Mock.mock(`@string`));
-    }
-  }
   const responese = adaptorFn(parameter, ...args);
-  for (const hook of []) {
-    const result = hook(responese, parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-  }
   return responese;
 };
 /**
@@ -58,29 +36,7 @@ export const PetPUT = (parameter = {}, ...args) => {
       apiName: "PetPUT",
     },
   };
-  for (const hook of [
-    () => {
-      return {
-        action: "mock",
-        // value: mockRule
-      };
-    },
-  ]) {
-    const result = hook(parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-    if (result.action === "mock") {
-      return Promise.resolve(Mock.mock(`@string`));
-    }
-  }
   const responese = adaptorFn(parameter, ...args);
-  for (const hook of []) {
-    const result = hook(responese, parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-  }
   return responese;
 };
 /**
@@ -96,33 +52,7 @@ export const Pet_FindByStatusGET = (...args) => {
       apiName: "Pet_FindByStatusGET",
     },
   };
-  for (const hook of [
-    () => {
-      return {
-        action: "mock",
-        // value: mockRule
-      };
-    },
-  ]) {
-    const result = hook(parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-    if (result.action === "mock") {
-      return Promise.resolve(
-        Mock.mock(
-          `|{'id':'@float(0, 1000, 0, 2)','category':'{'id':'@float(0, 1000, 0, 2)','name':'@string(5, 20)'}','name':'@string(5, 20)','photoUrls':'@string','tags':'|{'id':'@float(0, 1000, 0, 2)','name':'@string(5, 20)'}|1-5','status':'@string(5, 20)'}|1-5`,
-        ),
-      );
-    }
-  }
   const responese = adaptorFn(parameter, ...args);
-  for (const hook of []) {
-    const result = hook(responese, parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-  }
   return responese;
 };
 /**
@@ -138,33 +68,7 @@ export const Pet_FindByTagsGET = (...args) => {
       apiName: "Pet_FindByTagsGET",
     },
   };
-  for (const hook of [
-    () => {
-      return {
-        action: "mock",
-        // value: mockRule
-      };
-    },
-  ]) {
-    const result = hook(parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-    if (result.action === "mock") {
-      return Promise.resolve(
-        Mock.mock(
-          `|{'id':'@float(0, 1000, 0, 2)','category':'{'id':'@float(0, 1000, 0, 2)','name':'@string(5, 20)'}','name':'@string(5, 20)','photoUrls':'@string','tags':'|{'id':'@float(0, 1000, 0, 2)','name':'@string(5, 20)'}|1-5','status':'@string(5, 20)'}|1-5`,
-        ),
-      );
-    }
-  }
   const responese = adaptorFn(parameter, ...args);
-  for (const hook of []) {
-    const result = hook(responese, parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-  }
   return responese;
 };
 /**
@@ -181,33 +85,7 @@ export const Pet_PetId_$petId$GET = (parameter = "", ...args) => {
       apiName: "Pet_PetId_$petId$GET",
     },
   };
-  for (const hook of [
-    () => {
-      return {
-        action: "mock",
-        // value: mockRule
-      };
-    },
-  ]) {
-    const result = hook(parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-    if (result.action === "mock") {
-      return Promise.resolve(
-        Mock.mock(
-          `{'id':'@float(0, 1000, 0, 2)','category':'{'id':'@float(0, 1000, 0, 2)','name':'@string(5, 20)'}','name':'@string(5, 20)','photoUrls':'@string','tags':'|{'id':'@float(0, 1000, 0, 2)','name':'@string(5, 20)'}|1-5','status':'@string(5, 20)'}`,
-        ),
-      );
-    }
-  }
   const responese = adaptorFn(parameter, ...args);
-  for (const hook of []) {
-    const result = hook(responese, parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-  }
   return responese;
 };
 /**
@@ -224,29 +102,7 @@ export const Pet_PetId_$petId$POST = (parameter = "", ...args) => {
       apiName: "Pet_PetId_$petId$POST",
     },
   };
-  for (const hook of [
-    () => {
-      return {
-        action: "mock",
-        // value: mockRule
-      };
-    },
-  ]) {
-    const result = hook(parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-    if (result.action === "mock") {
-      return Promise.resolve(Mock.mock(`@string`));
-    }
-  }
   const responese = adaptorFn(parameter, ...args);
-  for (const hook of []) {
-    const result = hook(responese, parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-  }
   return responese;
 };
 /**
@@ -263,29 +119,7 @@ export const Pet_PetId_$petId$DELETE = (parameter = "", ...args) => {
       apiName: "Pet_PetId_$petId$DELETE",
     },
   };
-  for (const hook of [
-    () => {
-      return {
-        action: "mock",
-        // value: mockRule
-      };
-    },
-  ]) {
-    const result = hook(parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-    if (result.action === "mock") {
-      return Promise.resolve(Mock.mock(`@string`));
-    }
-  }
   const responese = adaptorFn(parameter, ...args);
-  for (const hook of []) {
-    const result = hook(responese, parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-  }
   return responese;
 };
 /**
@@ -302,28 +136,6 @@ export const Pet_PetId_UploadImage_$petId$POST = (parameter = "", ...args) => {
       apiName: "Pet_PetId_UploadImage_$petId$POST",
     },
   };
-  for (const hook of [
-    () => {
-      return {
-        action: "mock",
-        // value: mockRule
-      };
-    },
-  ]) {
-    const result = hook(parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-    if (result.action === "mock") {
-      return Promise.resolve(Mock.mock(`{'code':'@float(0, 1000, 0, 2)','type':'@string(5, 20)','message':'@string(5, 20)'}`));
-    }
-  }
   const responese = adaptorFn(parameter, ...args);
-  for (const hook of []) {
-    const result = hook(responese, parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-  }
   return responese;
 };

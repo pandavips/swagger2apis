@@ -20,31 +20,7 @@ export const Store_InventoryGET = (...args: any): Promise<ApiResponseWrapper<obj
     },
   };
 
-  for (const hook of [
-    () => {
-      return {
-        action: "mock",
-        // value: mockRule
-      };
-    },
-  ]) {
-    const result = hook(parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-    if (result.action === "mock") {
-      return Promise.resolve(Mock.mock(`@string`));
-    }
-  }
-
   const responese = adaptorFn(parameter, ...args);
-
-  for (const hook of []) {
-    const result = hook(responese, parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-  }
 
   return responese;
 };
@@ -64,33 +40,7 @@ export const Store_OrderPOST = (parameter: ALLIN.IOrder = {} as any, ...args: an
     },
   };
 
-  for (const hook of [
-    () => {
-      return {
-        action: "mock",
-        // value: mockRule
-      };
-    },
-  ]) {
-    const result = hook(parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-    if (result.action === "mock") {
-      return Promise.resolve(
-        Mock.mock(`{'id':'@float(0, 1000, 0, 2)','petId':'@float(0, 1000, 0, 2)','quantity':'@float(0, 1000, 0, 2)','shipDate':'@string(5, 20)','status':'@string(5, 20)','complete':'@boolean'}`),
-      );
-    }
-  }
-
   const responese = adaptorFn(parameter, ...args);
-
-  for (const hook of []) {
-    const result = hook(responese, parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-  }
 
   return responese;
 };
@@ -110,33 +60,7 @@ export const Store_Order_OrderId_$orderId$GET = (parameter: string = "", ...args
     },
   };
 
-  for (const hook of [
-    () => {
-      return {
-        action: "mock",
-        // value: mockRule
-      };
-    },
-  ]) {
-    const result = hook(parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-    if (result.action === "mock") {
-      return Promise.resolve(
-        Mock.mock(`{'id':'@float(0, 1000, 0, 2)','petId':'@float(0, 1000, 0, 2)','quantity':'@float(0, 1000, 0, 2)','shipDate':'@string(5, 20)','status':'@string(5, 20)','complete':'@boolean'}`),
-      );
-    }
-  }
-
   const responese = adaptorFn(parameter, ...args);
-
-  for (const hook of []) {
-    const result = hook(responese, parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-  }
 
   return responese;
 };
@@ -156,31 +80,7 @@ export const Store_Order_OrderId_$orderId$DELETE = (parameter: string = "", ...a
     },
   };
 
-  for (const hook of [
-    () => {
-      return {
-        action: "mock",
-        // value: mockRule
-      };
-    },
-  ]) {
-    const result = hook(parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-    if (result.action === "mock") {
-      return Promise.resolve(Mock.mock(`@string`));
-    }
-  }
-
   const responese = adaptorFn(parameter, ...args);
-
-  for (const hook of []) {
-    const result = hook(responese, parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-  }
 
   return responese;
 };

@@ -1,5 +1,6 @@
 import path from "node:path";
 import fs from "fs-extra";
+import { fileURLToPath } from "node:url";
 export * from "./conosle";
 export * from "./string";
 export * from "./compiler";
@@ -22,7 +23,7 @@ export const isObject = (obj) => {
 
 // 在esm中模拟__dirname,调用该函数,返回当前文件所在的目录
 export const __dirname_esm = (importMetaUrl) => {
-  return new URL(".", importMetaUrl).pathname;
+  return path.dirname(fileURLToPath(importMetaUrl));
 };
 
 // 写入文件内容

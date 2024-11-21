@@ -56,10 +56,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "type"
-        ],
+        "required": ["id", "type"],
         "type": "object"
       },
       "Cat": {
@@ -70,9 +67,7 @@
                 "type": "boolean"
               }
             },
-            "required": [
-              "likesMilk"
-            ],
+            "required": ["likesMilk"],
             "type": "object"
           },
           {
@@ -88,9 +83,7 @@
                 "type": "boolean"
               }
             },
-            "required": [
-              "chasesMailman"
-            ],
+            "required": ["chasesMailman"],
             "type": "object"
           },
           {
@@ -130,11 +123,7 @@
           },
           "status": {
             "description": "Order Status",
-            "enum": [
-              "placed",
-              " approved",
-              " delivered"
-            ],
+            "enum": ["placed", " approved", " delivered"],
             "type": "string"
           }
         },
@@ -164,11 +153,7 @@
           },
           "status": {
             "description": "pet status in the store",
-            "enum": [
-              "available",
-              "pending",
-              "sold"
-            ],
+            "enum": ["available", "pending", "sold"],
             "type": "string"
           },
           "tags": {
@@ -178,10 +163,7 @@
             "type": "array"
           }
         },
-        "required": [
-          "id",
-          "name"
-        ],
+        "required": ["id", "name"],
         "type": "object"
       },
       "Tag": {
@@ -219,11 +201,7 @@
           },
           "userStatus": {
             "description": "User Status",
-            "enum": [
-              "1-registered",
-              "2-active",
-              "3-closed"
-            ],
+            "enum": ["1-registered", "2-active", "3-closed"],
             "format": "int32",
             "type": "integer"
           },
@@ -310,9 +288,7 @@
           }
         },
         "summary": "Update an existing pet",
-        "tags": [
-          "pet"
-        ]
+        "tags": ["pet"]
       }
     },
     "/pet/findByStatus": {
@@ -328,11 +304,7 @@
             "style": "simple",
             "schema": {
               "items": {
-                "enum": [
-                  "available",
-                  "pending",
-                  "sold"
-                ],
+                "enum": ["available", "pending", "sold"],
                 "type": "string"
               },
               "type": "array"
@@ -382,9 +354,7 @@
           }
         },
         "summary": "Finds Pets by status",
-        "tags": [
-          "pet"
-        ]
+        "tags": ["pet"]
       }
     },
     "/pet/findByTags": {
@@ -449,9 +419,7 @@
           }
         },
         "summary": "Finds Pets by tags",
-        "tags": [
-          "pet"
-        ]
+        "tags": ["pet"]
       }
     },
     "/pet/uploadFile": {
@@ -474,22 +442,14 @@
         },
         "security": [
           {
-            "oauth2_accessCode": [
-              "write:pets",
-              "read:pets"
-            ]
+            "oauth2_accessCode": ["write:pets", "read:pets"]
           },
           {
-            "oauth2_implicit": [
-              "write:pets",
-              "read:pets"
-            ]
+            "oauth2_implicit": ["write:pets", "read:pets"]
           }
         ],
         "summary": "uploads a file",
-        "tags": [
-          "pet"
-        ]
+        "tags": ["pet"]
       }
     },
     "/pet/uploadImage": {
@@ -518,22 +478,14 @@
         },
         "security": [
           {
-            "oauth2_accessCode": [
-              "write:pets",
-              "read:pets"
-            ]
+            "oauth2_accessCode": ["write:pets", "read:pets"]
           },
           {
-            "oauth2_implicit": [
-              "write:pets",
-              "read:pets"
-            ]
+            "oauth2_implicit": ["write:pets", "read:pets"]
           }
         ],
         "summary": "uploads an image",
-        "tags": [
-          "pet"
-        ]
+        "tags": ["pet"]
       }
     },
     "/pet/{petId}": {
@@ -560,20 +512,14 @@
         },
         "security": [
           {
-            "oauth2_accessCode": [
-              "write:pets"
-            ]
+            "oauth2_accessCode": ["write:pets"]
           },
           {
-            "oauth2_implicit": [
-              "write:pets"
-            ]
+            "oauth2_implicit": ["write:pets"]
           }
         ],
         "summary": "Deletes a pet",
-        "tags": [
-          "pet"
-        ]
+        "tags": ["pet"]
       },
       "get": {
         "description": "Returns a pet based on ID",
@@ -627,9 +573,7 @@
           }
         },
         "summary": "Find pet by ID",
-        "tags": [
-          "pet"
-        ]
+        "tags": ["pet"]
       },
       "patch": {
         "operationId": "partialUpdate",
@@ -688,20 +632,14 @@
         },
         "security": [
           {
-            "oauth2_accessCode": [
-              "write:pets"
-            ]
+            "oauth2_accessCode": ["write:pets"]
           },
           {
-            "oauth2_implicit": [
-              "write:pets"
-            ]
+            "oauth2_implicit": ["write:pets"]
           }
         ],
         "summary": "partial updates to a pet",
-        "tags": [
-          "pet"
-        ]
+        "tags": ["pet"]
       },
       "post": {
         "operationId": "updatePetWithForm",
@@ -745,20 +683,14 @@
         },
         "security": [
           {
-            "oauth2_accessCode": [
-              "write:pets"
-            ]
+            "oauth2_accessCode": ["write:pets"]
           },
           {
-            "oauth2_implicit": [
-              "write:pets"
-            ]
+            "oauth2_implicit": ["write:pets"]
           }
         ],
         "summary": "Updates a pet in the store with form data",
-        "tags": [
-          "pet"
-        ]
+        "tags": ["pet"]
       }
     },
     "/store/order": {
@@ -785,20 +717,14 @@
         },
         "security": [
           {
-            "oauth2_accessCode": [
-              "write:pets"
-            ]
+            "oauth2_accessCode": ["write:pets"]
           },
           {
-            "oauth2_implicit": [
-              "write:pets"
-            ]
+            "oauth2_implicit": ["write:pets"]
           }
         ],
         "summary": "Place an order for a pet",
-        "tags": [
-          "store"
-        ]
+        "tags": ["store"]
       }
     },
     "/store/order/{orderId}": {
@@ -829,20 +755,14 @@
         },
         "security": [
           {
-            "oauth2_accessCode": [
-              "write:pets"
-            ]
+            "oauth2_accessCode": ["write:pets"]
           },
           {
-            "oauth2_implicit": [
-              "write:pets"
-            ]
+            "oauth2_implicit": ["write:pets"]
           }
         ],
         "summary": "Delete purchase order by ID",
-        "tags": [
-          "store"
-        ]
+        "tags": ["store"]
       },
       "get": {
         "description": "For valid response try integer IDs with value <= 5. Anything above 5 or nonintegers will generate API errors",
@@ -877,9 +797,7 @@
           }
         },
         "summary": "Find purchase order by ID",
-        "tags": [
-          "store"
-        ]
+        "tags": ["store"]
       }
     },
     "/user": {
@@ -904,20 +822,14 @@
         },
         "security": [
           {
-            "oauth2_accessCode": [
-              "test:anything"
-            ]
+            "oauth2_accessCode": ["test:anything"]
           },
           {
-            "oauth2_implicit": [
-              "test:anything"
-            ]
+            "oauth2_implicit": ["test:anything"]
           }
         ],
         "summary": "Create user",
-        "tags": [
-          "user"
-        ]
+        "tags": ["user"]
       }
     },
     "/user/createWithArray": {
@@ -933,20 +845,14 @@
         },
         "security": [
           {
-            "oauth2_accessCode": [
-              "test:anything"
-            ]
+            "oauth2_accessCode": ["test:anything"]
           },
           {
-            "oauth2_implicit": [
-              "test:anything"
-            ]
+            "oauth2_implicit": ["test:anything"]
           }
         ],
         "summary": "Creates list of users with given input array",
-        "tags": [
-          "user"
-        ]
+        "tags": ["user"]
       }
     },
     "/user/createWithList": {
@@ -962,20 +868,14 @@
         },
         "security": [
           {
-            "oauth2_accessCode": [
-              "test:anything"
-            ]
+            "oauth2_accessCode": ["test:anything"]
           },
           {
-            "oauth2_implicit": [
-              "test:anything"
-            ]
+            "oauth2_implicit": ["test:anything"]
           }
         ],
         "summary": "Creates list of users with given list input",
-        "tags": [
-          "user"
-        ]
+        "tags": ["user"]
       }
     },
     "/user/login": {
@@ -1017,9 +917,7 @@
           }
         },
         "summary": "Logs user into the system",
-        "tags": [
-          "user"
-        ]
+        "tags": ["user"]
       }
     },
     "/user/logout": {
@@ -1031,9 +929,7 @@
           }
         },
         "summary": "Logs out current logged in user session",
-        "tags": [
-          "user"
-        ]
+        "tags": ["user"]
       }
     },
     "/user/{username}": {
@@ -1064,20 +960,14 @@
         },
         "security": [
           {
-            "oauth2_accessCode": [
-              "test:anything"
-            ]
+            "oauth2_accessCode": ["test:anything"]
           },
           {
-            "oauth2_implicit": [
-              "test:anything"
-            ]
+            "oauth2_implicit": ["test:anything"]
           }
         ],
         "summary": "Delete user",
-        "tags": [
-          "user"
-        ]
+        "tags": ["user"]
       },
       "get": {
         "operationId": "getUserByName",
@@ -1111,9 +1001,7 @@
           }
         },
         "summary": "Get user by user name",
-        "tags": [
-          "user"
-        ]
+        "tags": ["user"]
       },
       "put": {
         "description": "This can only be done by the logged in user.",
@@ -1171,20 +1059,14 @@
         },
         "security": [
           {
-            "oauth2_accessCode": [
-              "test:anything"
-            ]
+            "oauth2_accessCode": ["test:anything"]
           },
           {
-            "oauth2_implicit": [
-              "test:anything"
-            ]
+            "oauth2_implicit": ["test:anything"]
           }
         ],
         "summary": "Updated user",
-        "tags": [
-          "user"
-        ]
+        "tags": ["user"]
       }
     }
   },

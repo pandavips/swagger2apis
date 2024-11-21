@@ -21,31 +21,7 @@ export const PetPOST = (parameter: ALLIN.IPet = {} as any, ...args: any): Promis
     },
   };
 
-  for (const hook of [
-    () => {
-      return {
-        action: "mock",
-        // value: mockRule
-      };
-    },
-  ]) {
-    const result = hook(parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-    if (result.action === "mock") {
-      return Promise.resolve(Mock.mock(`@string`));
-    }
-  }
-
   const responese = adaptorFn(parameter, ...args);
-
-  for (const hook of []) {
-    const result = hook(responese, parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-  }
 
   return responese;
 };
@@ -65,31 +41,7 @@ export const PetPUT = (parameter: ALLIN.IPet = {} as any, ...args: any): Promise
     },
   };
 
-  for (const hook of [
-    () => {
-      return {
-        action: "mock",
-        // value: mockRule
-      };
-    },
-  ]) {
-    const result = hook(parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-    if (result.action === "mock") {
-      return Promise.resolve(Mock.mock(`@string`));
-    }
-  }
-
   const responese = adaptorFn(parameter, ...args);
-
-  for (const hook of []) {
-    const result = hook(responese, parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-  }
 
   return responese;
 };
@@ -108,35 +60,7 @@ export const Pet_FindByStatusGET = (...args: any): Promise<ApiResponseWrapper<AL
     },
   };
 
-  for (const hook of [
-    () => {
-      return {
-        action: "mock",
-        // value: mockRule
-      };
-    },
-  ]) {
-    const result = hook(parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-    if (result.action === "mock") {
-      return Promise.resolve(
-        Mock.mock(
-          `|{'id':'@float(0, 1000, 0, 2)','category':'{'id':'@float(0, 1000, 0, 2)','name':'@string(5, 20)'}','name':'@string(5, 20)','photoUrls':'@string','tags':'|{'id':'@float(0, 1000, 0, 2)','name':'@string(5, 20)'}|1-5','status':'@string(5, 20)'}|1-5`,
-        ),
-      );
-    }
-  }
-
   const responese = adaptorFn(parameter, ...args);
-
-  for (const hook of []) {
-    const result = hook(responese, parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-  }
 
   return responese;
 };
@@ -155,35 +79,7 @@ export const Pet_FindByTagsGET = (...args: any): Promise<ApiResponseWrapper<ALLI
     },
   };
 
-  for (const hook of [
-    () => {
-      return {
-        action: "mock",
-        // value: mockRule
-      };
-    },
-  ]) {
-    const result = hook(parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-    if (result.action === "mock") {
-      return Promise.resolve(
-        Mock.mock(
-          `|{'id':'@float(0, 1000, 0, 2)','category':'{'id':'@float(0, 1000, 0, 2)','name':'@string(5, 20)'}','name':'@string(5, 20)','photoUrls':'@string','tags':'|{'id':'@float(0, 1000, 0, 2)','name':'@string(5, 20)'}|1-5','status':'@string(5, 20)'}|1-5`,
-        ),
-      );
-    }
-  }
-
   const responese = adaptorFn(parameter, ...args);
-
-  for (const hook of []) {
-    const result = hook(responese, parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-  }
 
   return responese;
 };
@@ -203,35 +99,7 @@ export const Pet_PetId_$petId$GET = (parameter: string = "", ...args: any): Prom
     },
   };
 
-  for (const hook of [
-    () => {
-      return {
-        action: "mock",
-        // value: mockRule
-      };
-    },
-  ]) {
-    const result = hook(parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-    if (result.action === "mock") {
-      return Promise.resolve(
-        Mock.mock(
-          `{'id':'@float(0, 1000, 0, 2)','category':'{'id':'@float(0, 1000, 0, 2)','name':'@string(5, 20)'}','name':'@string(5, 20)','photoUrls':'@string','tags':'|{'id':'@float(0, 1000, 0, 2)','name':'@string(5, 20)'}|1-5','status':'@string(5, 20)'}`,
-        ),
-      );
-    }
-  }
-
   const responese = adaptorFn(parameter, ...args);
-
-  for (const hook of []) {
-    const result = hook(responese, parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-  }
 
   return responese;
 };
@@ -251,31 +119,7 @@ export const Pet_PetId_$petId$POST = (parameter: string = "", ...args: any): Pro
     },
   };
 
-  for (const hook of [
-    () => {
-      return {
-        action: "mock",
-        // value: mockRule
-      };
-    },
-  ]) {
-    const result = hook(parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-    if (result.action === "mock") {
-      return Promise.resolve(Mock.mock(`@string`));
-    }
-  }
-
   const responese = adaptorFn(parameter, ...args);
-
-  for (const hook of []) {
-    const result = hook(responese, parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-  }
 
   return responese;
 };
@@ -295,31 +139,7 @@ export const Pet_PetId_$petId$DELETE = (parameter: string = "", ...args: any): P
     },
   };
 
-  for (const hook of [
-    () => {
-      return {
-        action: "mock",
-        // value: mockRule
-      };
-    },
-  ]) {
-    const result = hook(parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-    if (result.action === "mock") {
-      return Promise.resolve(Mock.mock(`@string`));
-    }
-  }
-
   const responese = adaptorFn(parameter, ...args);
-
-  for (const hook of []) {
-    const result = hook(responese, parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-  }
 
   return responese;
 };
@@ -339,31 +159,7 @@ export const Pet_PetId_UploadImage_$petId$POST = (parameter: string = "", ...arg
     },
   };
 
-  for (const hook of [
-    () => {
-      return {
-        action: "mock",
-        // value: mockRule
-      };
-    },
-  ]) {
-    const result = hook(parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-    if (result.action === "mock") {
-      return Promise.resolve(Mock.mock(`{'code':'@float(0, 1000, 0, 2)','type':'@string(5, 20)','message':'@string(5, 20)'}`));
-    }
-  }
-
   const responese = adaptorFn(parameter, ...args);
-
-  for (const hook of []) {
-    const result = hook(responese, parameter, ...args);
-    if (result.action === "break") {
-      return Promise.resolve(result.value);
-    }
-  }
 
   return responese;
 };

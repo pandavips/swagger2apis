@@ -22,7 +22,7 @@
     "experimentalDecorators": true,
     "isolatedModules": true,
     "removeComments": false,
-    "baseUrl": "./",
+    "baseUrl": "./"
     // "lib": [
     //   "ESNext",
     //   "DOM",
