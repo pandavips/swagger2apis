@@ -1,5 +1,17 @@
 # swagger2apis
 
+## 3.3.5
+
+### Patch Changes
+
+- fix rename parmter
+
+## 3.3.4
+
+### Patch Changes
+
+- 修复rename 参数
+
 ## 3.3.3
 
 ### Patch Changes

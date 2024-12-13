@@ -15,7 +15,7 @@ export const <%= api.fnName %> = (
   <% } %>
   ...args:any
 ): Promise<<%~ api.responseType %>> => {
-  const parameter = {
+  const handledData = {
     url: `<%= api.path %>`,
     method: "<%= api.method %>",
     <% if (api.paramsInfo.show) { %>
@@ -29,7 +29,7 @@ export const <%= api.fnName %> = (
       }
     <% } %>
   }
-  const responese = adaptorFn(parameter, ...args);
+  const responese = adaptorFn(handledData, ...args);
   return responese;
 }
 <% }) %>

@@ -151,7 +151,7 @@ const renderType = (type: any, config: IConfig): string => {
   // Map类型
   if (type.type.startsWith("Record<")) return type.type;
   // 其他接口类型
-  return type.type ? `${config.namespace}.${type.type}` : "any";
+  return type.type ? `${config.namespace?.toUpperCase()}.${type.type}` : "any";
 };
 
 // 渲染属性类型
