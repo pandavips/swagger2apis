@@ -75,6 +75,7 @@ function generateApis(paths: any): ApiInfo[] {
 
 // 生成参数信息
 function generateParameters(parameters: any[]): ParameterInfo[] {
+  if (!parameters) return [];
   return parameters
     .filter((param) => ["path", "query", "body", "formData"].includes(param.in))
     .map((param) => ({
